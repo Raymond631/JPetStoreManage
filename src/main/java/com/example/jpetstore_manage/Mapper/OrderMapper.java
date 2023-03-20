@@ -1,4 +1,4 @@
-package com.example.jpetstore_manage.mapper;
+package com.example.jpetstore_manage.Mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

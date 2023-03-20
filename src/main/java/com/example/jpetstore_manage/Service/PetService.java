@@ -1,4 +1,4 @@
-package com.example.jpetstore_manage.service;
+package com.example.jpetstore_manage.Service;
 
 /**
  * @author Raymond Li

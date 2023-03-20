@@ -12,7 +12,7 @@ spring:
 
 server:
   servlet:
-    context-path: /JPetStoreManage
+    context-path: /jpetstore
   port: 8888
 
 logging:
@@ -21,6 +21,6 @@ logging:
 
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
-  type-aliases-package: com/example/jpetstore_manage/entity
+  type-aliases-package: com/example/jpetstore_manage/pojo/DataObject
   configuration:
     map-underscore-to-camel-case: true
