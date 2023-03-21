@@ -2,12 +2,14 @@ package com.example.jpetstore_manage.Controller;
 
 import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
 import com.example.jpetstore_manage.POJO.MapStruct.OrderMapping;
+import com.example.jpetstore_manage.POJO.ViewObject.Message;
+import com.example.jpetstore_manage.POJO.ViewObject.OrderVO;
 import com.example.jpetstore_manage.Service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Raymond Li
@@ -20,7 +22,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
  */
 @Slf4j
 @RestController
+@RequestMapping("/order")
 public class OrderController {
+    /**
+     * 业务层接口
+     */
     @Autowired
     private OrderService orderService;
 
@@ -31,11 +37,19 @@ public class OrderController {
     private OrderMapping orderMapping;
 
     /**
-     * 调用service层，查找供应商为“当前用户”的订单
+     * 调用service层，查找供应商为“当前用户”的订单(userMainDO代表当前用户)
      * 对象转换，返回前端
      */
     @GetMapping("/list")
-    public Object getOrderList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
+    public List<OrderVO> getOrderList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
+        return null;
+    }
+
+    /**
+     * 发货
+     */
+    @PutMapping("/ship")
+    public Message ship(int orderItemId) {
         return null;
     }
 }

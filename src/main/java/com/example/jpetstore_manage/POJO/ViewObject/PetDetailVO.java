@@ -1,4 +1,4 @@
-package com.example.jpetstore_manage.POJO.DataObject;
+package com.example.jpetstore_manage.POJO.ViewObject;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,13 +8,13 @@ import java.util.List;
 
 /**
  * @author Raymond Li
- * @create 2023-03-20 22:54
- * @description 对应数据库的pet_product表，通过MapStruct插件转换封装后，传给前端
+ * @create 2023-03-21 19:41
+ * @description
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PetProductDO {
+public class PetDetailVO {
     private int productId;
     private String category;
     private String productNameChinese;
@@ -25,7 +25,6 @@ public class PetProductDO {
     private String productLife;
     private String productIntroduce;
     private String productImage;
-    private String productSupplier;
 
-    private List<PetItemDO> petItemList;
+    private List<PetItemVO> petItemList;
 }

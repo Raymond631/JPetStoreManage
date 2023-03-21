@@ -23,7 +23,7 @@ class OrderMappingTest {
     private OrderMapping orderMapping;
 
     @Test
-    void orderItemDOtoOrderVO() {
+    void toOrderVO() {
         OrderItemDO orderItemDO = new OrderItemDO();
         orderItemDO.setOrderItemId(1);
         orderItemDO.setWhetherShip("已发货");
@@ -38,11 +38,11 @@ class OrderMappingTest {
         orderMainDO.setOrderTime("2023-03-19 17:31:11");
         orderItemDO.setOrderMainDO(orderMainDO);
 
-        System.out.println(orderMapping.OrderItemDOtoOrderVO(orderItemDO));
+        System.out.println(orderMapping.toOrderVO(orderItemDO));
     }
 
     @Test
-    void orderItemListDOtoOrderVOList() {
+    void toOrderListVO() {
         OrderItemDO orderItemDO = new OrderItemDO();
         orderItemDO.setOrderItemId(1);
         orderItemDO.setWhetherShip("已发货");
@@ -72,6 +72,6 @@ class OrderMappingTest {
         List<OrderItemDO> orderItemDOList = new ArrayList<>();
         orderItemDOList.add(orderItemDO);
         orderItemDOList.add(orderItemDO2);
-        System.out.println(orderMapping.OrderItemListDOtoOrderVOList(orderItemDOList));
+        System.out.println(orderMapping.toOrderVOList(orderItemDOList));
     }
 }

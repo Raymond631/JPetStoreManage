@@ -19,8 +19,8 @@ class UserMappingTest {
     private UserMapping userMapping;
 
     @Test
-    void userVOtoUserMainDO() {
+    void toUserMainDO() {
         UserVO userVO = new UserVO("abc", "123", "456", "456", "000");
-        System.out.println(userMapping.UserVOtoUserMainDO(userVO));
+        System.out.println(userMapping.toUserMainDO(userVO));
     }
 }

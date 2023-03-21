@@ -23,7 +23,7 @@ public interface OrderMapping {
     @Mapping(target = "amount", source = "itemQuantity")
     @Mapping(target = "category", source = "productNameChinese")
     @Mapping(target = "specification", source = "itemSpecification")
-    public OrderVO OrderItemDOtoOrderVO(OrderItemDO orderItemDO);
+    public OrderVO toOrderVO(OrderItemDO orderItemDO);
 
-    public List<OrderVO> OrderItemListDOtoOrderVOList(List<OrderItemDO> orderItemDOList);
+    public List<OrderVO> toOrderVOList(List<OrderItemDO> orderItemDOList);
 }

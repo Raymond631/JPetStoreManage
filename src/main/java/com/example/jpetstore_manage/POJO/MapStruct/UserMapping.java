@@ -14,5 +14,5 @@ import org.mapstruct.Mapping;
 public interface UserMapping {
     @Mapping(target = "userId", source = "username")
     @Mapping(target = "password", source = "password")
-    public UserMainDO UserVOtoUserMainDO(UserVO userVO);
+    public UserMainDO toUserMainDO(UserVO userVO);
 }
