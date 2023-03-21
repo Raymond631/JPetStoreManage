@@ -1,9 +1,8 @@
 package com.example.jpetstore_manage.Controller;
 
-import com.example.jpetstore_manage.POJO.ViewObject.ChangePasswordVO;
-import com.example.jpetstore_manage.POJO.ViewObject.LoginVO;
+import com.example.jpetstore_manage.POJO.MapStruct.UserMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.Message;
-import com.example.jpetstore_manage.POJO.ViewObject.RegisterVO;
+import com.example.jpetstore_manage.POJO.ViewObject.UserVO;
 import com.example.jpetstore_manage.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -28,29 +27,35 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 对象转换器
+     */
+    @Autowired
+    private UserMapping userMapping;
+
 
     /**
      * 检查验证码
      * 判断两次输入的密码是否相同
      * 对象转换,调用service
-     * 配置session
+     * 将转换后的UserMainDO配置到session
      *
      * @return 返回一个Message对象
      */
     @PostMapping("/register")
-    public Message register(@RequestBody RegisterVO registerVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
+    public Message register(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
         return null;
     }
 
     /**
      * 检查验证码
      * 对象转换,调用service
-     * 配置session
+     * 将转换后的UserMainDO配置到session
      *
      * @return 返回一个Message对象
      */
     @PostMapping("/login")
-    public Message login(@RequestBody LoginVO loginVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
+    public Message login(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
         return null;
     }
 
@@ -73,7 +78,7 @@ public class UserController {
      * @return 返回一个Message对象
      */
     @PutMapping("/changePassword")
-    public Message changePassword(@RequestBody ChangePasswordVO changePasswordVO, @SessionAttribute("checkCode") String checkCode) {
+    public Message changePassword(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode) {
         return null;
     }
 }
