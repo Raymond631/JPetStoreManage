@@ -26,6 +26,6 @@ public class OrderItemDO {
     private int itemQuantity;
     private String whetherShip;
     private String supplier;
-
     private OrderMainDO orderMainDO;
+
 }
