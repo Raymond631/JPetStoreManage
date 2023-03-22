@@ -19,13 +19,30 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
+    /**
+     * 查询订单列表
+     */
     @Override
     public List<OrderItemDO> getOrderItemList(String supplier) {
-        return null;
+        return  orderMapper.selectOrderItemBySupplier(supplier);
     }
 
     @Override
     public Message ship(int orderItemId, String supplier) {
-        return null;
-    }
+        Message message = new Message();
+        int status=orderMapper.updateOrderStatus(orderItemId,"已发货",supplier);
+        if (status==1){
+            message.setCode(1);
+            message.setMsg("修改成功");
+            return message;
+        }else {
+            message.setCode(0);
+            message.setMsg("修改失败");
+            return  message;
+        }
+
+        }
+
+
+
 }
