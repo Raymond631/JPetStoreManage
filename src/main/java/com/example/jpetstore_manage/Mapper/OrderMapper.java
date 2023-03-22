@@ -28,5 +28,5 @@ public interface OrderMapper {
     /**
      * 根据order_item_id和选择行，修改该行的whether_ship字段
      */
-    public int updateOrderStatus(int orderItemId, String whetherShip);
+    public  int updateOrderStatus(int orderItemId, String whetherShip,String supplier);
 }
