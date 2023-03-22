@@ -1,5 +1,6 @@
 package com.example.jpetstore_manage.Controller;
 
+import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
 import com.example.jpetstore_manage.POJO.MapStruct.UserMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.Message;
 import com.example.jpetstore_manage.POJO.ViewObject.UserVO;
@@ -7,6 +8,7 @@ import com.example.jpetstore_manage.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -47,7 +49,25 @@ public class UserController {
      */
     @PostMapping("/register")
     public Message register(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
-        return null;
+        if (userVO.getVCode().equalsIgnoreCase(checkCode)) {
+            if (userVO.getPassword().equals(userVO.getRePassword())) {
+                // 对象转换
+                UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
+                // MD5加密
+                userMainDO.setPassword(DigestUtils.md5DigestAsHex(userMainDO.getPassword().getBytes()));
+                // 注册
+                Message message = userService.register(userMainDO);
+                // 如果注册成功，同时也把loginUser配置到session中（不用再登陆了）
+                if (message.getCode() == 1) {
+                    session.setAttribute("loginUser", userMainDO);
+                }
+                return message;
+            } else {
+                return new Message(0, "两次输入的密码不一致");
+            }
+        } else {
+            return new Message(0, "验证码错误");
+        }
     }
 
     /**
@@ -59,7 +79,21 @@ public class UserController {
      */
     @PostMapping("/login")
     public Message login(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
-        return null;
+        if (userVO.getVCode().equalsIgnoreCase(checkCode)) {
+            // 对象转换
+            UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
+            // MD5加密
+            userMainDO.setPassword(DigestUtils.md5DigestAsHex(userMainDO.getPassword().getBytes()));
+            // 登录
+            Message message = userService.login(userMainDO);
+            // 如果注册成功，配置到session
+            if (message.getCode() == 1) {
+                session.setAttribute("loginUser", userMainDO);
+            }
+            return message;
+        } else {
+            return new Message(0, "验证码错误");
+        }
     }
 
 
@@ -70,7 +104,8 @@ public class UserController {
      */
     @DeleteMapping("/signOut")
     public Message signOut(HttpSession session) {
-        return null;
+        session.setAttribute("loginUser", null);
+        return new Message(1, "退出登录成功");
     }
 
     /**
@@ -82,6 +117,19 @@ public class UserController {
      */
     @PutMapping("/changePassword")
     public Message changePassword(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode) {
-        return null;
+        if (userVO.getVCode().equalsIgnoreCase(checkCode)) {
+            if (userVO.getPassword().equals(userVO.getRePassword())) {
+                // 对象转换
+                UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
+                // MD5加密
+                userMainDO.setPassword(DigestUtils.md5DigestAsHex(userMainDO.getPassword().getBytes()));
+                // 修改密码,返回提示信息
+                return userService.changePassword(userMainDO);
+            } else {
+                return new Message(0, "两次输入的密码不一致");
+            }
+        } else {
+            return new Message(0, "验证码错误");
+        }
     }
 }
