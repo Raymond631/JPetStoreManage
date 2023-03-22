@@ -1,5 +1,6 @@
 package com.example.jpetstore_manage.Controller;
 
+import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
 import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
 import com.example.jpetstore_manage.POJO.MapStruct.PetMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.Message;
@@ -42,7 +43,8 @@ public class PetController {
      */
     @GetMapping("/list")
     public List<PetListVO> getPetList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
-        return null;
+        List<PetProductDO> petProductDOS = petService.getPetList(userMainDO.getUserId());
+         return petMapping.toPetListVOList(petProductDOS);
     }
 
     /**
@@ -50,7 +52,8 @@ public class PetController {
      */
     @GetMapping("/detail")
     public PetDetailVO getPetDetail(int productId) {
-        return null;
+        PetProductDO petProductDO = petService.getPetDetail(productId);
+        return petMapping.toPetDetailVO(petProductDO);
     }
 
     /**
@@ -58,7 +61,7 @@ public class PetController {
      */
     @PutMapping("/remove")
     public Message remove(int productId) {
-        return null;
+        return petService.remove(productId);
     }
 
     /**
@@ -67,7 +70,7 @@ public class PetController {
      */
     @PostMapping("/newPet")
     public Message newPet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
-        return null;
+        return petService.newPet(petMapping.toPetProductDO(petDetailVO,userMainDO));
     }
 
     /**
@@ -75,7 +78,8 @@ public class PetController {
      * 上传图片请调用ImageController中的接口
      */
     @PutMapping("/updatePet")
-    public Message updatePet(@RequestBody PetDetailVO petDetailVO) {
-        return null;
+    public Message updatePet(@RequestBody PetDetailVO petDetailVO,@SessionAttribute("loginUser") UserMainDO userMainDO) {
+        PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO,userMainDO);
+        return petService.updatePet(petProductDO);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.jpetstore_manage.Controller;
 
+import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
 import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
 import com.example.jpetstore_manage.POJO.MapStruct.OrderMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.Message;
@@ -42,14 +43,15 @@ public class OrderController {
      */
     @GetMapping("/list")
     public List<OrderVO> getOrderList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
-        return null;
+        List<OrderItemDO> orderItemDOList = orderService.getOrderItemList(userMainDO.getUserId());
+        return orderMapping.toOrderVOList(orderItemDOList);
     }
 
     /**
      * 发货
      */
     @PutMapping("/ship")
-    public Message ship(int orderItemId) {
-        return null;
+    public Message ship(int orderItemId,@SessionAttribute("loginUser") UserMainDO userMainDO) {
+        return orderService.ship(orderItemId,userMainDO.getUserId());
     }
 }
