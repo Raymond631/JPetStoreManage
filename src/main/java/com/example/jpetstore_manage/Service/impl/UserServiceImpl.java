@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Message changePassword(UserMainDO userMainDO) {
+    public Message changePassword(UserMainDO oldUserMainDO, UserMainDO newUserMainDO) {
         return null;
     }
 }

@@ -36,6 +36,7 @@ public class PetController {
     /**
      * 对象转换器
      */
+    @Autowired
     private PetMapping petMapping;
 
     /**
@@ -44,7 +45,7 @@ public class PetController {
     @GetMapping("/list")
     public List<PetListVO> getPetList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
         List<PetProductDO> petProductDOS = petService.getPetList(userMainDO.getUserId());
-         return petMapping.toPetListVOList(petProductDOS);
+        return petMapping.toPetListVOList(petProductDOS);
     }
 
     /**
@@ -70,7 +71,7 @@ public class PetController {
      */
     @PostMapping("/newPet")
     public Message newPet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
-        return petService.newPet(petMapping.toPetProductDO(petDetailVO,userMainDO));
+        return petService.newPet(petMapping.toPetProductDO(petDetailVO, userMainDO));
     }
 
     /**
@@ -78,8 +79,8 @@ public class PetController {
      * 上传图片请调用ImageController中的接口
      */
     @PutMapping("/updatePet")
-    public Message updatePet(@RequestBody PetDetailVO petDetailVO,@SessionAttribute("loginUser") UserMainDO userMainDO) {
-        PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO,userMainDO);
+    public Message updatePet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
+        PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO, userMainDO);
         return petService.updatePet(petProductDO);
     }
 }

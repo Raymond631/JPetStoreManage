@@ -119,12 +119,14 @@ public class UserController {
     public Message changePassword(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode) {
         if (userVO.getVCode().equalsIgnoreCase(checkCode)) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
-                // 对象转换
-                UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
-                // MD5加密
-                userMainDO.setPassword(DigestUtils.md5DigestAsHex(userMainDO.getPassword().getBytes()));
+                // 旧密码
+                UserMainDO oldUserMainDO = userMapping.toOldUserMainDO(userVO);
+                oldUserMainDO.setPassword(DigestUtils.md5DigestAsHex(oldUserMainDO.getPassword().getBytes()));
+                // 新密码
+                UserMainDO newUserMainDO = userMapping.toUserMainDO(userVO);
+                newUserMainDO.setPassword(DigestUtils.md5DigestAsHex(newUserMainDO.getPassword().getBytes()));
                 // 修改密码,返回提示信息
-                return userService.changePassword(userMainDO);
+                return userService.changePassword(oldUserMainDO, newUserMainDO);
             } else {
                 return new Message(0, "两次输入的密码不一致");
             }
