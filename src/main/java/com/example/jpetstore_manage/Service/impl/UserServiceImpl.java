@@ -57,10 +57,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-<<<<<<< Updated upstream
-    public Message changePassword(UserMainDO oldUserMainDO, UserMainDO newUserMainDO) {
-        return null;
-=======
     public Message changePassword(UserMainDO oldUserMainDO,UserMainDO newUserMainDO)
     {
         UserMainDO userMainDo = userMapper.selectUserByIdAndPwd(oldUserMainDO);
@@ -80,7 +76,7 @@ public class UserServiceImpl implements UserService {
                 return new Message(0,"修改密码失败");
             }
         }
->>>>>>> Stashed changes
+
     }
 
 }
