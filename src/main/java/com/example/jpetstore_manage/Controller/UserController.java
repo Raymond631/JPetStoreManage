@@ -49,7 +49,8 @@ public class UserController {
      */
     @PostMapping("/register")
     public Message register(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
-        if (userVO.getVCode().equalsIgnoreCase(checkCode)) {
+        System.out.println(userVO);
+        if (userVO.getVerificationCode().equalsIgnoreCase(checkCode)) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
                 // 对象转换
                 UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
@@ -79,7 +80,7 @@ public class UserController {
      */
     @PostMapping("/login")
     public Message login(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
-        if (userVO.getVCode().equalsIgnoreCase(checkCode)) {
+        if (userVO.getVerificationCode().equalsIgnoreCase(checkCode)) {
             // 对象转换
             UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
             // MD5加密
@@ -116,15 +117,13 @@ public class UserController {
      * @return 返回一个Message对象
      */
     @PutMapping("/changePassword")
-    public Message changePassword(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode) {
-        if (userVO.getVCode().equalsIgnoreCase(checkCode)) {
+    public Message changePassword(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, @SessionAttribute("loginUser") UserMainDO loginUser) {
+        if (userVO.getVerificationCode().equalsIgnoreCase(checkCode)) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
                 // 旧密码
-                UserMainDO oldUserMainDO = userMapping.toOldUserMainDO(userVO);
-                oldUserMainDO.setPassword(DigestUtils.md5DigestAsHex(oldUserMainDO.getPassword().getBytes()));
+                UserMainDO oldUserMainDO = new UserMainDO(loginUser.getUserId(), DigestUtils.md5DigestAsHex(userVO.getOldPassword().getBytes()));
                 // 新密码
-                UserMainDO newUserMainDO = userMapping.toUserMainDO(userVO);
-                newUserMainDO.setPassword(DigestUtils.md5DigestAsHex(newUserMainDO.getPassword().getBytes()));
+                UserMainDO newUserMainDO = new UserMainDO(loginUser.getUserId(), DigestUtils.md5DigestAsHex(userVO.getPassword().getBytes()));
                 // 修改密码,返回提示信息
                 return userService.changePassword(oldUserMainDO, newUserMainDO);
             } else {

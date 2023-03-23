@@ -15,8 +15,4 @@ public interface UserMapping {
     @Mapping(target = "userId", source = "username")
     @Mapping(target = "password", source = "password")
     public UserMainDO toUserMainDO(UserVO userVO);
-
-    @Mapping(target = "userId", source = "username")
-    @Mapping(target = "password", source = "oldPassword")
-    public UserMainDO toOldUserMainDO(UserVO userVO);
 }

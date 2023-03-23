@@ -1,13 +1,11 @@
 package com.example.jpetstore_manage.Controller;
 
-import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
 import com.example.jpetstore_manage.Service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.DigestUtils;
 
 /**
  * @author Raymond Li
@@ -26,8 +24,6 @@ class UserControllerTest {
 
     @Test
     void register() {
-        UserMainDO userMainDO = new UserMainDO("123", "MD5AES");
-        System.out.println(DigestUtils.md5DigestAsHex(userMainDO.getPassword().getBytes()));
     }
 
     @Test
