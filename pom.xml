@@ -91,12 +91,13 @@
             <version>1.5.3.Final</version>
         </dependency>
 
-        <!--QueryWrapper所使用依赖-->
+        <!--JustAuth第三方登录-->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.3.2</version>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>1.16.5</version>
         </dependency>
+
 
 
     </dependencies>
