@@ -21,7 +21,7 @@ a {
     width: 200px;
     height: 98px;
     padding-top: 20px;
-    background-color: #FF6700;
+    background-color: #416384;
 }
 
 /* 主要内容 */
@@ -53,7 +53,7 @@ a {
 
 .nav_tabs a:hover,
 .nav_tabs a.now {
-    color: #f56600;
+    color: #416382;
 }
 
 .line {
@@ -102,7 +102,7 @@ a {
 }
 
 .btnadpt {
-    background-color: #ff6700;
+    background-color: #416384;
     text-align: center;
     font-size: 14px;
     color: #fff;
@@ -117,7 +117,7 @@ a {
 .err_tip {
     margin-top: 14px;
     line-height: 20px;
-    color: #ff6700;
+    color: #416384;
     margin-bottom: -8px;
     display: block;
 }
@@ -143,7 +143,7 @@ a {
 }
 
 .other_panel .login_type_link a {
-    color: #ff6700;
+    color: #416382;
     height: auto;
     line-height: normal;
 }
@@ -153,7 +153,7 @@ a {
 }
 
 .other_panel .links_area a:hover {
-    color: #ff6700;
+    color: #416384;
 }
 
 #sns-login-links {
@@ -287,7 +287,7 @@ a {
 
 .custom_sub_txt span {
     padding: 0 5px;
-    color: #ff6700;
+    color: #416384;
 }
 
 
