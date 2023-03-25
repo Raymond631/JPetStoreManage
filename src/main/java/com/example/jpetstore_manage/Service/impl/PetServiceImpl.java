@@ -1,6 +1,7 @@
 package com.example.jpetstore_manage.Service.impl;
 
 import com.example.jpetstore_manage.Mapper.PetMapper;
+import com.example.jpetstore_manage.POJO.DataObject.PetItemDO;
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
 import com.example.jpetstore_manage.POJO.ViewObject.Message;
 import com.example.jpetstore_manage.Service.PetService;
@@ -22,26 +23,39 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<PetProductDO> getPetList(String supplier) {
-        return null;
+        List<PetProductDO> petProductDOList = petMapper.selectProductBySupplier(supplier);
+        return petProductDOList;
     }
 
     @Override
     public PetProductDO getPetDetail(int productId) {
-        return null;
+        PetProductDO petProductDO = petMapper.selectProductByProductId(productId);
+         return petProductDO;
     }
 
     @Override
     public Message remove(int productId) {
-        return null;
+        int number = petMapper.updateStock(productId);
+        return new Message(number,"You have moved "+ number+" row.");
     }
 
     @Override
     public Message newPet(PetProductDO petProductDO) {
-        return null;
+        List<PetItemDO> petItemDOList = petProductDO.getPetItemList();
+        for(PetItemDO petItemDO:petItemDOList){
+            petMapper.insertPetItem(petItemDO);
+        }
+        int number = petMapper.insertPetProduct(petProductDO);
+        return new Message(number,"You have inserted "+ number+" row.");
     }
 
     @Override
     public Message updatePet(PetProductDO petProductDO) {
-        return null;
+        List<PetItemDO> petItemDOList = petProductDO.getPetItemList();
+        for(PetItemDO petItemDO:petItemDOList){
+            petMapper.updatePetItem(petItemDO);
+        }
+        int number = petMapper.updatePetProduct(petProductDO);
+        return new Message(number,"You have inserted "+ number+" row.");
     }
 }
