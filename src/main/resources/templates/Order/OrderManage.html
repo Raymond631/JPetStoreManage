@@ -11,36 +11,31 @@
 
     <!-- Bootstrap -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link href="/jpetstore/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="/jpetstore/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="/jpetstore/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="/jpetstore/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
 
-    <link href="/jpetstore/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="/jpetstore/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="/jpetstore/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="/jpetstore/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="/jpetstore/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="/jpetstore/build/css/custom.min.css" rel="stylesheet">
+    <link href="build/css/custom.min.css" rel="stylesheet">
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-    <link href="/jpetstore/css/OrderManage.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/OrderManage.css">
 </head>
 
 <body class="nav-md">
-<div class="container body" style="height: 100px;">
+<div class="container body" style="height: 800px;">
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span></span></a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -56,8 +51,7 @@
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
@@ -148,15 +142,10 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" style="height:900px">
             <div class="">
-
-
                 <div class="clearfix"></div>
-
                 <div class="row">
-
-
                     <div class="col-md-12 col-sm-12">
                         <div class="x_panel">
                             <div class="x_title">
@@ -164,14 +153,6 @@
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Settings 1</a>
-                                            <a class="dropdown-item" href="#">Settings 2</a>
-                                        </div>
-                                    </li>
-
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
@@ -183,12 +164,73 @@
                                             </p>
                                             <button class="orderEnsure" onclick="EnsureOrder()">确认</button>
                                             <button class="orderCancel" onclick="CancelOrder()">取消</button>
-                                            <table id="datatable-checkbox" class="table table-striped table-bordered bulk_action" style="width:100%">
+                                            <span class="searchTitle">search:<input id="searchContent" class="searchContent" type="text" onblur="search()"></span>
+                                            <!-- 弹窗 -->
+                                            <div class="hidden" id="modal">
+                                                <div class="title">
+                                                    只能修改地址
+                                                </div>
+                                                <input id="newPosition" class="content" type="text" name="middle-name">
+                                                <div class="confirm" onclick="fnClose()">
+                                                    确认<span  id="confirming" class="hidden">
+                                                        <svg  width="40px"  height="40px" viewBox="0 0 100 100">
+                                                            <defs>
+                                                                <clipPath id="clipIt">
+                                                                    <circle
+                                                                            fill="black"
+                                                                            r="35"
+                                                                            cy="50"
+                                                                            cx="50"
+                                                                    />
+                                                                    </clipPath>
+                                                                </defs>
+                                                                <path
+                                                                        class="utveckling"
+                                                                        d="M 49.99955,21.646452 A 28.35355,28.353548 0 0 0 21.646,50
+                                                                    28.35355,28.353548 0 0 0 49.99955,78.353548
+                                                                    28.35355,28.353548 0
+                                                                    0 0 78.3531,50 28.35355,28.353548 0 0 0 49.99955,21.646452
+                                                                    Z"
+                                                                />
+                                                                    <g class="cut" clip-path="url(#clipIt)">
+                                                                        <circle
+                                                                                r="35"
+                                                                                cy="50"
+                                                                                cx="50"
+                                                                                style="opacity:1;fill:white;fill-opacity:1;stroke:none;stroke-width:12.9174"
+                                                                        />
+                                                                            <g class="pil">
+                                                                                <path
+                                                                                        d="m 40.056531,47.971893 9.914191,-9.514425
+                                                                                    9.994144,9.514425"
+                                                                                        style="fill:none;stroke:rgb(42,63,84);stroke-width:3.8;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+                                                                                />
+                                                                                    <path
+                                                                                            d="M 49.970722,38.457468 V 61.56393"
+                                                                                            style="fill:none;stroke:rgb(42,63,84);stroke-width:3.8;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+                                                                                    />
+                                                                                    </g>
+                                                                                    <path
+                                                                                            class="bock"
+                                                                                            d="m 49.533063,13 c 0,0
+                                                                                        -4.038975,0.243204 -7.084664,1.6
+                                                                                        -10.965877,4.88509 -12.03936,12.900449
+                                                                                        -12.029016,15.995361 0.02524,7.552595
+                                                                                        4.607455,12.168562 6.129905,13.956538 C
+                                                                                        41.41924,50.271203 47.447623,56.491
+                                                                                        47.447623,56.491 L 63.320719,42.911532"
+                                                                                    />
+                                                                                    </g>
+                                                                                </svg>
+                                                                            </span>
+                                                </div>
+                                            </div>
+                                            <table id="orderTable" class="orderTable">
                                                 <thead>
                                                 <tr>
                                                     <th>
                                                     <th>
-                                                        <input type="checkbox" id="check-all" class="flat">
+                                                        <input type="checkbox" id="check-all" class="choose">
                                                     </th>
                                                     <th>客户</th>
                                                     <th>收货地址</th>
@@ -197,49 +239,16 @@
                                                     <th>订单数量</th>
                                                     <th>下单时间</th>
                                                     <th>订单状态</th>
+                                                    <th>修改信息</th>
                                                 </tr>
                                                 </thead>
 
-                                                <tbody id="OrderTable">
-                                                <tr>
-                                                    <td>
-<!--                                                    这个地方传入名字-->
-                                                    <th><input type="checkbox" class="flat" name="table_records" value="1"></th>
-                                                    </td>
-                                                    <td>李小磊</td>
-                                                    <td>中南大山沟</td>
-                                                    <td>112321</td>
-                                                    <td>鸡</td>
-                                                    <td>100</td>
-                                                    <td>2023/3/18</td>
-                                                    <td>未发货<label class="OrderF"></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    <th><input type="checkbox" class="flat" name="table_records" value="2"></th>
-                                                    </td>
-                                                    <td>张大炮</td>
-                                                    <td>东北养猪场</td>
-                                                    <td>114514</td>
-                                                    <td>小猪</td>
-                                                    <td>60</td>
-                                                    <td>2023/3/19</td>
-                                                    <td>已发货<label class="OrderT"></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    <th><input type="checkbox" class="flat" name="table_records" value="3"></th>
-                                                    </td>
-                                                    <td>张大炮</td>
-                                                    <td>东北养猪场</td>
-                                                    <td>114514</td>
-                                                    <td>小猪</td>
-                                                    <td>60</td>
-                                                    <td>2023/3/19</td>
-                                                    <td>已接收<label class="OrderFinish"></label></td>
-                                                </tr>
+                                                <tbody id="tableBody">
                                                 </tbody>
                                             </table>
+                                            <div class="changePage" id="previous" style="float: left;margin-left: 1400px;">上一页</div>
+                                            <div class="nowPage" id="pages">1</div>
+                                            <div class="changePage" id="next">下一页</div>
                                         </div>
                                     </div>
                                 </div>
@@ -249,43 +258,10 @@
                     <!-- /page content -->
                 </div>
             </div>
-
-
-            <!-- jQuery -->
-            <script src="/jpetstore/vendors/jquery/dist/jquery.min.js"></script>
-            <script type="text/javascript" src="/jpetstore/js/OrderManage.js"></script>
-            <!-- Bootstrap -->
-            <script src="/jpetstore/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <!-- FastClick -->
-            <script src="/jpetstore/vendors/fastclick/lib/fastclick.js"></script>
-            <!-- NProgress -->
-            <script src="/jpetstore/vendors/nprogress/nprogress.js"></script>
-            <!-- iCheck -->
-            <script src="/jpetstore/vendors/iCheck/icheck.min.js"></script>
-            <!-- Datatables -->
-            <script src="/jpetstore/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-            <script src="/jpetstore/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-            <script src="/jpetstore/vendors/jszip/dist/jszip.min.js"></script>
-            <script src="/jpetstore/vendors/pdfmake/build/pdfmake.min.js"></script>
-
-
-            <script src="/jpetstore/vendors/nprogress/nprogress.js"></script>
-            <!-- Custom Theme Scripts -->
-            <script src="/jpetstore/build/js/custom.min.js"></script>
-
-
         </div>
     </div>
 </div>
 </body>
 </html>
+
+<script src="js/OrderManage.js"></script>
