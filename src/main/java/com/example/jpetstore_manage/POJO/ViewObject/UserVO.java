@@ -17,5 +17,5 @@ public class UserVO {
     private String oldPassword;
     private String password;
     private String rePassword;
-    private String vCode;
+    private String verificationCode;
 }
