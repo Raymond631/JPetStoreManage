@@ -96,6 +96,14 @@
             <version>1.5.3.Final</version>
         </dependency>
 
+        <!-- JWT -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+
         <!--JustAuth第三方登录-->
         <dependency>
             <groupId>me.zhyd.oauth</groupId>

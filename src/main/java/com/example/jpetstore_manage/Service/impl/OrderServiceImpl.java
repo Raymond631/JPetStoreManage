@@ -2,7 +2,7 @@ package com.example.jpetstore_manage.Service.impl;
 
 import com.example.jpetstore_manage.Mapper.OrderMapper;
 import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
-import com.example.jpetstore_manage.POJO.ViewObject.Message;
+import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import com.example.jpetstore_manage.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,25 +24,24 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderItemDO> getOrderItemList(String supplier) {
-        return  orderMapper.selectOrderItemBySupplier(supplier);
+        return orderMapper.selectOrderItemBySupplier(supplier);
     }
 
     @Override
-    public Message ship(int orderItemId, String supplier) {
-        Message message = new Message();
-        int status=orderMapper.updateOrderStatus(orderItemId,"已发货",supplier);
-        if (status==1){
-            message.setCode(1);
-            message.setMsg("修改成功");
-            return message;
-        }else {
-            message.setCode(0);
-            message.setMsg("修改失败");
-            return  message;
+    public CommonResponse ship(int orderItemId, String supplier) {
+        CommonResponse commonResponse = new CommonResponse();
+        int status = orderMapper.updateOrderStatus(orderItemId, "已发货", supplier);
+        if (status == 1) {
+            commonResponse.setCode(1);
+            commonResponse.setMsg("修改成功");
+            return commonResponse;
+        } else {
+            commonResponse.setCode(0);
+            commonResponse.setMsg("修改失败");
+            return commonResponse;
         }
 
-        }
-
+    }
 
 
 }

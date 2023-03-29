@@ -1,7 +1,7 @@
 package com.example.jpetstore_manage.Service;
 
 import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
-import com.example.jpetstore_manage.POJO.ViewObject.Message;
+import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 
 import java.util.List;
 
@@ -19,5 +19,5 @@ public interface OrderService {
     /**
      * 发货，修改订单状态为“已发货”
      */
-    Message ship(int orderItemId, String supplier);
+    CommonResponse ship(int orderItemId, String supplier);
 }

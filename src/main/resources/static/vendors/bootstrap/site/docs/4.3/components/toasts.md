@@ -1,18 +1,21 @@
 ---
 layout: docs
 title: Toasts
-description: Push notifications to your visitors with a toast, a lightweight and easily customizable alert message.
+description: Push notifications to your visitors with a toast, a lightweight and easily customizable alert
+commonResponse.
 group: components
 toc: true
 ---
 
-Toasts are lightweight notifications designed to mimic the push notifications that have been popularized by mobile and desktop operating systems. They're built with flexbox, so they're easy to align and position.
+Toasts are lightweight notifications designed to mimic the push notifications that have been popularized by mobile and
+desktop operating systems. They're built with flexbox, so they're easy to align and position.
 
 ## Overview
 
 Things to know when using the toast plugin:
 
-- If you're building our JavaScript from source, it [requires `util.js`]({{ site.baseurl }}/docs/{{ site.docs_version }}/getting-started/javascript/#util).
+- If you're building our JavaScript from source, it [requires `util.js`]({{ site.baseurl }}/docs/{{ site.docs_version
+  }}/getting-started/javascript/#util).
 - Toasts are opt-in for performance reasons, so **you must initialize them yourself**.
 - **Please note that you are responsible for positioning toasts.**
 - Toasts will automatically hide if you do not specify `autohide: false`.
@@ -21,9 +24,11 @@ Things to know when using the toast plugin:
 
 ### Basic
 
-To encourage extensible and predictable toasts, we recommend a header and body. Toast headers use `display: flex`, allowing easy alignment of content thanks to our margin and flexbox utilities.
+To encourage extensible and predictable toasts, we recommend a header and body. Toast headers use `display: flex`,
+allowing easy alignment of content thanks to our margin and flexbox utilities.
 
-Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to contain your "toasted" content and strongly encourage a dismiss button.
+Toasts are as flexible as you need and have very little required markup. At a minimum, we require a single element to
+contain your "toasted" content and strongly encourage a dismiss button.
 
 {% capture example %}
 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -36,7 +41,7 @@ Toasts are as flexible as you need and have very little required markup. At a mi
     </button>
   </div>
   <div class="toast-body">
-    Hello, world! This is a toast message.
+    Hello, world! This is a toast commonResponse.
   </div>
 </div>
 {% endcapture %}
@@ -44,7 +49,8 @@ Toasts are as flexible as you need and have very little required markup. At a mi
 
 ### Translucent
 
-Toasts are slightly translucent, too, so they blend over whatever they might appear over. For browsers that support the `backdrop-filter` CSS property, we'll also attempt to blur the elements under a toast.
+Toasts are slightly translucent, too, so they blend over whatever they might appear over. For browsers that support
+the `backdrop-filter` CSS property, we'll also attempt to blur the elements under a toast.
 
 {% capture example %}
 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
@@ -57,7 +63,7 @@ Toasts are slightly translucent, too, so they blend over whatever they might app
     </button>
   </div>
   <div class="toast-body">
-    Hello, world! This is a toast message.
+    Hello, world! This is a toast commonResponse.
   </div>
 </div>
 {% endcapture %}
@@ -100,7 +106,8 @@ When you have multiple toasts, we default to vertically stacking them in a reada
 
 ## Placement
 
-Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If you're only ever going to show one toast at a time, put the positioning styles right on the `.toast`.
+Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If
+you're only ever going to show one toast at a time, put the positioning styles right on the `.toast`.
 
 {% capture example %}
 <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
@@ -114,7 +121,7 @@ Place toasts with custom CSS as you need them. The top right is often used for n
       </button>
     </div>
     <div class="toast-body">
-      Hello, world! This is a toast message.
+      Hello, world! This is a toast commonResponse.
     </div>
   </div>
 </div>
@@ -156,6 +163,7 @@ For systems that generate more notifications, consider using a wrapping element 
         Heads up, toasts will stack automatically
       </div>
     </div>
+
   </div>
 </div>
 {% endcapture %}
@@ -178,7 +186,7 @@ You can also get fancy with flexbox utilities to align toasts horizontally and/o
       </button>
     </div>
     <div class="toast-body">
-      Hello, world! This is a toast message.
+      Hello, world! This is a toast commonResponse.
     </div>
   </div>
 </div>
@@ -187,13 +195,25 @@ You can also get fancy with flexbox utilities to align toasts horizontally and/o
 
 ## Accessibility
 
-Toasts are intended to be small interruptions to your visitors or users, so to help those with screen readers and similar assistive technologies, you should wrap your toasts in an [`aria-live` region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions). Changes to live regions (such as injecting/updating a toast component) are automatically announced by screen readers without needing to move the user's focus or otherwise interrupt the user. Additionally, include `aria-atomic="true"` to ensure that the entire toast is always announced as a single (atomic) unit, rather than announcing what was changed (which could lead to problems if you only update part of the toast's content, or if displaying the same toast content at a later point in time). If the information needed is important for the process, e.g. for a list of errors in a form, then use the [alert component]({{ site.baseurl }}/docs/{{ site.docs_version }}/components/alerts/) instead of toast.
+Toasts are intended to be small interruptions to your visitors or users, so to help those with screen readers and
+similar assistive technologies, you should wrap your toasts in
+an [`aria-live` region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions). Changes to
+live regions (such as injecting/updating a toast component) are automatically announced by screen readers without
+needing to move the user's focus or otherwise interrupt the user. Additionally, include `aria-atomic="true"` to ensure
+that the entire toast is always announced as a single (atomic) unit, rather than announcing what was changed (which
+could lead to problems if you only update part of the toast's content, or if displaying the same toast content at a
+later point in time). If the information needed is important for the process, e.g. for a list of errors in a form, then
+use the [alert component]({{ site.baseurl }}/docs/{{ site.docs_version }}/components/alerts/) instead of toast.
 
-Note that the live region needs to be present in the markup *before* the toast is generated or updated. If you dynamically generate both at the same time and inject them into the page, they will generally not be announced by assistive technologies.
+Note that the live region needs to be present in the markup *before* the toast is generated or updated. If you
+dynamically generate both at the same time and inject them into the page, they will generally not be announced by
+assistive technologies.
 
-You also need to adapt the `role` and `aria-live` level depending on the content. If it's an important message like an error, use `role="alert" aria-live="assertive"`, otherwise use `role="status" aria-live="polite"` attributes.
+You also need to adapt the `role` and `aria-live` level depending on the content. If it's an important commonResponse
+like an error, use `role="alert" aria-live="assertive"`, otherwise use `role="status" aria-live="polite"` attributes.
 
-As the content you're displaying changes, be sure to update the [`delay` timeout](#options) to ensure people have enough time to read the toast.
+As the content you're displaying changes, be sure to update the [`delay` timeout](#options) to ensure people have enough
+time to read the toast.
 
 {% highlight html %}
 <div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="10000">
@@ -214,7 +234,7 @@ When using `autohide: false`, you must add a close button to allow users to dism
     </button>
   </div>
   <div class="toast-body">
-    Hello, world! This is a toast message.
+    Hello, world! This is a toast commonResponse.
   </div>
 </div>
 {% endcapture %}
@@ -232,7 +252,8 @@ $('.toast').toast(option)
 
 ### Options
 
-Options can be passed via data attributes or JavaScript. For data attributes, append the option name to `data-`, as in `data-animation=""`.
+Options can be passed via data attributes or JavaScript. For data attributes, append the option name to `data-`, as
+in `data-animation=""`.
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -277,14 +298,16 @@ Attaches a toast handler to an element collection.
 
 #### `.toast('show')`
 
-Reveals an element's toast. **Returns to the caller before the toast has actually been shown** (i.e. before the `shown.bs.toast` event occurs).
+Reveals an element's toast. **Returns to the caller before the toast has actually been shown** (i.e. before
+the `shown.bs.toast` event occurs).
 You have to manually call this method, instead your toast won't show.
 
 {% highlight js %}$('#element').toast('show'){% endhighlight %}
 
 #### `.toast('hide')`
 
-Hides an element's toast. **Returns to the caller before the toast has actually been hidden** (i.e. before the `hidden.bs.toast` event occurs). You have to manually call this method if you made `autohide` to `false`.
+Hides an element's toast. **Returns to the caller before the toast has actually been hidden** (i.e. before
+the `hidden.bs.toast` event occurs). You have to manually call this method if you made `autohide` to `false`.
 
 {% highlight js %}$('#element').toast('hide'){% endhighlight %}
 
@@ -325,6 +348,6 @@ Hides an element's toast. Your toast will remain on the DOM but won't show anymo
 
 {% highlight js %}
 $('#myToast').on('hidden.bs.toast', function () {
-  // do something...
+// do something...
 })
 {% endhighlight %}

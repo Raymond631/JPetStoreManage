@@ -3,7 +3,7 @@ package com.example.jpetstore_manage.Controller;
 import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
 import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
 import com.example.jpetstore_manage.POJO.MapStruct.OrderMapping;
-import com.example.jpetstore_manage.POJO.ViewObject.Message;
+import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import com.example.jpetstore_manage.POJO.ViewObject.OrderVO;
 import com.example.jpetstore_manage.Service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class OrderController {
      * 调用service层，查找供应商为“当前用户”的订单(userMainDO代表当前用户)
      * 对象转换，返回前端
      */
-    @GetMapping("/list")
+    @GetMapping("/orders")
     public List<OrderVO> getOrderList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
         List<OrderItemDO> orderItemDOList = orderService.getOrderItemList(userMainDO.getUserId());
         return orderMapping.toOrderVOList(orderItemDOList);
@@ -50,8 +50,8 @@ public class OrderController {
     /**
      * 发货
      */
-    @PutMapping("/ship")
-    public Message ship(int orderItemId,@SessionAttribute("loginUser") UserMainDO userMainDO) {
-        return orderService.ship(orderItemId,userMainDO.getUserId());
+    @PutMapping("/orders/{orderItemId}")
+    public CommonResponse ship(@PathVariable("orderItemId") int orderItemId, @SessionAttribute("loginUser") UserMainDO userMainDO) {
+        return orderService.ship(orderItemId, userMainDO.getUserId());
     }
 }

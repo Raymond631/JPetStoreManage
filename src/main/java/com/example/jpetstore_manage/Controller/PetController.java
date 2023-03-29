@@ -3,7 +3,7 @@ package com.example.jpetstore_manage.Controller;
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
 import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
 import com.example.jpetstore_manage.POJO.MapStruct.PetMapping;
-import com.example.jpetstore_manage.POJO.ViewObject.Message;
+import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import com.example.jpetstore_manage.POJO.ViewObject.PetDetailVO;
 import com.example.jpetstore_manage.POJO.ViewObject.PetListVO;
 import com.example.jpetstore_manage.Service.PetService;
@@ -25,7 +25,6 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/pet")
 public class PetController {
     /**
      * 业务层接口
@@ -42,7 +41,7 @@ public class PetController {
     /**
      * 调用service层，查找供应商为“当前用户”的宠物列表(userMainDO代表当前用户)
      */
-    @GetMapping("/list")
+    @GetMapping("/pets/list")
     public List<PetListVO> getPetList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
         List<PetProductDO> petProductDOS = petService.getPetList(userMainDO.getUserId());
         return petMapping.toPetListVOList(petProductDOS);
@@ -51,8 +50,8 @@ public class PetController {
     /**
      * 调用service层，根据productId查询宠物详情
      */
-    @GetMapping("/detail")
-    public PetDetailVO getPetDetail(int productId) {
+    @GetMapping("/pets/{productId}")
+    public PetDetailVO getPetDetail(@PathVariable("productId") int productId) {
         PetProductDO petProductDO = petService.getPetDetail(productId);
         return petMapping.toPetDetailVO(petProductDO);
     }
@@ -60,8 +59,8 @@ public class PetController {
     /**
      * 下架（为了方便，这里修改库存为零即可）
      */
-    @PutMapping("/remove")
-    public Message remove(int productId) {
+    @DeleteMapping("/pets/{productId}")
+    public CommonResponse remove(@PathVariable("productId") int productId) {
         return petService.remove(productId);
     }
 
@@ -69,8 +68,8 @@ public class PetController {
      * 对象转换
      * 调用service新增宠物，供应商为当前用户（userMainDO）
      */
-    @PostMapping("/newPet")
-    public Message newPet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
+    @PostMapping("/pets")
+    public CommonResponse newPet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
         return petService.newPet(petMapping.toPetProductDO(petDetailVO, userMainDO));
     }
 
@@ -78,8 +77,8 @@ public class PetController {
      * 修改宠物信息（productId和ItemId不可修改）
      * 上传图片请调用ImageController中的接口
      */
-    @PutMapping("/updatePet")
-    public Message updatePet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
+    @PutMapping("/pets")
+    public CommonResponse updatePet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
         PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO, userMainDO);
         return petService.updatePet(petProductDO);
     }
