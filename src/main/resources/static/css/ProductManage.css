@@ -10,7 +10,7 @@
 /* 搜索框search */
 .searchTitle{
     /* position:absolute; */
-    margin-left: 1300px;
+    margin-left: 1320px;
     font-size: 18px;
 }
 
@@ -58,7 +58,6 @@ th,td{
 
 }
 
-
 table tbody tr:nth-child(odd){
     background-color: #eee;
 }
@@ -90,7 +89,7 @@ table tbody tr:nth-child(odd){
     border-radius: 5px;
     width:80px;
     height:40px;
-    left: 300px;
+    margin-left: 450px;
     z-index: 1;
     font-size: 15px;
     color:white;
@@ -103,4 +102,38 @@ table tbody tr:nth-child(odd){
     color:black;
     border:1px solid rgb(220,53,69);
     transition:all 1s ease;
+}
+
+.picture{
+    float:left;
+    width:260px;
+    height: 350px;
+    /* border: 1px solid black; */
+    margin-left: 50px;
+}
+
+.imagePosition{
+    margin-top: 10px;
+    width:240px;
+    height: 280px;
+    margin-left: 10px;
+    border: 1px solid rgb(206,212,218);
+}
+
+.addImage{
+    margin-top:10px;
+    margin-left: 50px;
+    height:40px;
+    width:150px;
+    background-color: white;
+    /* border: 1px solid black; */
+}
+
+.changeImage{
+    margin-top:10px;
+    margin-left: 50px;
+    height:40px;
+    width:150px;
+    background-color: white;
+    /* border: 1px solid black; */
 }

@@ -1,9 +1,11 @@
 const table = document.getElementById('tableBody');
 const prev = document.getElementById('previous');
 const next = document.getElementById('next');
-
 const pages = document.getElementById('pages');
+
+
 let change = $(".change");
+
 let data = [{
     id:9,
     name:'234',
@@ -233,7 +235,7 @@ function changeInfomation(val){
     data.forEach((e) => {
         targetID = e.id;
         if (targetID==changeInfoID) {
-            $("#idNoChange").text(targetID);
+            $("#idNoChange").val(targetID);
             $("#nameChange").val(e.name);
             $("#EnameChange").val(e.Ename);
             $("#characterChange").val(targetID);
@@ -293,12 +295,12 @@ function search(){
 
 //修改数据提交
 function changeSubmit(){
-    let ID= $("#idNoChange").text();
+    let ID= $("#idNoChange").val();
     let name= $("#nameChange").val();
     let Ename =  $("#EnameChange").val();
     let character = $("#characterChange").val();
     let disease = $("#diseaseChange").val();
-    let introduction = $("#introductionChange").val();
+    let introductio = $("#introductionChange").val();
     let price = $("#priceChange").val();
     let quantity =$("#quantityChange").val();
     console.log(ID);
@@ -306,7 +308,7 @@ function changeSubmit(){
 }
 
 function changeReset(){
-    // $("#idNoChange").text('不可修改');
+    $("#idNoChange").val('');
     $("#nameChange").val('');
     $("#EnameChange").val('');
     $("#characterChange").val('');
@@ -325,8 +327,7 @@ function newSubmit(){
     let introduction = $("#introductionNew").val();
     let price = $("#priceNew").val();
     let quantity =$("#quantityNew").val();
-    console.log(ID);
-    console.log(name)
+    console.log(introduction)
 }
 
 function newReset(){
@@ -337,4 +338,86 @@ function newReset(){
     $("#introductionNew").val('');
     $("#priceNew").val('');
     $("#quantityNew").val('');
+}
+
+const addImage = document.getElementById('addImage');
+
+addImage.onchange=function(){
+
+    var image = document.getElementById('addImagePosition')
+    // let img = $('#imagePosition');
+    // var addImage = document.getElementById('addImage')
+    // 获取得到file 对象
+    var file = addImage.files[0]
+    // 创建url
+    var imgUrl = window.URL.createObjectURL(file)
+    image.setAttribute("src", imgUrl)
+    // 更改img url 以后释放 url
+    image.onload = function() {
+        console.log('图片加载成功')
+        URL.revokeObjectURL(imgUrl)
+    }
+}
+
+const changeImage = document.getElementById('changeImage');
+changeImage.onchange=function(){
+
+    var image = document.getElementById('changeImagePosition')
+    // let img = $('#imagePosition');
+    // var addImage = document.getElementById('addImage')
+    // 获取得到file 对象
+    var file = addImage.files[0]
+    // 创建url
+    var imgUrl = window.URL.createObjectURL(file)
+    image.setAttribute("src", imgUrl)
+    // 更改img url 以后释放 url
+    image.onload = function() {
+        console.log('图片加载成功')
+        URL.revokeObjectURL(imgUrl)
+    }
+}
+
+function addNewImage(){
+    let formData = new FormData();
+    let img = addImage;
+    let fileObj = img.files[0];
+    formData.append("newImage",fileObj)
+    $.ajax({
+        url: "",
+        dataType: "json",
+        async: false,
+        processData: false,
+        contentType: false,
+        data: formData,
+        method: "POST",
+        success(res) {
+            console.log(res)
+        },
+        error(err) {
+            console.log(err)
+        }
+    })
+}
+
+function changePreviousImage(){
+    console.log(2)
+    let formData = new FormData();
+    let img = changeImage;
+    let fileObj = img.files[0];
+    formData.append("changeImage",fileObj)
+    $.ajax({
+        url: "",
+        dataType: "json",
+        async: false,
+        processData: false,
+        contentType: false,
+        data: formData,
+        method: "POST",
+        success(res) {
+            console.log(res)
+        },
+        error(err) {
+            console.log(err)
+        }
+    })
 }

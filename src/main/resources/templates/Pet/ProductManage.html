@@ -178,7 +178,12 @@
                             </div>
                             <div class="x_content">
                                 <br />
-                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                <div class="picture" id="picture">
+                                    <img class="imagePosition" id="addImagePosition" src="noPicture.png"></img>
+                                    <input class="addImage" type="file" id="addImage"></input> <br>
+                                    <input type="submit" class="ensure" style="margin-left: 70px;margin-top: 25px;" onclick="addNewImage()"></input>
+                                </div>
+                                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                                     <div>
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物名<span class="required">*</span>
@@ -212,17 +217,17 @@
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物介绍<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="introductionNew" name="last-name" required="required" class="form-control">
+                                                <textarea class="form-control" id="introductionNew" rows="3"></textarea>
                                             </div>
                                         </div>
-                                        <div class="item form-group" style="margin-left:265px; width:530px;float: left;">
+                                        <div class="item form-group" style="margin-left:213px; width:428px;float: left;">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物价格<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 ">
                                                 <input id="priceNew" class="form-control" type="text" name="middle-name">
                                             </div>
                                         </div>
-                                        <div class="item form-group" style="width:530px;">
+                                        <div class="item form-group" style="width:428px;">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物数量<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 ">
@@ -241,7 +246,7 @@
                                         </div>
                                     </div>
 
-                                </form>
+                                </div>
                             </div>
 
                         </div>
@@ -256,12 +261,16 @@
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
-
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
                                 <br />
+                                <div class="picture" style="margin-top:50px">
+                                    <img class="imagePosition" id="changeImagePosition" src="noPicture.png"></img>
+                                    <input class="changeImage" type="file" id="changeImage"></input> <br>
+                                    <input type="submit" class="ensure" style="margin-left: 70px;margin-top: 25px;" onclick="changePreviousImage()"></input>
+                                </div>
                                 <div id="demo-form3" data-parsley-validate class="form-horizontal form-label-left">
 
                                     <div>
@@ -269,7 +278,7 @@
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物ID
                                             </label>
                                             <div class="col-md-6 col-sm-6 ">
-                                                <label class="form-control" id="idNoChange">不可修改</label>
+                                                <input class="form-control" id="idNoChange" readonly="readonly" placeholder="不可修改"></input>
                                             </div>
                                         </div>
                                         <div class="item form-group">
@@ -304,28 +313,24 @@
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物介绍<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="introductionChange" name="last-name" required="required" class="form-control">
+                                                <textarea class="form-control" id="introductionChange" rows="3"></textarea>
                                             </div>
                                         </div>
-                                        <div class="item form-group" style="margin-left:265px; width:530px;float: left;">
+                                        <div class="item form-group" style="margin-left:213px; width:428px;float: left;">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物价格<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 ">
                                                 <input id="priceChange" class="form-control" type="text" name="middle-name">
                                             </div>
                                         </div>
-                                        <div class="item form-group" style="width:530px;">
+                                        <div class="item form-group" style="width:428px;">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">宠物数量<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 ">
                                                 <input id="quantityChange" class="form-control" type="text" name="middle-name">
                                             </div>
                                         </div>
-
                                     </div>
-
-
-
                                     <div class="ln_solid"></div>
                                     <div class="item form-group">
                                         <div class="col-md-6 col-sm-6 offset-md-3">
@@ -341,56 +346,57 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-sm-12 ">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Default Example <small>Users</small></h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Default Example <small>Users</small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
 
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card-box table-responsive">
-                                        <p class="text-muted font-13 m-b-30">
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="card-box table-responsive">
+                                            <p class="text-muted font-13 m-b-30">
 
-                                        </p>
+                                            </p>
 
-                                        <span class="searchTitle">search:<input id="searchContent" class="searchContent" type="text" onblur="search()"></span>
-                                        <table id="productTable" class="productTable">
-                                            <thead>
-                                            <tr>
-                                                <th>宠物id</th>
-                                                <th>宠物名</th>
-                                                <th>英文名</th>
-                                                <!--
-                                                <th>宠物性格</th>
-                                                <th>常见疾病</th>
-                                                <th>宠物介绍</th>
-                                                -->
-                                                <th>价格</th>
-                                                <th>数量</th>
-                                                <th>修改</th>
-                                            </tr>
-                                            </thead>
+                                            <span class="searchTitle">search:<input id="searchContent" class="searchContent" type="text" onblur="search()"></span>
+                                            <table id="productTable" class="productTable">
+                                                <thead>
+                                                <tr>
+                                                    <th>宠物id</th>
+                                                    <th>宠物名</th>
+                                                    <th>英文名</th>
+                                                    <!--
+                                                    <th>宠物性格</th>
+                                                    <th>常见疾病</th>
+                                                    <th>宠物介绍</th>
+                                                    -->
+                                                    <th>价格</th>
+                                                    <th>数量</th>
+                                                    <th>修改</th>
+                                                </tr>
+                                                </thead>
 
-                                            <tbody id="tableBody">
-                                            </tbody>
-                                        </table>
-                                        <div class="changePage" id="previous" style="float: left;margin-left: 1400px;">上一页</div>
-                                        <div class="nowPage" id="pages">1</div>
-                                        <div class="changePage" id="next">下一页</div>
+                                                <tbody id="tableBody">
+                                                </tbody>
+                                            </table>
+                                            <div class="changePage" id="previous" style="float: left;margin-left: 1400px;">上一页</div>
+                                            <div class="nowPage" id="pages">1</div>
+                                            <div class="changePage" id="next">下一页</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- /page content -->
