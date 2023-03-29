@@ -52,6 +52,7 @@
         <result property="itemStock" column="item_stock" />
     </resultMap>
 
+
     <update id="updateStock" parameterType="Integer" >
         update pet_item
         <set>
@@ -59,6 +60,7 @@
         </set>
         where product_Id = #{productId};
     </update>
+
 
     <insert id="insertPetProduct" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetProductDO" >
         insert into pet_product(product_id, category, product_name_Chinese, product_name_English, product_character,
@@ -69,10 +71,12 @@
                 #{productSupplier});
     </insert>
 
+
     <insert id="insertPetItem" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetItemDO" >
         insert into pet_item(item_id, product_id, item_specification, item_price, item_stock)
         values (#{itemId}, #{productId}, #{itemSpecification}, #{itemPrice}, #{itemStock});
     </insert>
+
 
     <update id="updatePetProduct" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetProductDO" >
         update pet_product
@@ -91,6 +95,7 @@
         </set>
         where product_id = #{productId};
     </update>
+
 
     <update id="updatePetItem" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetItemDO" >
         update pet_item
