@@ -116,5 +116,13 @@ public class ImageController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        File test = new File("src/main/resources/static/image/pet");
+        System.out.println("相对路径:"+test.getPath());
+        try {
+            String testPath = test.getCanonicalPath();
+            System.out.println("映射路径:"+testPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
