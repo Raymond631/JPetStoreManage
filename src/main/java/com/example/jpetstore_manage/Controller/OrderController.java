@@ -1,10 +1,11 @@
 package com.example.jpetstore_manage.Controller;
 
 import com.example.jpetstore_manage.Common.CommonResponse;
-import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
-import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
+import com.example.jpetstore_manage.Common.JwtUtil;
+import com.example.jpetstore_manage.POJO.DataObject.OrderMainDO;
 import com.example.jpetstore_manage.POJO.MapStruct.OrderMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.OrderVO;
+import com.example.jpetstore_manage.POJO.ViewObject.ReceiverVO;
 import com.example.jpetstore_manage.Service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/order")
 public class OrderController {
     /**
      * 业务层接口
@@ -42,16 +42,33 @@ public class OrderController {
      * 对象转换，返回前端
      */
     @GetMapping("/orders")
-    public List<OrderVO> getOrderList(@SessionAttribute("loginUser") UserAuthDO userAuthDO) {
-        List<OrderItemDO> orderItemDOList = orderService.getOrderItemList(userAuthDO.getUserId());
-        return orderMapping.toOrderVOList(orderItemDOList);
+    public List<OrderVO> getOrderList(@CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        List<OrderMainDO> orderMainDOList = orderService.getOrderList(userId);
+        return orderMapping.toOrderVOList(orderMainDOList);
     }
 
     /**
      * 发货
      */
-    @PutMapping("/orders/{orderItemId}")
-    public CommonResponse ship(@PathVariable("orderItemId") int orderItemId, @SessionAttribute("loginUser") UserAuthDO userAuthDO) {
-        return orderService.ship(orderItemId, userAuthDO.getUserId());
+    @PutMapping("/orders/{orderId}/status")
+    public CommonResponse ship(@PathVariable("orderId") int orderId, @CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        return orderService.ship(orderId, userId);
+    }
+
+    /**
+     * 修改收件人信息
+     */
+    @PutMapping("/orders/{orderId}/receiver")
+    public CommonResponse changeReceiver(@RequestBody ReceiverVO receiverVO, @PathVariable("orderId") int orderId, @CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        return orderService.changeReceiver(orderMapping.toOrderMainDO(receiverVO), orderId, userId);
+    }
+
+    @DeleteMapping("/orders/{orderId}")
+    public CommonResponse deleteOrder(@PathVariable("orderId") int orderId, @CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        return orderService.deleteOrder(orderId, userId);
     }
 }

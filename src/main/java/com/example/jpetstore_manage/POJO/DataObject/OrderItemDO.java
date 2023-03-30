@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class OrderItemDO {
     private int orderItemId;
-    private Long orderId;
+    private int orderId;
     private int itemId;
     private int productId;
     private String itemImage;
@@ -24,8 +24,4 @@ public class OrderItemDO {
     private String itemSpecification;
     private BigDecimal itemPrice;
     private int itemQuantity;
-    private String whetherShip;
-    private String supplier;
-    private OrderMainDO orderMainDO;
-
 }

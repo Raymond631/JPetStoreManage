@@ -1,9 +1,12 @@
 package com.example.jpetstore_manage.POJO.MapStruct;
 
 import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
+import com.example.jpetstore_manage.POJO.DataObject.OrderMainDO;
 import com.example.jpetstore_manage.POJO.ViewObject.OrderVO;
+import com.example.jpetstore_manage.POJO.ViewObject.ReceiverVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.util.List;
 
@@ -14,16 +17,24 @@ import java.util.List;
  */
 @Mapper(componentModel = "spring")
 public interface OrderMapping {
-    @Mapping(target = "id", source = "orderItemId")
-    @Mapping(target = "name", source = "orderMainDO.receiverName")
-    @Mapping(target = "phone", source = "orderMainDO.receiverPhone")
-    @Mapping(target = "position", source = "orderMainDO.receiverAddress")
-    @Mapping(target = "date", source = "orderMainDO.orderTime")
-    @Mapping(target = "status", source = "whetherShip")
-    @Mapping(target = "amount", source = "itemQuantity")
-    @Mapping(target = "category", source = "productNameChinese")
-    @Mapping(target = "specification", source = "itemSpecification")
-    public OrderVO toOrderVO(OrderItemDO orderItemDO);
+    @Named("mergeItem")
+    static String mergeItem(List<OrderItemDO> orderItemDOList) {
+        StringBuilder items = new StringBuilder();
+        for (OrderItemDO orderItemDO : orderItemDOList) {
+            items.append(orderItemDO.getProductNameChinese())
+                    .append("/")
+                    .append(orderItemDO.getItemSpecification())
+                    .append("/")
+                    .append(orderItemDO.getItemQuantity())
+                    .append("个;\n");
+        }
+        return items.toString();
+    }
 
-    public List<OrderVO> toOrderVOList(List<OrderItemDO> orderItemDOList);
+    @Mapping(target = "items", source = "orderItemDOList", qualifiedByName = "mergeItem")
+    public OrderVO toOrderVO(OrderMainDO orderMainDO);
+
+    public List<OrderVO> toOrderVOList(List<OrderMainDO> orderMainDOList);
+
+    public OrderMainDO toOrderMainDO(ReceiverVO receiverVO);
 }

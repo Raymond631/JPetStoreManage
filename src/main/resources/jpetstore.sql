@@ -11,7 +11,7 @@
  Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 30/03/2023 18:12:01
+ Date: 30/03/2023 23:50:04
 */
 
 SET NAMES utf8mb4;
@@ -49,7 +49,7 @@ CREATE TABLE `order_item`  (
   `item_id` int NOT NULL COMMENT '宠物id',
   `product_id` int NOT NULL COMMENT '大类id',
   `item_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片url',
-  `product_name_Chinese` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '中文名',
+  `product_name_Chinese` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
   `item_specification` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '规格',
   `item_price` decimal(10, 2) NOT NULL COMMENT '单价',
   `item_quantity` int NOT NULL COMMENT '购买数量',
@@ -63,6 +63,8 @@ CREATE TABLE `order_item`  (
 -- ----------------------------
 -- Records of order_item
 -- ----------------------------
+INSERT INTO `order_item` VALUES (1, 1, 1, 1, '/jpetstore', '哈士奇', '雄性', 5.10, 2);
+INSERT INTO `order_item` VALUES (2, 1, 1, 1, '/jpetstore', '金毛', '雄性', 5.10, 2);
 
 -- ----------------------------
 -- Table structure for order_main
@@ -71,14 +73,14 @@ DROP TABLE IF EXISTS `order_main`;
 CREATE TABLE `order_main`  (
   `order_id` int NOT NULL AUTO_INCREMENT COMMENT '订单编号',
   `user_id` int NOT NULL COMMENT '用户id',
-  `order_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '下单时间',
+  `order_time` datetime NOT NULL COMMENT '下单时间',
   `order_cost` decimal(10, 2) NOT NULL COMMENT '总金额',
   `order_payment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '微信支付、支付宝',
   `receiver_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收件人真实姓名',
   `receiver_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收件人电话',
   `receiver_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收件人地址',
   `supplier_id` int NOT NULL COMMENT '商家id',
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '未发货、已发货、已接收',
+  `status` int NOT NULL COMMENT '1:未发货、2:已发货、3:已接收、4:买家已删除、5:卖家已删除、6:都已删除',
   PRIMARY KEY (`order_id`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
   CONSTRAINT `order_main_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -87,6 +89,7 @@ CREATE TABLE `order_main`  (
 -- ----------------------------
 -- Records of order_main
 -- ----------------------------
+INSERT INTO `order_main` VALUES (1, 15, '2023-03-30 22:25:04', 10.68, '微信支付', '李四', '195', '铁道', 1, 5);
 
 -- ----------------------------
 -- Table structure for pet_item
@@ -450,6 +453,7 @@ CREATE TABLE `user_auth`  (
 -- Records of user_auth
 -- ----------------------------
 INSERT INTO `user_auth` VALUES (1, 1, '123', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `user_auth` VALUES (17, 1, 'hhh', 'c4ca4238a0b923820dcc509a6f75849b');
 INSERT INTO `user_auth` VALUES (15, 2, '2088242523246181', NULL);
 INSERT INTO `user_auth` VALUES (16, 3, '7686303953', NULL);
 
@@ -464,7 +468,7 @@ CREATE TABLE `user_info`  (
   `receiver_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `receiver_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_info
@@ -472,5 +476,6 @@ CREATE TABLE `user_info`  (
 INSERT INTO `user_info` VALUES (1, 'pr', '张三', '15852358372', '中南大学');
 INSERT INTO `user_info` VALUES (15, '大白小黑', '', '', '');
 INSERT INTO `user_info` VALUES (16, '7686303953', '', '', '');
+INSERT INTO `user_info` VALUES (17, '大白加小黑', '', '', '');
 
 SET FOREIGN_KEY_CHECKS = 1;

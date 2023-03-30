@@ -2,7 +2,7 @@ package com.example.jpetstore_manage.Service.impl;
 
 import com.example.jpetstore_manage.Common.CommonResponse;
 import com.example.jpetstore_manage.Mapper.OrderMapper;
-import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
+import com.example.jpetstore_manage.POJO.DataObject.OrderMainDO;
 import com.example.jpetstore_manage.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,17 +23,42 @@ public class OrderServiceImpl implements OrderService {
      * 查询订单列表
      */
     @Override
-    public List<OrderItemDO> getOrderItemList(int supplier) {
-        return orderMapper.selectOrderItemBySupplier(supplier);
+    public List<OrderMainDO> getOrderList(int supplier) {
+        return orderMapper.selectOrderBySupplier(supplier);
+    }
+
+    /**
+     * 发货
+     */
+    @Override
+    public CommonResponse ship(int orderId, int supplier) {
+        int num = orderMapper.updateOrderStatus(orderId, 2, supplier);
+        if (num == 1) {
+            return CommonResponse.success("发货成功");
+        } else {
+            return CommonResponse.error("发货失败");
+        }
     }
 
     @Override
-    public CommonResponse ship(int orderItemId, int supplier) {
-        int status = orderMapper.updateOrderStatus(orderItemId, "已发货", supplier);
-        if (status == 1) {
+    public CommonResponse changeReceiver(OrderMainDO orderMainDO, int orderId, int supplier) {
+        orderMainDO.setOrderId(orderId);
+        orderMainDO.setSupplierId(supplier);
+        int num = orderMapper.updateOrderReceiver(orderMainDO);
+        if (num == 1) {
             return CommonResponse.success("修改成功");
         } else {
             return CommonResponse.error("修改失败");
+        }
+    }
+
+    @Override
+    public CommonResponse deleteOrder(int orderId, int supplier) {
+        int num = orderMapper.updateOrderStatus(orderId, 5, supplier);
+        if (num == 1) {
+            return CommonResponse.success("删除成功");
+        } else {
+            return CommonResponse.error("删除失败");
         }
     }
 
