@@ -1,10 +1,10 @@
 package com.example.jpetstore_manage.Service.impl;
 
 
+import com.example.jpetstore_manage.Common.CommonResponse;
 import com.example.jpetstore_manage.Mapper.UserMapper;
 import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
 import com.example.jpetstore_manage.POJO.DataObject.UserInfoDO;
-import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import com.example.jpetstore_manage.Service.UserService;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;

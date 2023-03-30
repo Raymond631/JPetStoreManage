@@ -1,7 +1,7 @@
 package com.example.jpetstore_manage.Service;
 
+import com.example.jpetstore_manage.Common.CommonResponse;
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
-import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 
 import java.util.List;
 

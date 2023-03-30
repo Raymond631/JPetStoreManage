@@ -1,8 +1,8 @@
 package com.example.jpetstore_manage.Service;
 
+import com.example.jpetstore_manage.Common.CommonResponse;
 import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
 import com.example.jpetstore_manage.POJO.DataObject.UserInfoDO;
-import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import me.zhyd.oauth.request.AuthRequest;
 
 import java.io.IOException;

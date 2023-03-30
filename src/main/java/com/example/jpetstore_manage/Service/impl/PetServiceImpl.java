@@ -1,9 +1,9 @@
 package com.example.jpetstore_manage.Service.impl;
 
+import com.example.jpetstore_manage.Common.CommonResponse;
 import com.example.jpetstore_manage.Mapper.PetMapper;
 import com.example.jpetstore_manage.POJO.DataObject.PetItemDO;
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
-import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import com.example.jpetstore_manage.Service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,6 +2,7 @@ package com.example.jpetstore_manage.Common;
 
 import com.example.jpetstore_manage.POJO.DataObject.UserInfoDO;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -48,16 +49,16 @@ public class JwtUtil {
      */
     public static Map<String, Object> resolveToken(String token) {
         if (token == null) {
-            throw new RuntimeException("令牌为空");
+            throw new JwtException("令牌为空");
         }
         try {
             return Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET))).build()
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            throw new RuntimeException("令牌已过期");
+            throw new JwtException("令牌已过期");
         } catch (Exception e) {
-            throw new RuntimeException("令牌解析异常");
+            throw new JwtException("令牌解析异常");
         }
     }
 
