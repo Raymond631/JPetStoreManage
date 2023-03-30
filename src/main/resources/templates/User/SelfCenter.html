@@ -1,77 +1,370 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
-    <title>个人中心</title>
-    <link href="/jpetstore/css/Login.css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>个人中心 </title>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/selfCenter.css">
+
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="/jpetstore/js/SelfCenter.js" type="text/javascript"></script>
 </head>
-<body>
-<div class="wrap">
-    <!-- 头部logo -->
-    <header class="header-wrap">
-        <div class="header-logo">
-            <a href="/jpetstore/">
-                <img src="/jpetstore/image/login/placeholder.png">
-            </a>
-        </div>
-    </header>
-    <!-- 主要内容 -->
-    <section class="main-wrap">
-        <div class="layout_panel">
-            <div class="mian-content">
-                <div class="nav_tabs" id="nav-tabs">
-                    <a class="navtab-link now" href="javascript: void(0);">修改密码</a>
+
+<body class="nav-md">
+<div class="container body" style="height: 800px;">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
                 </div>
-                <div class="loginbox">
-                    <div class="btn login_area">
-                        <form action="/jpetstore/User/changePassword" autocomplete="off" id="registerForm"
-                              method="post">
-                            <input class="item_account" id="password_old" name="password_old" placeholder="原密码"
-                                   required="required" type="password">
-                            <div class="err_tip" id="name_repeat"></div>
-                            <input class="item_account" id="password_new" name="password_new" placeholder="新密码"
-                                   required="required" type="password">
-                            <input class="item_account" id="password_repeat" name="password_repeat"
-                                   placeholder="确认密码"
-                                   required="required" type="password">
-                            <input class="code_input" id="code" name="vCode" placeholder="验证码" required="required"
-                                   type="text">
-                            <a class="code_link">
-                                <img alt="验证码" class="code_img" id="verificationCode"
-                                     onclick="newVerification()" src="/jpetstore/verificationCode">
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="index.html">Dashboard</a></li>
+                                    <li><a href="index2.html">Dashboard2</a></li>
+                                    <li><a href="index3.html">Dashboard3</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="tables.html">Tables</a></li>
+                                    <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="menu_section">
+                        <h3>Live On</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="e_commerce.html">E-commerce</a></li>
+                                    <li><a href="projects.html">Projects</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Settings">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="Login.html.html">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <nav class="nav navbar-nav">
+                    <ul class=" navbar-right">
+                        <li class="nav-item dropdown open" style="padding-left: 15px;">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                                <img src="images/img.jpg" alt="">John Doe
                             </a>
-                            <div class="err_tip" id="errer">
-                                <span class="error-con">${requestScope.messageBox}</span>
+                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:;"> Profile</a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span class="badge bg-red pull-right">50%</span>
+                                    <span>Settings</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">Help</a>
+                                <a class="dropdown-item" href="Login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                             </div>
-                            <input class="btnadpt item_account" type="submit" value="保存">
-                        </form>
-                        <div class="other_panel myclear">
-                            <div class="links_area">
-                                <a href="/jpetstore/">返回首页</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>个人中心</h3>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 ">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>我的信息</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                    <div>
+                                        <div></div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">昵称</label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <label id="name" class="form-control ">receiver_name</label>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">账号</label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <label id="user_id" class="form-control ">receiver_id or user_id</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 ">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>修改信息</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <div id="demo-form3" data-parsley-validate class="form-horizontal form-label-left">
+                                    <div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">昵称</label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input class="form-control" type="text" id="nameChange" name="nameChange" required="required"></input>
+                                            </div>
+                                            <button onclick="changeName()" class="ensure">修改</button>
+                                        </div>
+                                        <div class="ln_solid"></div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">密码</label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="passwordChange" name="passwordChange" required="required" class="form-control">
+                                            </div>
+                                            <button onclick="changePwd()" class="ensure">修改</button>
+                                            <div class="ln_solid"></div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="item form-group">
+                                        <div class="col-md-6 col-sm-6 offset-md-3">
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
         </div>
-    </section>
-    <!-- 底部声明 -->
-    <footer class="footer-wrap">
-        <div class="myclear">
-            <ul class="lang-select-list">
-                <li><a class="current" href="javascript: void(0);">简体</a>|</li>
-                <li><a href="javascript: void(0);">繁体</a>|</li>
-                <li><a href="javascript: void(0);">English</a>|</li>
-                <li><a href="javascript: void(0);">常见问题</a>|</li>
-                <li><a href="javascript: void(0);">隐私政策</a></li>
-            </ul>
-        </div>
-        <div class="footer-intro">
-            中南大学版权所有
-        </div>
-    </footer>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
 </div>
+
+
+<!--显示D盘根目录下创建的test文件中有test.png(D:\test\test.png)-->
+<!--用于测试路径映射是否正确(即对jpetstore/uploadedImage/的资源访问均映射到在本地磁盘d盘根目录中的test文件夹)-->
+<div class="image">
+    <img src="./uploadedImage/test.png">
+</div>
+
+
 </body>
 </html>
+<script src="js/ProductManage.js"></script>
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>个人中心</title>-->
+<!--    <link href="/jpetstore/css/selfCenter.css" rel="stylesheet"/>-->
+<!--    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>-->
+<!--    <script src="/jpetstore/js/SelfCenter.js" type="text/javascript"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="wrap">-->
+<!--    &lt;!&ndash; 头部logo &ndash;&gt;-->
+<!--    <header class="header-wrap">-->
+<!--        <div class="header-logo">-->
+<!--            <a href="/jpetstore/">-->
+<!--                <img src="/jpetstore/image/login/placeholder.png">-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </header>-->
+<!--    &lt;!&ndash; 主要内容 &ndash;&gt;-->
+<!--    <section class="main-wrap">-->
+<!--        <div class="layout_panel">-->
+<!--            <div class="mian-content">-->
+<!--                &lt;!&ndash;                        中间是新写的&ndash;&gt;-->
+<!--                <div class="nav_tabs" id="nav2-tabs">&lt;!&ndash;这个id是临时随便改的&ndash;&gt;-->
+<!--                    <a class="navtab-link now" href="javascript: void(0);">修改昵称</a>-->
+<!--                </div>-->
+<!--                <div class="loginbox">-->
+<!--                    <div class="btn login_area">-->
+<!--                <form action="/jpetstore/User/changeName" autocomplete="off" id="register_Form"-->
+<!--                      method="post">&lt;!&ndash;这个id是临时随便改的&ndash;&gt;-->
+<!--                    <input class="item_account" id="name_old" name="name_old" placeholder="原昵称"-->
+<!--                           required="required" type="text">-->
+<!--                    <input class="item_account" id="name_new" name="name_new" placeholder="新昵称"-->
+<!--                           required="required" type="text">-->
+<!--                    <input class="btnadpt item_account" type="submit" value="确定">-->
+<!--                </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                    &lt;!&ndash;                        中间是新写的&ndash;&gt;-->
+<!--                <div class="nav_tabs" id="nav-tabs">-->
+<!--                    <a class="navtab-link now" href="javascript: void(0);">修改密码</a>-->
+<!--                </div>-->
+<!--                <div class="loginbox">-->
+<!--                    <div class="btn login_area">-->
+<!--                        <form action="/jpetstore/User/changePassword" autocomplete="off" id="registerForm"-->
+<!--                              method="post">-->
+<!--                            <input class="item_account" id="password_old" name="password_old" placeholder="原密码"-->
+<!--                                   required="required" type="password">-->
+<!--                            <div class="err_tip" id="name_repeat"></div>-->
+<!--                            <input class="item_account" id="password_new" name="password_new" placeholder="新密码"-->
+<!--                                   required="required" type="password">-->
+<!--                            <input class="item_account" id="password_repeat" name="password_repeat"-->
+<!--                                   placeholder="确认密码"-->
+<!--                                   required="required" type="password">-->
+<!--                            <input class="code_input" id="code" name="vCode" placeholder="验证码" required="required"-->
+<!--                                   type="text">-->
+<!--                            <a class="code_link">-->
+<!--                                <img alt="验证码" class="code_img" id="verificationCode"-->
+<!--                                     onclick="newVerification()" src="/jpetstore/verificationCode">-->
+<!--                            </a>-->
+<!--                            <div class="err_tip" id="errer">-->
+<!--                                <span class="error-con">${requestScope.messageBox}</span>-->
+<!--                            </div>-->
+<!--                            <input class="btnadpt item_account" type="submit" value="保存">-->
+<!--                        </form>-->
+<!--                        <div class="other_panel myclear">-->
+<!--                            <div class="links_area">-->
+<!--                                <a href="/jpetstore/">返回首页</a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--    &lt;!&ndash; 底部声明 &ndash;&gt;-->
+<!--    <footer class="footer-wrap">-->
+<!--        <div class="myclear">-->
+<!--            <ul class="lang-select-list">-->
+<!--                <li><a class="current" href="javascript: void(0);">简体</a>|</li>-->
+<!--                <li><a href="javascript: void(0);">繁体</a>|</li>-->
+<!--                <li><a href="javascript: void(0);">English</a>|</li>-->
+<!--                <li><a href="javascript: void(0);">常见问题</a>|</li>-->
+<!--                <li><a href="javascript: void(0);">隐私政策</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <div class="footer-intro">-->
+<!--            中南大学版权所有-->
+<!--        </div>-->
+<!--    </footer>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
