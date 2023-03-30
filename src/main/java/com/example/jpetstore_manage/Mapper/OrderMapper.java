@@ -1,6 +1,5 @@
 package com.example.jpetstore_manage.Mapper;
 
-import com.example.jpetstore_manage.POJO.DataObject.OrderItemDO;
 import com.example.jpetstore_manage.POJO.DataObject.OrderMainDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,19 +13,14 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
     /**
-     * order_item x order_main联表查询(一对一，用association标签)
-     * 根据supplier查order_item,再由order_item中的order_id对order_main表进行联表查询
+     * 根据supplier_id查询订单及其子项
      */
-    public List<OrderItemDO> selectOrderItemBySupplier(int supplier);
+    public List<OrderMainDO> selectOrderBySupplier(int supplier);
 
     /**
-     * 此方法供 上面的selectOrderItemBySupplier方法 进行联表查询使用
-     * 根据orderId查询该订单的receiver_name、receiver_phone、receiver_address、order_time四个信息
+     * 根据order_id和supplier_id选择行，修改该行的status字段
      */
-    public OrderMainDO selectOrderMainByOrderId(Long orderId);
+    public int updateOrderStatus(int orderId, int status, int supplier);
 
-    /**
-     * 根据order_item_id和选择行，修改该行的whether_ship字段
-     */
-    public int updateOrderStatus(int orderItemId, String whetherShip, int supplier);
+    public int updateOrderReceiver(OrderMainDO orderMainDO);
 }

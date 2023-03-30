@@ -2,55 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.jpetstore_manage.Mapper.OrderMapper">
 
-
-<!--    根据order_item_id和选择行，修改该行的whether_ship字段-->
     <update id="updateOrderStatus">
-        update order_item set whether_ship = #{whetherShip} where order_item_id = #{orderItemId} and supplier=#{supplier}
+        update order_main set status = #{status} where order_id = #{orderId} and supplier_id=#{supplier}
+    </update>
+    <update id="updateOrderReceiver">
+        update order_main set receiver_name = #{receiverName},receiver_phone=#{receiverPhone},receiver_address=#{receiverAddress} where order_id = #{orderId} and supplier_id=#{supplierId}
     </update>
 
-
-<!--    此方法供selectOrderItemBySupplier方法 进行联表查询使用-->
-<!--    根据orderId查询该订单的receiver_name、receiver_phone、receiver_address、order_time四个信息-->
-    <select id="selectOrderMainByOrderId" resultType="com.example.jpetstore_manage.POJO.DataObject.OrderMainDO">
-        select receiver_name,receiver_phone,receiver_address,order_time from order_main where order_id = #{orderId}
+    <select id="selectOrderBySupplier" resultMap="orderList">
+        select * from order_main o,order_item i where o.order_id=i.order_id and o.supplier_id=#{supplier} and o.status not in (5,6)
     </select>
-
-
-
-<!--    order_item x order_main联表查询(一对一，用association标签)-->
-<!--    根据supplier查order_item,再由order_item中的order_id对order_main表进行联表查询-->
-<!--    public List<OrderItemDO> selectOrderItemBySupplier(String supplier);-->
-
-<!--    public List<OrderItemDO> selectOrderItemBySupplier(String supplier);-->
-    <select id="selectOrderItemBySupplier" resultMap="oi">
-        select * from order_item oi join order_main om on oi.order_id = om.order_id where supplier=#{supplier}
-    </select>
-    <resultMap id="oi" type="com.example.jpetstore_manage.POJO.DataObject.OrderItemDO">
-
-        <id column="supplier" property="supplier"/>
-        <result column="order_item_id" property="orderItemId"/>
-        <result column="order_id" property="orderId"/>
-        <result column="item_id" property="itemId"/>
-        <result column="product_id" property="productId"/>
-        <result column="item_image" property="itemImage"/>
-        <result column="product_name_Chinese" property="productNameChinese"/>
-        <result column="item_specification" property="itemSpecification"/>
-        <result column="item_price" property="itemPrice"/>
-        <result column="item_quantity" property="itemQuantity"/>
-        <result column="whether_ship" property="whetherShip"/>
-        <association  javaType="com.example.jpetstore_manage.POJO.DataObject.OrderMainDO" property="orderMainDO">
-            <id  column="order_id" property="orderId"/>
-            <result column="user_id" property="userId" />
-            <result column="order_time" property="orderTime" />
-            <result column="order_cost" property="orderCost" />
-            <result column="order_payment" property="orderPayment" />
-            <result column="receiver_name" property="receiverName" />
-            <result column="receiver_phone" property="receiverPhone" />
-            <result column="receiver_address" property="receiverAddress" />
-        </association>
+    <resultMap id="orderList" type="com.example.jpetstore_manage.POJO.DataObject.OrderMainDO">
+        <id  column="order_id" property="orderId"/>
+        <result column="order_time" property="orderTime" />
+        <result column="order_cost" property="orderCost" />
+        <result column="receiver_name" property="receiverName" />
+        <result column="receiver_phone" property="receiverPhone" />
+        <result column="receiver_address" property="receiverAddress" />
+        <result column="status" property="status" />
+        <collection property="orderItemDOList" column="order_id" ofType="com.example.jpetstore_manage.POJO.DataObject.OrderItemDO">
+            <id column="order_item_id" property="orderItemId" />
+            <result column="product_name_Chinese" property="productNameChinese" />
+            <result column="item_specification" property="itemSpecification" />
+            <result column="item_quantity" property="itemQuantity" />
+        </collection>
     </resultMap>
-
-
-
-
 </mapper>

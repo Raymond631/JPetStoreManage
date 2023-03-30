@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author Raymond Li
@@ -15,12 +16,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderMainDO {
-    private Long orderId;
-    private String userId;
+    private int orderId;
+    private int userId;
     private String orderTime;
     private BigDecimal orderCost;
     private String orderPayment;
     private String receiverName;
     private String receiverPhone;
     private String receiverAddress;
+    private int supplierId;
+    private int status;
+
+    private List<OrderItemDO> orderItemDOList;
 }
