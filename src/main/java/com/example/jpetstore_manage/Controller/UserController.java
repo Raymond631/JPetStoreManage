@@ -182,7 +182,7 @@ public class UserController {
     /**
      * 跳往授权登录页面
      */
-    @RequestMapping("/render/{source}")
+    @GetMapping("/render/{source}")
     public void renderAuth(@PathVariable("source") String source, HttpServletResponse response) throws IOException {
         AuthRequest authRequest = userService.getAuthRequest(source);
         response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
