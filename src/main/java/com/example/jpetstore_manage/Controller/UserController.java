@@ -95,7 +95,7 @@ public class UserController {
      * 退出登录由前端直接删除token即可
      */
     @PostMapping("/token")
-    public CommonResponse login(@RequestBody UserVO userVO) {
+    public CommonResponse login(@RequestBody UserVO userVO, HttpServletResponse resp) {
         if (checkCode(userVO.getId(), userVO.getCode())) {
             // 对象转换
             UserAuthDO userAuthDO = userMapping.toUserAuthDO(userVO);
@@ -108,7 +108,10 @@ public class UserController {
             if (userInfo != null) {
                 // 生成令牌
                 String token = JwtUtil.generateToken(JwtUtil.userInfoDOtoMap(userInfo));
-                return CommonResponse.success(token);
+                Cookie cookie = new Cookie("token", token);
+                resp.addCookie(cookie);
+
+                return CommonResponse.success("登录成功");
             } else {
                 throw new RuntimeException("用户名或密码错误");
             }
@@ -121,7 +124,7 @@ public class UserController {
      * 注册
      */
     @PostMapping("/user")
-    public CommonResponse register(@RequestBody UserVO userVO) {
+    public CommonResponse register(@RequestBody UserVO userVO, HttpServletResponse resp) {
         if (checkCode(userVO.getId(), userVO.getCode())) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
                 // 对象转换
@@ -135,7 +138,9 @@ public class UserController {
                 if (userInfo != null) {
                     // 生成令牌
                     String token = JwtUtil.generateToken(JwtUtil.userInfoDOtoMap(userInfo));
-                    return CommonResponse.success(token);
+                    Cookie cookie = new Cookie("token", token);
+                    resp.addCookie(cookie);
+                    return CommonResponse.success("注册成功");
                 } else {
                     throw new RuntimeException("该账号已存在,请换一个id注册");
                 }
@@ -151,7 +156,7 @@ public class UserController {
      * 改密码
      */
     @PutMapping("/user/auth")
-    public CommonResponse changePassword(@RequestBody UserVO userVO, @RequestHeader("token") String token) {
+    public CommonResponse changePassword(@RequestBody UserVO userVO, @CookieValue("token") String token) {
         int userId = (int) JwtUtil.resolveToken(token).get("userId");
         if (checkCode(userVO.getId(), userVO.getCode())) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
@@ -173,7 +178,7 @@ public class UserController {
      * 改昵称
      */
     @PutMapping("/user/info")
-    public CommonResponse changeNickname(@RequestParam("nickname") String nickname, @RequestHeader("token") String token) {
+    public CommonResponse changeNickname(@RequestParam("nickname") String nickname, @CookieValue("token") String token) {
         int userId = (int) JwtUtil.resolveToken(token).get("userId");
         return userService.changeNickname(nickname, userId);
     }
