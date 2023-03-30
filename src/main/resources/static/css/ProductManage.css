@@ -1,12 +1,139 @@
 .change{
-    position: absolute;
-    right:80px;
-    border:white;
-    background-color: transparent;
     font-size: 15px;
     color:rgb(90,115,142);
 }
 
 .change:hover{
     color: rgb(0,86,179);
+}
+
+/* 搜索框search */
+.searchTitle{
+    /* position:absolute; */
+    margin-left: 1320px;
+    font-size: 18px;
+}
+
+.searchContent{
+    width:200px;
+    height:38px;
+    margin-left: 10px;
+    border:rgb(206,212,218) 1px solid;
+    padding: 10px;
+}
+
+.changePage{
+    font-size: 15px;
+    padding-top: 20px;
+    margin-left: 20px;
+
+}
+
+.nowPage{
+    float: left;
+    padding-top: 18px;
+    margin-left:10px;
+    margin-right:10px;
+    font-size: 17px;
+}
+
+/* 表格 */
+.productTable{
+    margin-top: 20px;
+    width:100%;
+    color: black;
+    text-align: left;
+    border:1px solid rgb(222,226,230);
+    font-size: 14px;
+    border-collapse: separate;
+}
+
+th,td{
+    border: 1px solid rgb(222,226,230);
+    border-left: 1px solid white;
+
+    text-align: center;
+    padding: 0.75rem;
+    border-spacing: 1px;
+
+}
+
+table tbody tr:nth-child(odd){
+    background-color: #eee;
+}
+
+.ensure{
+    /* position: absolute; */
+    border: 1px solid white;
+    border-radius: 5px;
+    width:80px;
+    height:40px;
+    left: 200px;
+    z-index: 1;
+    font-size: 15px;
+    color:white;
+    font-weight: bold ;
+    background-color: rgb(38,185,154);
+}
+
+.ensure:hover{
+    background-color: white;
+    color:black;
+    border:1px solid rgb(38,185,154);
+    transition:all 1s ease;
+}
+
+.reset{
+    /* position: absolute; */
+    border: 1px solid white;
+    border-radius: 5px;
+    width:80px;
+    height:40px;
+    margin-left: 450px;
+    z-index: 1;
+    font-size: 15px;
+    color:white;
+    font-weight: bold ;
+    background-color: rgb(220,53,69);
+}
+
+.reset:hover{
+    background-color: white;
+    color:black;
+    border:1px solid rgb(220,53,69);
+    transition:all 1s ease;
+}
+
+.picture{
+    float:left;
+    width:260px;
+    height: 350px;
+    /* border: 1px solid black; */
+    margin-left: 50px;
+}
+
+.imagePosition{
+    margin-top: 10px;
+    width:240px;
+    height: 280px;
+    margin-left: 10px;
+    border: 1px solid rgb(206,212,218);
+}
+
+.addImage{
+    margin-top:10px;
+    margin-left: 50px;
+    height:40px;
+    width:150px;
+    background-color: white;
+    /* border: 1px solid black; */
+}
+
+.changeImage{
+    margin-top:10px;
+    margin-left: 50px;
+    height:40px;
+    width:150px;
+    background-color: white;
+    /* border: 1px solid black; */
 }

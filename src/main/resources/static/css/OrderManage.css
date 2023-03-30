@@ -1,6 +1,40 @@
+/* 表格 */
+.orderTable{
+    margin-top: 20px;
+    width:100%;
+    color: black;
+    text-align: left;
+    border:1px solid rgb(222,226,230);
+    font-size: 14px;
+    border-collapse: separate;
+}
+
+th,td{
+    border: 1px solid rgb(222,226,230);
+    border-left: 1px solid white;
+
+    text-align: center;
+    padding: 0.75rem;
+    border-spacing: 1px;
+
+}
+
+table td:nth-child(1){
+    width:60px;
+}
+
+table td:nth-child(9){
+    text-align:left;
+
+}
+
+table tbody tr:nth-child(odd){
+    background-color: #eee;
+}
+
 /*确认订单*/
 .orderEnsure{
-    position: absolute;
+    /* position: absolute; */
     border: 1px solid white;
     border-radius: 5px;
     width:80px;
@@ -22,7 +56,7 @@
 
 /*取消订单*/
 .orderCancel{
-    position: absolute;
+    /* position: absolute; */
     border: 1px solid white;
     border-radius: 5px;
     width:80px;
@@ -49,7 +83,7 @@
     height:20px;
     border-radius: 10px;
     background-color: rgb(38,185,154);
-    right: 100px;
+    right: 280px;
 }
 
 /*未下单*/
@@ -59,7 +93,7 @@
     height:20px;
     border-radius: 10px;
     background-color: rgb(220,53,69);
-    right: 100px;
+    right: 280px;
 }
 
 /*已接收*/
@@ -69,5 +103,205 @@
     height:20px;
     border-radius: 10px;
     background-color: rgb(186,184,184);
-    right: 100px;
+    right: 280px;
+}
+
+.change{
+    color: rgb(90,115,142);
+}
+
+.change:hover{
+    color:rgb(0,86,179);
+}
+
+.choose{
+    position: absolute;
+    left:95px;
+    /* top: 10px; */
+    margin-top: -10px;
+    width:20px;
+    height:20px
+}
+
+
+/* 翻页 */
+.changePage{
+    font-size: 15px;
+    padding-top: 20px;
+    margin-left: 20px;
+
+}
+
+.nowPage{
+    float: left;
+    padding-top: 18px;
+    margin-left:10px;
+    margin-right:10px;
+    font-size: 17px;
+}
+
+.changePosition{
+    width: 900px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0px; /*偏移*/
+    left: 300px;
+    background-color: rgb(42,63,84);
+    border:1px solid black;
+    border-radius: 5px;
+    color: white;
+}
+
+.title{
+    text-align: center;
+    float: left;
+    font-size: 18px;
+    margin-left: 20px;
+    line-height: 40px;
+    margin-right: 50px;
+}
+
+.close-but:hover{
+    opacity: 0.5;
+}
+
+.content{
+    height: 35px;
+    margin-top: 2px;
+    margin-right: 70px;
+    width: 500px;
+    background-color: transparent;
+    border: white;
+    border-bottom:2px solid white ;
+    float: left;
+    color: white;
+    font-size: 15px;
+}
+
+.confirm{
+    margin-top: 10px;
+    color: white;
+    font-size: 18px;
+}
+
+.afterConfirm{
+    position: absolute;
+    top:0px;
+    right: 10px;
+}
+
+.hidden{
+    display: none
+}
+
+.utveckling {
+    animation: Utveckling 6.5s infinite;
+    stroke-width: 15;
+    fill: none;
+    stroke: #afb3c4;
+}
+
+.pil {
+    animation: Pil 6.5s infinite;
+}
+
+.bock {
+    animation: Bock 6.5s infinite;
+    fill: none;
+    stroke-dasharray: 31 82;
+    stroke-dasharray: none;
+    stroke-dashoffset: -47px;
+    stroke-linecap: butt;
+    stroke-linejoin: miter;
+    stroke-miterlimit: 4;
+    stroke-width: 4;
+    stroke: rgb(42,63,84);
+}
+
+@keyframes Pil {
+    0% {
+        transform: translateY(0);
+    }
+    10% {
+        transform: translateY(-65px);
+    }
+    62.49% {
+        transform: translateY(-65px);
+    }
+    62.5% {
+        transform: translateY(65px);
+    }
+    68.5% {
+        transform: translateY(0px);
+    }
+}
+@keyframes Utveckling {
+    0% {
+        stroke-width: 10;
+    }
+    3.1% {
+        stroke-width: 10;
+        stroke-dasharray: 1 179;
+    }
+    3.6% {
+        stroke-width: 25;
+        stroke-dasharray: 1 179;
+    }
+    28% {
+        stroke-width: 25;
+        stroke-dasharray: 174 179;
+    }
+    34% {
+        stroke-width: 10;
+        stroke-dasharray: 179 179;
+    }
+    100% {
+        stroke-width: 10;
+        stroke-dasharray: 179 179;
+    }
+}
+@keyframes Bock {
+    0% {
+        stroke-dasharray: 1 82;
+        stroke-dashoffset: 0px;
+    }
+    29% {
+        stroke-dasharray: 1 82;
+        stroke-dashoffset: 0px;
+    }
+    35% {
+        stroke-dasharray: 31 82;
+        stroke-dashoffset: -50px;
+    }
+    62% {
+        stroke-dasharray: 31 82;
+        stroke-dashoffset: -50px;
+        transform: translateY(0px);
+    }
+    68% {
+        stroke-dasharray: 31 82;
+        stroke-dashoffset: -50px;
+        transform: translateY(-65px);
+    }
+    100% {
+        stroke-dasharray: 31 82;
+        stroke-dashoffset: -50px;
+        transform: translateY(-65px);
+    }
+}
+
+/* 搜索框search */
+.searchTitle{
+    position:absolute;
+    right:10px;
+    top:25px;
+    font-size: 18px;
+}
+
+.searchContent{
+    width:200px;
+    height:38px;
+    margin-left: 10px;
+    border:rgb(206,212,218) 1px solid;
+    padding: 10px;
 }

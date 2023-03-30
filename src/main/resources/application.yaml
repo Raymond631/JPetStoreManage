@@ -20,8 +20,6 @@ server:
     context-path: /jpetstore
   port: 8888
 
-
-
 logging:
   file:
     path: log
@@ -31,3 +29,8 @@ mybatis:
   type-aliases-package: com/example/jpetstore_manage/pojo/DataObject
   configuration:
     map-underscore-to-camel-case: true
+
+#上传文件的相对位置
+#(暂时无用)
+image:
+  uploadedImagePath: ./uploadedImage

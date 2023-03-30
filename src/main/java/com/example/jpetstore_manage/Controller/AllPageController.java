@@ -15,7 +15,7 @@ public class AllPageController {
      */
     @GetMapping("/")
     public String showIndex() {
-        return "redirect:/Login.html";
+        return "redirect:/ProductManage.html";
     }
 
     /**
