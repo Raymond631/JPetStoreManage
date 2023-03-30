@@ -1,6 +1,6 @@
 package com.example.jpetstore_manage.Common;
 
-import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
+import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
     public CommonResponse exceptionHandler(Exception e) {
         log.error(e.getMessage());
         return CommonResponse.error(e.getMessage());
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public CommonResponse jwtExceptionHandler(Exception e) {
+        log.error(e.getMessage());
+        return CommonResponse.unauthorized(e.getMessage());
     }
 
     @ExceptionHandler(BindException.class)
