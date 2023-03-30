@@ -26,25 +26,25 @@
                 </div>
                 <div class="loginbox">
                     <div class="btn login_area">
-                        <form action="/jpetstore/User/register" autocomplete="off" id="registerForm" method="post">
-                            <input class="item_account" id="username" name="userId" placeholder="用户名" required="required"
+                        <div action="/jpetstore/User/register" autocomplete="off" id="registerForm" method="post">
+                            <input class="item_account" id="username" name="userId" placeholder="账号"
                                    type="text">
                             <div class="err_tip" id="name_repeat"></div>
-                            <input class="item_account" id="pwd" name="password" placeholder="密码" required="required"
+                            <input class="item_account" id="pwd" name="password" placeholder="密码"
                                    type="password">
                             <input class="item_account" id="password_repeat" name="password_repeat" placeholder="确认密码"
-                                   required="required" type="password">
-                            <input class="code_input" id="code" name="vCode" placeholder="验证码" required="required"
+                                    type="password">
+                            <input class="code_input" id="code" name="vCode" placeholder="验证码"
                                    type="text">
                             <a class="code_link">
                                 <img alt="验证码" class="code_img" id="verificationCode"
                                      onclick="newVerification()" src="/jpetstore/verificationCode">
                             </a>
                             <div class="err_tip" id="errer">
-                                <span class="error-con">${requestScope.messageBox}</span>
+                                <span class="error-con" id="errorMessage"></span>
                             </div>
-                            <input class="btnadpt item_account" type="submit" value="注册">
-                        </form>
+                            <button class="btnadpt item_account" onclick="register()">注册</button>
+                        </div>
                         <div class="other_panel myclear">
                             <div class="links_area">
                                 <a href="/jpetstore/User/Login.html">已有账号？立即登录</a>

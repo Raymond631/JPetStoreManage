@@ -1,19 +1,14 @@
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/jpetstore
-    username: Raymond
-    password: CSU@82092102
+    username: root
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      database: 0
 
 server:
   servlet:
@@ -29,8 +24,3 @@ mybatis:
   type-aliases-package: com/example/jpetstore_manage/pojo/DataObject
   configuration:
     map-underscore-to-camel-case: true
-
-#上传文件的相对位置
-#(暂时无用)
-image:
-  uploadedImagePath: ./uploadedImage

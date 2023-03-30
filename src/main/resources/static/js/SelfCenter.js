@@ -18,3 +18,11 @@ $(function () {
         })
     })
 });
+
+function changeName(){
+
+}
+
+function changePwd(){
+
+}
