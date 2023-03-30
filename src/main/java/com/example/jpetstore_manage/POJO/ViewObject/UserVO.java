@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * @author Raymond Li
  * @create 2023-03-21 0:15
- * @description 登录用1、3、5个属性，注册用1、3、4、5，修改密码用2、3、4、5
+ * @description 登录用第1、3、5、6个属性，注册用1、3、4、5、6，修改密码用2、3、4、5、6
  */
 @Data
 @AllArgsConstructor
@@ -17,5 +17,6 @@ public class UserVO {
     private String oldPassword;
     private String password;
     private String rePassword;
-    private String verificationCode;
+    private String id;// 验证码（键）
+    private String code;// 验证码（值）
 }

@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserMainDO {
-    private String userId;
+public class UserAuthDO {
+    private int userId;
+    private int loginType;
+    private String account;
     private String password;
 }

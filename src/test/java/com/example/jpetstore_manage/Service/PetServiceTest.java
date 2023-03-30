@@ -1,7 +1,6 @@
 package com.example.jpetstore_manage.Service;
 
 import com.example.jpetstore_manage.Mapper.PetMapper;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,24 +27,4 @@ class PetServiceTest {
      */
     @MockBean
     private PetMapper petMapper;
-
-    @Test
-    void getPetList() {
-    }
-
-    @Test
-    void getPetDetail() {
-    }
-
-    @Test
-    void remove() {
-    }
-
-    @Test
-    void newPet() {
-    }
-
-    @Test
-    void updatePet() {
-    }
 }

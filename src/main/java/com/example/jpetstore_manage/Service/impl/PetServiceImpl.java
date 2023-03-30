@@ -22,7 +22,7 @@ public class PetServiceImpl implements PetService {
 
 
     @Override
-    public List<PetProductDO> getPetList(String supplier) {
+    public List<PetProductDO> getPetList(int supplier) {
         List<PetProductDO> petProductDOList = petMapper.selectProductBySupplier(supplier);
         return petProductDOList;
     }

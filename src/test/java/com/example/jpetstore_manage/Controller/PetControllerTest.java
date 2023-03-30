@@ -1,7 +1,6 @@
 package com.example.jpetstore_manage.Controller;
 
 import com.example.jpetstore_manage.Service.PetService;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,24 +20,4 @@ class PetControllerTest {
      */
     @MockBean
     private PetService petService;
-
-    @Test
-    void getPetList() {
-    }
-
-    @Test
-    void getPetDetail() {
-    }
-
-    @Test
-    void remove() {
-    }
-
-    @Test
-    void newPet() {
-    }
-
-    @Test
-    void updatePet() {
-    }
 }

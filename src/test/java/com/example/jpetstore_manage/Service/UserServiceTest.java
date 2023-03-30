@@ -1,7 +1,6 @@
 package com.example.jpetstore_manage.Service;
 
 import com.example.jpetstore_manage.Mapper.UserMapper;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,16 +27,4 @@ class UserServiceTest {
      */
     @MockBean
     private UserMapper userMapper;
-
-    @Test
-    void register() {
-    }
-
-    @Test
-    void login() {
-    }
-
-    @Test
-    void changePassword() {
-    }
 }

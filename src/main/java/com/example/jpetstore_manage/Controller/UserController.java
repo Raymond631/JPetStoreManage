@@ -1,15 +1,31 @@
 package com.example.jpetstore_manage.Controller;
 
-import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
+import com.example.jpetstore_manage.Common.JwtUtil;
+import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
+import com.example.jpetstore_manage.POJO.DataObject.UserInfoDO;
 import com.example.jpetstore_manage.POJO.MapStruct.UserMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import com.example.jpetstore_manage.POJO.ViewObject.UserVO;
 import com.example.jpetstore_manage.Service.UserService;
-import jakarta.servlet.http.HttpSession;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author Raymond Li
@@ -37,96 +53,168 @@ public class UserController {
     @Autowired
     private UserMapping userMapping;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    /**
+     * 生成验证码
+     * 前端从cookie中获取键
+     */
+    @GetMapping("/verificationCode")
+    public void createCode(HttpServletResponse response) throws IOException {
+        // 生成键
+        String id = UUID.randomUUID().toString();
+        Cookie cookie = new Cookie("CaptchaCode", id);
+        response.addCookie(cookie);
+
+        // 设置大小，以及位数
+        SpecCaptcha specCaptcha = new SpecCaptcha(129, 48, 4);
+        // 设置字体
+        specCaptcha.setFont(new Font("Times New Roman", Font.ITALIC, 34));
+        // 设置类型
+        specCaptcha.setCharType(Captcha.TYPE_NUM_AND_UPPER);
+        // 输出流
+        specCaptcha.out(response.getOutputStream());
+
+        // 存入redis
+        String code = specCaptcha.text().toLowerCase();
+        stringRedisTemplate.opsForValue().set(id, code);
+    }
+
     /**
      * 检查验证码
-     * 对象转换,调用service
-     * 将转换后的UserMainDO配置到session
-     *
-     * @return 返回一个Message对象
      */
-    @PostMapping("/session")
-    public CommonResponse login(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
-        if (userVO.getVerificationCode().equalsIgnoreCase(checkCode)) {
+    public boolean checkCode(String id, String code) {
+        String s = stringRedisTemplate.opsForValue().get(id);
+        stringRedisTemplate.delete(id);
+        return code.equalsIgnoreCase(s);
+    }
+
+    /**
+     * 登录接口
+     * 退出登录由前端直接删除token即可
+     */
+    @PostMapping("/token")
+    public CommonResponse login(@RequestBody UserVO userVO) {
+        if (checkCode(userVO.getId(), userVO.getCode())) {
             // 对象转换
-            UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
+            UserAuthDO userAuthDO = userMapping.toUserAuthDO(userVO);
             // MD5加密
-            userMainDO.setPassword(DigestUtils.md5DigestAsHex(userMainDO.getPassword().getBytes()));
+            userAuthDO.setPassword(DigestUtils.md5DigestAsHex(userAuthDO.getPassword().getBytes()));
+            // 配置登录方式（密码登录）
+            userAuthDO.setLoginType(1);
             // 登录
-            CommonResponse commonResponse = userService.login(userMainDO);
-            // 如果注册成功，配置到session
-            if (commonResponse.getCode() == 1) {
-                session.setAttribute("loginUser", userMainDO);
+            UserInfoDO userInfo = userService.login(userAuthDO);
+            if (userInfo != null) {
+                // 生成令牌
+                String token = JwtUtil.generateToken(JwtUtil.userInfoDOtoMap(userInfo));
+                return CommonResponse.success(token);
+            } else {
+                throw new RuntimeException("用户名或密码错误");
             }
-            return commonResponse;
         } else {
-            return new CommonResponse(0, "验证码错误");
+            throw new RuntimeException("验证码错误");
         }
     }
 
     /**
-     * 将“loginUser”从session中移除
-     *
-     * @return 返回一个Message对象
+     * 注册
      */
-    @DeleteMapping("/session")
-    public CommonResponse logout(HttpSession session) {
-        session.setAttribute("loginUser", null);
-        return new CommonResponse(1, "退出登录成功");
-    }
-
-    /**
-     * 检查验证码
-     * 判断两次输入的密码是否相同
-     * 对象转换,调用service
-     * 将转换后的UserMainDO配置到session
-     *
-     * @return 返回一个Message对象
-     */
-    @PostMapping("/users")
-    public CommonResponse register(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, HttpSession session) {
-        if (userVO.getVerificationCode().equalsIgnoreCase(checkCode)) {
+    @PostMapping("/user")
+    public CommonResponse register(@RequestBody UserVO userVO) {
+        if (checkCode(userVO.getId(), userVO.getCode())) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
                 // 对象转换
-                UserMainDO userMainDO = userMapping.toUserMainDO(userVO);
+                UserAuthDO userAuthDO = userMapping.toUserAuthDO(userVO);
                 // MD5加密
-                userMainDO.setPassword(DigestUtils.md5DigestAsHex(userMainDO.getPassword().getBytes()));
+                userAuthDO.setPassword(DigestUtils.md5DigestAsHex(userAuthDO.getPassword().getBytes()));
+                // 配置登录方式（密码登录）
+                userAuthDO.setLoginType(1);
                 // 注册
-                CommonResponse commonResponse = userService.register(userMainDO);
-                // 如果注册成功，同时也把loginUser配置到session中（不用再登陆了）
-                if (commonResponse.getCode() == 1) {
-                    session.setAttribute("loginUser", userMainDO);
+                UserInfoDO userInfo = userService.register(userAuthDO);
+                if (userInfo != null) {
+                    // 生成令牌
+                    String token = JwtUtil.generateToken(JwtUtil.userInfoDOtoMap(userInfo));
+                    return CommonResponse.success(token);
+                } else {
+                    throw new RuntimeException("该账号已存在,请换一个id注册");
                 }
-                return commonResponse;
             } else {
-                return new CommonResponse(0, "两次输入的密码不一致");
+                throw new RuntimeException("两次输入的密码不一致");
             }
         } else {
-            return new CommonResponse(0, "验证码错误");
+            throw new RuntimeException("验证码错误");
         }
     }
 
     /**
-     * 检查验证码
-     * 判断两次输入的密码是否相同
-     * 对象转换,调用service
-     *
-     * @return 返回一个Message对象
+     * 改密码
      */
-    @PutMapping("/users")
-    public CommonResponse changePassword(@RequestBody UserVO userVO, @SessionAttribute("checkCode") String checkCode, @SessionAttribute("loginUser") UserMainDO loginUser) {
-        if (userVO.getVerificationCode().equalsIgnoreCase(checkCode)) {
+    @PutMapping("/user/auth")
+    public CommonResponse changePassword(@RequestBody UserVO userVO, @RequestHeader("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        if (checkCode(userVO.getId(), userVO.getCode())) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
                 // 旧密码
-                UserMainDO oldUserMainDO = new UserMainDO(loginUser.getUserId(), DigestUtils.md5DigestAsHex(userVO.getOldPassword().getBytes()));
+                UserAuthDO oldUserAuthDO = new UserAuthDO(userId, 1, "", DigestUtils.md5DigestAsHex(userVO.getOldPassword().getBytes()));
                 // 新密码
-                UserMainDO newUserMainDO = new UserMainDO(loginUser.getUserId(), DigestUtils.md5DigestAsHex(userVO.getPassword().getBytes()));
+                UserAuthDO newUserAuthDO = new UserAuthDO(userId, 1, "", DigestUtils.md5DigestAsHex(userVO.getPassword().getBytes()));
                 // 修改密码,返回提示信息
-                return userService.changePassword(oldUserMainDO, newUserMainDO);
+                return userService.changePassword(oldUserAuthDO, newUserAuthDO);
             } else {
-                return new CommonResponse(0, "两次输入的密码不一致");
+                throw new RuntimeException("两次输入的密码不一致");
             }
         } else {
-            return new CommonResponse(0, "验证码错误");
+            throw new RuntimeException("验证码错误");
         }
     }
+
+    /**
+     * 改昵称
+     */
+    @PutMapping("/user/info")
+    public CommonResponse changeNickname(@RequestParam("nickname") String nickname, @RequestHeader("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        return userService.changeNickname(nickname, userId);
+    }
+
+
+    /**
+     * 跳往授权登录页面
+     */
+    @RequestMapping("/render/{source}")
+    public void renderAuth(@PathVariable("source") String source, HttpServletResponse response) throws IOException {
+        AuthRequest authRequest = userService.getAuthRequest(source);
+        response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
+    }
+
+    /**
+     * 回调，取得授权码（callback）
+     * 用授权码去获取令牌，再用令牌去获取用户信息（response）
+     */
+    @RequestMapping("/callback/{source}")
+    public Object login(@PathVariable("source") String source, AuthCallback callback) throws IOException {
+        AuthRequest authRequest = userService.getAuthRequest(source);
+        AuthResponse<AuthUser> response = authRequest.login(callback);
+        if (response.ok()) {
+            UserAuthDO userAuthDO = new UserAuthDO();
+            userAuthDO.setAccount(response.getData().getUuid());
+            switch (source) {
+                case "alipay":
+                    userAuthDO.setLoginType(2);
+                    break;
+                case "weibo":
+                    userAuthDO.setLoginType(3);
+                    break;
+                default:
+                    throw new AuthException("未获取到有效的Auth配置");
+            }
+            UserInfoDO userInfo = userService.auth(userAuthDO);
+            String token = JwtUtil.generateToken(JwtUtil.userInfoDOtoMap(userInfo));
+            return CommonResponse.success(token);
+        } else {
+            throw new RuntimeException(response.getMsg());
+        }
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.example.jpetstore_manage.Controller;
 
 import com.example.jpetstore_manage.Service.UserService;
-import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,20 +20,4 @@ class UserControllerTest {
      */
     @MockBean
     private UserService userService;
-
-    @Test
-    void register() {
-    }
-
-    @Test
-    void login() {
-    }
-
-    @Test
-    void signOut() {
-    }
-
-    @Test
-    void changePassword() {
-    }
 }

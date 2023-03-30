@@ -1,6 +1,6 @@
 package com.example.jpetstore_manage.POJO.MapStruct;
 
-import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
+import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
 import com.example.jpetstore_manage.POJO.ViewObject.UserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +12,10 @@ import org.mapstruct.Mapping;
  */
 @Mapper(componentModel = "spring")
 public interface UserMapping {
-    @Mapping(target = "userId", source = "username")
+    /**
+     * 将UserVO转为UserAuthDO
+     */
+    @Mapping(target = "account", source = "username")
     @Mapping(target = "password", source = "password")
-    public UserMainDO toUserMainDO(UserVO userVO);
+    public UserAuthDO toUserAuthDO(UserVO userVO);
 }

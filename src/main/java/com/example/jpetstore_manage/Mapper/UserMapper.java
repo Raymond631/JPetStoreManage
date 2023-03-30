@@ -1,6 +1,7 @@
 package com.example.jpetstore_manage.Mapper;
 
-import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
+import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
+import com.example.jpetstore_manage.POJO.DataObject.UserInfoDO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -11,22 +12,35 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
     /**
-     * 根据userId查找
+     * 根据account查找
      */
-    public UserMainDO selectUserById(UserMainDO userMainDO);
+    public UserAuthDO selectUserByAccount(UserAuthDO userAuthDO);
+
+    /**
+     * 根据account和password查找
+     */
+    public UserAuthDO selectUserByAccountAndPwd(UserAuthDO userAuthDO);
 
     /**
      * 根据userId和password查找
      */
-    public UserMainDO selectUserByIdAndPwd(UserMainDO userMainDO);
+    public UserAuthDO selectUserByIdAndPwd(UserAuthDO userAuthDO);
 
     /**
      * 插入新用户
      */
-    public int insertUser(UserMainDO userMainDO);
+    public int insertUser(UserAuthDO userAuthDO);
 
     /**
      * 修改密码
      */
-    public int updatePassword(UserMainDO userMainDO);
+    public int updatePassword(UserAuthDO userAuthDO);
+
+    public UserInfoDO selectUserInfoById(int userId);
+
+    public void insertUserInfo(UserInfoDO userInfoDO);
+
+    public void insertUserAuth(UserAuthDO userAuthDO);
+
+    public int updateNickname(String nickname, int userId);
 }

@@ -16,5 +16,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommonResponse {
     private int code;
-    private Object msg;
+    private Object data;
+
+    public static CommonResponse success(Object data) {
+        return new CommonResponse(200, data);
+    }
+
+    public static CommonResponse error(Object data) {
+        return new CommonResponse(400, data);
+    }
 }

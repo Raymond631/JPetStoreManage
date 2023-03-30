@@ -23,25 +23,18 @@ public class OrderServiceImpl implements OrderService {
      * 查询订单列表
      */
     @Override
-    public List<OrderItemDO> getOrderItemList(String supplier) {
+    public List<OrderItemDO> getOrderItemList(int supplier) {
         return orderMapper.selectOrderItemBySupplier(supplier);
     }
 
     @Override
-    public CommonResponse ship(int orderItemId, String supplier) {
-        CommonResponse commonResponse = new CommonResponse();
+    public CommonResponse ship(int orderItemId, int supplier) {
         int status = orderMapper.updateOrderStatus(orderItemId, "已发货", supplier);
         if (status == 1) {
-            commonResponse.setCode(1);
-            commonResponse.setMsg("修改成功");
-            return commonResponse;
+            return CommonResponse.success("修改成功");
         } else {
-            commonResponse.setCode(0);
-            commonResponse.setMsg("修改失败");
-            return commonResponse;
+            return CommonResponse.error("修改失败");
         }
-
     }
-
 
 }

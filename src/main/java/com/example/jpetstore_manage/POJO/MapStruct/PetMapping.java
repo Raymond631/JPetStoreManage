@@ -1,7 +1,7 @@
 package com.example.jpetstore_manage.POJO.MapStruct;
 
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
-import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
+import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
 import com.example.jpetstore_manage.POJO.ViewObject.PetDetailVO;
 import com.example.jpetstore_manage.POJO.ViewObject.PetListVO;
 import org.mapstruct.Mapper;
@@ -22,6 +22,6 @@ public interface PetMapping {
 
     public PetDetailVO toPetDetailVO(PetProductDO petProductDO);
 
-    @Mapping(target = "productSupplier", source = "userMainDO.userId")
-    public PetProductDO toPetProductDO(PetDetailVO petDetailVO, UserMainDO userMainDO);
+    @Mapping(target = "productSupplier", source = "userAuthDO.userId")
+    public PetProductDO toPetProductDO(PetDetailVO petDetailVO, UserAuthDO userAuthDO);
 }

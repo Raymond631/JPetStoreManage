@@ -14,7 +14,7 @@ public interface PetService {
     /**
      * 根据supplier查询宠物列表（简略信息）
      */
-    public List<PetProductDO> getPetList(String supplier);
+    public List<PetProductDO> getPetList(int supplier);
 
     /**
      * 根据productId查询某个product的详细信息

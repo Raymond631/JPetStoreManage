@@ -16,7 +16,7 @@ public interface PetMapper {
     /**
      * 只需要查询productId、category、productNameChinese、productNameEnglish、productImage这五个字段
      */
-    public List<PetProductDO> selectProductBySupplier(String supplier);
+    public List<PetProductDO> selectProductBySupplier(int supplier);
 
     /**
      * pet_product x pet_item联表查询(一对多，用collection标签)

@@ -17,7 +17,7 @@ public interface OrderMapper {
      * order_item x order_main联表查询(一对一，用association标签)
      * 根据supplier查order_item,再由order_item中的order_id对order_main表进行联表查询
      */
-    public List<OrderItemDO> selectOrderItemBySupplier(String supplier);
+    public List<OrderItemDO> selectOrderItemBySupplier(int supplier);
 
     /**
      * 此方法供 上面的selectOrderItemBySupplier方法 进行联表查询使用
@@ -28,5 +28,5 @@ public interface OrderMapper {
     /**
      * 根据order_item_id和选择行，修改该行的whether_ship字段
      */
-    public  int updateOrderStatus(int orderItemId, String whetherShip,String supplier);
+    public int updateOrderStatus(int orderItemId, String whetherShip, int supplier);
 }

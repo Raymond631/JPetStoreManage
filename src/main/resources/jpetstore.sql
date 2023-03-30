@@ -11,7 +11,7 @@
  Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 29/03/2023 12:24:43
+ Date: 30/03/2023 18:12:01
 */
 
 SET NAMES utf8mb4;
@@ -437,36 +437,40 @@ INSERT INTO `pet_product` VALUES (60, '爬虫', '加拉帕戈斯象龟', 'Galapa
 -- ----------------------------
 DROP TABLE IF EXISTS `user_auth`;
 CREATE TABLE `user_auth`  (
-  `user_id` int NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `identity_type` int NOT NULL COMMENT '登录方式：1、密码登录；2、支付宝登录；3、微博登录',
-  `identifier` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户唯一标识，相当于账号',
-  `credential` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户登录凭证，相当于密码',
-  PRIMARY KEY (`user_id`, `identity_type`, `identifier`) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `user_id` int NOT NULL COMMENT '外键',
+  `login_type` int NOT NULL COMMENT '登录方式：1、密码登录；2、支付宝登录；3、微博登录',
+  `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户唯一标识，相当于账号',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户登录凭证，相当于密码',
+  PRIMARY KEY (`login_type`, `account`) USING BTREE,
+  INDEX `user_id`(`user_id` ASC) USING BTREE,
+  CONSTRAINT `user_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_auth
 -- ----------------------------
-INSERT INTO `user_auth` VALUES (1, 1, '123', '123');
+INSERT INTO `user_auth` VALUES (1, 1, '123', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `user_auth` VALUES (15, 2, '2088242523246181', NULL);
+INSERT INTO `user_auth` VALUES (16, 3, '7686303953', NULL);
 
 -- ----------------------------
 -- Table structure for user_info
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info`  (
-  `user_id` int NOT NULL,
+  `user_id` int NOT NULL AUTO_INCREMENT,
   `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '昵称，不是账号',
   `receiver_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `receiver_phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `receiver_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`user_id`) USING BTREE,
-  CONSTRAINT `user_info_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_auth` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`user_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
 INSERT INTO `user_info` VALUES (1, 'pr', '张三', '15852358372', '中南大学');
+INSERT INTO `user_info` VALUES (15, '大白小黑', '', '', '');
+INSERT INTO `user_info` VALUES (16, '7686303953', '', '', '');
 
 SET FOREIGN_KEY_CHECKS = 1;

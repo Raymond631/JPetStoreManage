@@ -1,16 +1,21 @@
 package com.example.jpetstore_manage.Controller;
 
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
-import com.example.jpetstore_manage.POJO.DataObject.UserMainDO;
+import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
 import com.example.jpetstore_manage.POJO.MapStruct.PetMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.CommonResponse;
 import com.example.jpetstore_manage.POJO.ViewObject.PetDetailVO;
 import com.example.jpetstore_manage.POJO.ViewObject.PetListVO;
 import com.example.jpetstore_manage.Service.PetService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -42,8 +47,8 @@ public class PetController {
      * 调用service层，查找供应商为“当前用户”的宠物列表(userMainDO代表当前用户)
      */
     @GetMapping("/pets/list")
-    public List<PetListVO> getPetList(@SessionAttribute("loginUser") UserMainDO userMainDO) {
-        List<PetProductDO> petProductDOS = petService.getPetList(userMainDO.getUserId());
+    public List<PetListVO> getPetList(@SessionAttribute("loginUser") UserAuthDO userAuthDO) {
+        List<PetProductDO> petProductDOS = petService.getPetList(userAuthDO.getUserId());
         return petMapping.toPetListVOList(petProductDOS);
     }
 
@@ -69,8 +74,8 @@ public class PetController {
      * 调用service新增宠物，供应商为当前用户（userMainDO）
      */
     @PostMapping("/pets")
-    public CommonResponse newPet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
-        return petService.newPet(petMapping.toPetProductDO(petDetailVO, userMainDO));
+    public CommonResponse newPet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserAuthDO userAuthDO) {
+        return petService.newPet(petMapping.toPetProductDO(petDetailVO, userAuthDO));
     }
 
     /**
@@ -78,8 +83,32 @@ public class PetController {
      * 上传图片请调用ImageController中的接口
      */
     @PutMapping("/pets")
-    public CommonResponse updatePet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserMainDO userMainDO) {
-        PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO, userMainDO);
+    public CommonResponse updatePet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserAuthDO userAuthDO) {
+        PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO, userAuthDO);
         return petService.updatePet(petProductDO);
+    }
+
+    /**
+     * 图片上传接口
+     * TODO 开发中，有bug
+     */
+    @PostMapping("/uploadImage")
+    public void uploadImageAjax(HttpServletRequest request) {
+        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+        MultipartFile multipartFile = multiRequest.getFile("file");
+        try {
+            if (!multipartFile.isEmpty()) {
+                // 根路径，在 resources/static/pet
+                String basePath = ResourceUtils.getURL("classpath:").getPath() + "static/image/pet/";
+                // 获取文件的名称
+                String fileName = multipartFile.getOriginalFilename();
+                // 获取文件对象
+                File file = new File(basePath, fileName);
+                // 完成文件的上传
+                multipartFile.transferTo(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

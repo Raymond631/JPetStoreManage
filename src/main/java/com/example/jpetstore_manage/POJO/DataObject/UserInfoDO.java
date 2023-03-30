@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserReceiverDO {
-    private int receiverId;
-    private String userId;
+public class UserInfoDO {
+    private int userId;
+    private String nickname;
     private String receiverName;
     private String receiverPhone;
     private String receiverAddress;

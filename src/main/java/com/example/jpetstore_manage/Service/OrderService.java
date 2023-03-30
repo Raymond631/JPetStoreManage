@@ -14,10 +14,10 @@ public interface OrderService {
     /**
      * 查询订单列表
      */
-    List<OrderItemDO> getOrderItemList(String supplier);
+    List<OrderItemDO> getOrderItemList(int supplier);
 
     /**
      * 发货，修改订单状态为“已发货”
      */
-    CommonResponse ship(int orderItemId, String supplier);
+    CommonResponse ship(int orderItemId, int supplier);
 }
