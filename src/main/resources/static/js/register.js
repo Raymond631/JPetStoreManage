@@ -28,7 +28,6 @@ function register(){
     };
 
     $.ajax(settings).done(function (response) {
-
         if(response.code===200) {
             $('#errorMessage').text('');
             window.location.href="http://localhost:8888/jpetstore/ProductManage.html"
