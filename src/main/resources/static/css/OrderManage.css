@@ -83,7 +83,7 @@ table tbody tr:nth-child(odd){
     height:20px;
     border-radius: 10px;
     background-color: rgb(38,185,154);
-    right: 280px;
+    margin-left: 10px;
 }
 
 /*未下单*/
@@ -93,7 +93,7 @@ table tbody tr:nth-child(odd){
     height:20px;
     border-radius: 10px;
     background-color: rgb(220,53,69);
-    right: 280px;
+    margin-left: 10px;
 }
 
 /*已接收*/
@@ -103,7 +103,7 @@ table tbody tr:nth-child(odd){
     height:20px;
     border-radius: 10px;
     background-color: rgb(186,184,184);
-    right: 280px;
+    margin-left: 10px;
 }
 
 .change{
@@ -115,10 +115,6 @@ table tbody tr:nth-child(odd){
 }
 
 .choose{
-    position: absolute;
-    left:95px;
-    /* top: 10px; */
-    margin-top: -10px;
     width:20px;
     height:20px
 }
@@ -141,43 +137,44 @@ table tbody tr:nth-child(odd){
 }
 
 .changePosition{
-    width: 900px;
+    width: 700px;
+    height: 260px;
     margin: 0 auto;
     position: absolute;
-    top: 0px; /*偏移*/
-    left: 300px;
+    left: 400px;
     background-color: rgb(42,63,84);
     border:1px solid black;
     border-radius: 5px;
     color: white;
 }
 
-.title{
-    text-align: center;
-    float: left;
-    font-size: 18px;
-    margin-left: 20px;
-    line-height: 40px;
-    margin-right: 50px;
+.orderChange{
+    margin-left: 110px;
+    margin-top: 10px;
+    height:50px;
+    width:500px;
+    font-size: 16px;
+    /* background-color: rgb(42,63,84); */
 }
 
 .close-but:hover{
     opacity: 0.5;
 }
 
+.title{
+    width:30px;
+    height: 50px;
+    line-height: 50px;
+}
+
 .content{
-    height: 35px;
-    margin-top: 2px;
-    margin-right: 70px;
-    width: 500px;
+    height: 40px;
+    width: 350px;
     background-color: transparent;
-    border: white;
-    border-bottom:2px solid white ;
-    float: left;
+    border:1px solid white ;
     color: white;
     font-size: 15px;
 }
-
 .confirm{
     margin-top: 10px;
     color: white;
