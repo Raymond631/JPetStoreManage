@@ -1,5 +1,5 @@
 const table = document.getElementById('tableBody');
-const prev = document.getElementById('previous');
+const previous = document.getElementById('previous');
 const next = document.getElementById('next');
 const pages = document.getElementById('pages');
 
@@ -68,22 +68,9 @@ $(function(){
 })
 
 
-// function EnsureOrder() {                   //注册事件  处理程序
-// let order = document.getElementsByName("change");
-// let check = [];
-// for (let i in order) {
-//     if (order[i].checked)
-//         check.push(order[i].id);
-// }
-// console.log(check)
-// $.ajax({
-//     url: "../Pet/getSearchData?keyword=",
-//     type: "get",
-//     dataType: "json",
-//     success: function (obj) {
-//     }
-// })
-// };
+function addNew() {
+    window.location.href="http://localhost:8888/jpetstore/ProductNew.html"
+}
 
 // function CancelOrder() {
 // let order = document.getElementsByName("change");
@@ -130,7 +117,7 @@ const render = function () {
                 <td>${data[i].category}</td>`
         str+=`<td class="change" value="${data[i].id}" onclick="productDetails(this)">新增界面</td></tr>`;
     }
-    table.innerHTML =str;
+       table.innerHTML =str;
 }
 render();
 
@@ -140,20 +127,7 @@ function productDetails(val){
     changeInfoID = value1.eq(0).text();
     sessionStorage.setItem('ProductID', changeInfoID)
     window.location.href="http://localhost:8888/jpetstore/ProductDetails.html"
-    let targetID;
-    data.forEach((e) => {
-        targetID = e.id;
-        if (targetID===changeInfoID) {
-            $("#idNoChange").val(targetID);
-            $("#nameChange").val(e.name);
-            $("#EnameChange").val(e.Ename);
-            $("#characterChange").val(targetID);
-            $("#diseaseChange").val(targetID);
-            $("#introductionChange").val(targetID);
-            $("#priceChange").val(targetID);
-            $("#quantityChange").val(e.name);
-        }
-    });
+
 }
 
 //绑定向前翻页事件
@@ -197,49 +171,4 @@ function search(){
 }
 
 
-//修改数据提交
-function changeSubmit(){
-    let ID= $("#idNoChange").val();
-    let name= $("#nameChange").val();
-    let Ename =  $("#EnameChange").val();
-    let character = $("#characterChange").val();
-    let disease = $("#diseaseChange").val();
-    let introductio = $("#introductionChange").val();
-    let price = $("#priceChange").val();
-    let quantity =$("#quantityChange").val();
-    console.log(ID);
-    console.log(name)
-}
 
-function changeReset(){
-    $("#idNoChange").val('');
-    $("#nameChange").val('');
-    $("#EnameChange").val('');
-    $("#characterChange").val('');
-    $("#diseaseChange").val('');
-    $("#introductionChange").val('');
-    $("#priceChange").val('');
-    $("#quantityChange").val('');
-}
-
-//新数据添加
-function newSubmit(){
-    let name= $("#nameNew").val();
-    let Ename =  $("#EnameNew").val();
-    let character = $("#characterNew").val();
-    let disease = $("#diseaseNew").val();
-    let introduction = $("#introductionNew").val();
-    let price = $("#priceNew").val();
-    let quantity =$("#quantityNew").val();
-    console.log(introduction)
-}
-
-function newReset(){
-    $("#nameNew").val('');
-    $("#EnameNew").val('');
-    $("#characterNew").val('');
-    $("#diseaseNew").val('');
-    $("#introductionNew").val('');
-    $("#priceNew").val('');
-    $("#quantityNew").val('');
-}

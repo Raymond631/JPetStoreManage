@@ -25,12 +25,12 @@
     <!-- Custom Theme Style -->
     <link href="build/css/custom.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/ProductDetails.css">
+    <link rel="stylesheet" href="css/ProductNew.css">
 
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body class="nav-md">
-<div class="container body" style="height: 800px;">
+<div class="container body" style="height: 900px;">
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
@@ -96,14 +96,14 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <div class="">
+            <div class="" id="father">
 
                 <div class="clearfix"></div>
-                <div class="row" id="father">
+                <div class="row">
                     <div class="col-md-12 col-sm-12 ">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>详细数据</h2>
+                                <h2>添加新数据</h2> <img style="height: 25px; width: 25px;position: absolute;right: 100px;top: 15px;" src="/jpetstore/image/pet/add.png" onclick="addNewSmall()">
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
@@ -113,9 +113,9 @@
                             <div class="x_content">
                                 <br />
                                 <div class="picture" style="margin-top:50px">
-                                    <img class="imagePosition" id="changeImagePosition" src="/jpetstore/image/pet/noPicture.png"></img>
-                                    <input class="changeImage" type="file" id="changeImage" name="multipartFile"></input> <br>
-                                    <input type="submit" class="ensure" style="margin-left: 130px;margin-top: 25px;" onclick="changePreviousImage()"></input>
+                                    <img class="imagePosition" id="addImagePosition" src="/jpetstore/image/pet/noPicture.png"></img>
+                                    <input class="changeImage" type="file" id="addImage" name="multipartFile"></input> <br>
+                                    <input type="submit" class="ensure" style="margin-left: 130px;margin-top: 25px;" onclick="addNewImage()"></input>
                                 </div>
                                 <div id="demo-form3" data-parsley-validate class="form-horizontal form-label-left">
 
@@ -194,23 +194,65 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 ">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>数据1</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <div  data-parsley-validate class="form-horizontal form-label-left">
 
-        <!-- /page content -->
+                                    <div>
 
-        <!-- footer content -->
-        <footer>
-            <div class="pull-right">
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">具体类别</label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input class="form-control" name="categorySmall"></input>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">价格</label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input class="form-control" name="priceSmall"></input>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">数量</label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input class="form-control" name="amountSmall"></input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /page content -->
 
+                <!-- footer content -->
+
+                <!-- /footer content -->
             </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-    </div>
-</div>
+            <div class="item form-group">
+                <div class="col-md-6 col-sm-6 offset-md-3">
+                    <button onclick="backToAll()" class="reset">返回</button>
+                    <button onclick="newSubmit()" class="ensure" style="margin-left: 200px">更新</button>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
 </body>
 </html>
 
-<script src="js/ProductDetails.js"></script>
+<script src="js/ProductNew.js"></script>
