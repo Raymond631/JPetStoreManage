@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/ProductDetails.css">
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body class="nav-md">
+<div class="container body" style="height: 800px;">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"> <span></span></a>
+                </div>
+
+                <div class="clearfix"></div>
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome to</span>
+                        <h2>Management</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+                <br/>
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu">
+                            <li style="margin-left: 20px"><a href="/jpetstore/OrderManage.html"><i class="fa fa-calendar-o"></i> Order </a>
+                            </li>
+                            <li style="margin-left: 20px"><a href="/jpetstore/ProductManage.html"><i class="fa fa-cubes"></i> Product </a>
+                            </li>
+                            <li style="margin-left: 20px"><a><i class="fa fa-group"></i>  User</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <!--                <div class="nav toggle">-->
+                <!--                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>-->
+                <!--                </div>-->
+                <nav class="nav navbar-nav">
+                    <ul class=" navbar-right">
+                        <li class="nav-item dropdown open">
+                            <a href="/jpetstore/Login.html" >
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+
+                <div class="clearfix"></div>
+                <div class="row" id="father">
+                    <div class="col-md-12 col-sm-12 ">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>详细数据</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <div class="picture" style="margin-top:50px">
+                                    <img class="imagePosition" id="changeImagePosition" src="/jpetstore/image/pet/noPicture.png"></img>
+                                    <input class="changeImage" type="file" id="changeImage" name=""></input> <br>
+                                    <input type="submit" class="ensure" style="margin-left: 130px;margin-top: 25px;" onclick="changePreviousImage()"></input>
+                                </div>
+                                <div id="demo-form3" data-parsley-validate class="form-horizontal form-label-left">
+
+                                    <div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物ID
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input class="form-control" id="productId" readonly="readonly" placeholder="不可修改"></input>
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物种类<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="category" required="required" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">中文名<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="productNameChinese" required="required" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">英文名<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="productNameEnglish" name="last-name" required="required" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物性格<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="productCharacter" required="required" class="form-control ">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">出生地<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="productAncestry" required="required" class="form-control ">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">常见疾病<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="productDisease" required="required" class="form-control ">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物寿命<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <input type="text" id="productLife" required="required" class="form-control ">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物介绍<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 ">
+                                                <textarea class="form-control" id="productIntroduce" rows="3"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="ln_solid"></div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+    </div>
+</div>
+</body>
+</html>
+
+<script src="js/ProductDetails.js"></script>

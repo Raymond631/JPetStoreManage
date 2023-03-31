@@ -68,7 +68,7 @@ table tbody tr:nth-child(odd){
     border-radius: 5px;
     width:80px;
     height:40px;
-    left: 10px;
+    left: 0px;
     z-index: 1;
     font-size: 15px;
     color:white;
@@ -120,14 +120,6 @@ table tbody tr:nth-child(odd){
     border: 1px solid rgb(206,212,218);
 }
 
-.addImage{
-    margin-top:10px;
-    margin-left: 50px;
-    height:40px;
-    width:150px;
-    background-color: white;
-    /* border: 1px solid black; */
-}
 
 .changeImage{
     margin-top:10px;

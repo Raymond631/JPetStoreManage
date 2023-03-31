@@ -65,4 +65,9 @@ public class AllPageController {
     public String showProductManage() {
         return "/Pet/ProductManage";
     }
+
+    @GetMapping("/ProductDetails.html")
+    public String showProductDetails() {
+        return "/Pet/ProductDetails";
+    }
 }
