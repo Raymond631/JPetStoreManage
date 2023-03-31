@@ -11,7 +11,7 @@
  Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 30/03/2023 23:50:04
+ Date: 31/03/2023 20:52:45
 */
 
 SET NAMES utf8mb4;
@@ -29,10 +29,10 @@ CREATE TABLE `cart`  (
   `quantity` int NOT NULL COMMENT '数量',
   PRIMARY KEY (`cart_item_id`) USING BTREE,
   INDEX `product_id`(`product_id` ASC) USING BTREE,
-  INDEX `item_id`(`item_id` ASC) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE,
-  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `pet_item` (`item_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `cart_ibfk_2`(`item_id` ASC) USING BTREE,
+  INDEX `cart_ibfk_3`(`user_id` ASC) USING BTREE,
+  CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `pet_item` (`item_id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `cart_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -56,8 +56,8 @@ CREATE TABLE `order_item`  (
   PRIMARY KEY (`order_item_id`) USING BTREE,
   INDEX `item_id`(`item_id` ASC) USING BTREE,
   INDEX `product_id`(`product_id` ASC) USING BTREE,
-  INDEX `order_id`(`order_id` ASC) USING BTREE,
-  CONSTRAINT `order_item_ibfk_4` FOREIGN KEY (`order_id`) REFERENCES `order_main` (`order_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `order_item_ibfk_4`(`order_id` ASC) USING BTREE,
+  CONSTRAINT `order_item_ibfk_4` FOREIGN KEY (`order_id`) REFERENCES `order_main` (`order_id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -82,8 +82,8 @@ CREATE TABLE `order_main`  (
   `supplier_id` int NOT NULL COMMENT '商家id',
   `status` int NOT NULL COMMENT '1:未发货、2:已发货、3:已接收、4:买家已删除、5:卖家已删除、6:都已删除',
   PRIMARY KEY (`order_id`) USING BTREE,
-  INDEX `user_id`(`user_id` ASC) USING BTREE,
-  CONSTRAINT `order_main_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `order_main_ibfk_1`(`user_id` ASC) USING BTREE,
+  CONSTRAINT `order_main_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -102,9 +102,9 @@ CREATE TABLE `pet_item`  (
   `item_price` decimal(10, 2) NOT NULL COMMENT 'item单价',
   `item_stock` int NOT NULL COMMENT 'item库存（0为售罄，-1为下架）',
   PRIMARY KEY (`item_id`) USING BTREE,
-  INDEX `product_id`(`product_id` ASC) USING BTREE,
-  CONSTRAINT `pet_item_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `pet_product` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 241 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  INDEX `pet_item_ibfk_1`(`product_id` ASC) USING BTREE,
+  CONSTRAINT `pet_item_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `pet_product` (`product_id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 245 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pet_item
@@ -368,8 +368,8 @@ CREATE TABLE `pet_product`  (
   `supplier_id` int NOT NULL COMMENT '供应商user_id',
   PRIMARY KEY (`product_id`) USING BTREE,
   INDEX `product_supplier`(`supplier_id` ASC) USING BTREE,
-  CONSTRAINT `pet_product_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `user_info` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `pet_product_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `user_info` (`user_id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pet_product
@@ -446,7 +446,7 @@ CREATE TABLE `user_auth`  (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户登录凭证，相当于密码',
   PRIMARY KEY (`login_type`, `account`) USING BTREE,
   INDEX `user_id`(`user_id` ASC) USING BTREE,
-  CONSTRAINT `user_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `user_auth_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

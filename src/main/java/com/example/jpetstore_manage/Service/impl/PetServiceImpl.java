@@ -23,39 +23,46 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public List<PetProductDO> getPetList(int supplier) {
-        List<PetProductDO> petProductDOList = petMapper.selectProductBySupplier(supplier);
-        return petProductDOList;
+        return petMapper.selectProductBySupplier(supplier);
     }
 
     @Override
     public PetProductDO getPetDetail(int productId) {
-        PetProductDO petProductDO = petMapper.selectProductByProductId(productId);
-        return petProductDO;
+        return petMapper.selectProductByProductId(productId);
     }
 
     @Override
-    public CommonResponse remove(int productId) {
-        int number = petMapper.updateStock(productId);
-        return new CommonResponse(number, "You have moved " + number + " row.");
-    }
+    public CommonResponse newPet(PetProductDO petProductDO, int supplier) {
+        petProductDO.setSupplierId(supplier);
+        petMapper.insertPetProduct(petProductDO);
 
-    @Override
-    public CommonResponse newPet(PetProductDO petProductDO) {
         List<PetItemDO> petItemDOList = petProductDO.getPetItemList();
         for (PetItemDO petItemDO : petItemDOList) {
+            petItemDO.setProductId(petProductDO.getProductId());
             petMapper.insertPetItem(petItemDO);
         }
-        int number = petMapper.insertPetProduct(petProductDO);
-        return new CommonResponse(number, "You have inserted " + number + " row.");
+        return CommonResponse.success("添加成功");
     }
 
     @Override
-    public CommonResponse updatePet(PetProductDO petProductDO) {
+    public CommonResponse remove(int productId, int supplier) {
+        int number = petMapper.remove(productId, supplier);
+        if (number == 1) {
+            return CommonResponse.success("删除成功");
+        } else {
+            return CommonResponse.error("删除失败");
+        }
+    }
+
+    @Override
+    public CommonResponse updatePet(PetProductDO petProductDO, int supplier) {
+        petProductDO.setSupplierId(supplier);
+        petMapper.updatePetProduct(petProductDO);
+
         List<PetItemDO> petItemDOList = petProductDO.getPetItemList();
         for (PetItemDO petItemDO : petItemDOList) {
             petMapper.updatePetItem(petItemDO);
         }
-        int number = petMapper.updatePetProduct(petProductDO);
-        return new CommonResponse(number, "You have inserted " + number + " row.");
+        return CommonResponse.success("修改成功");
     }
 }

@@ -31,9 +31,17 @@ public class OrderServiceImpl implements OrderService {
      * 发货
      */
     @Override
-    public CommonResponse ship(int orderId, int supplier) {
-        int num = orderMapper.updateOrderStatus(orderId, 2, supplier);
-        if (num == 1) {
+    public CommonResponse ship(int[] orderIdList, int supplier) {
+        boolean isSuccessful = true;
+
+        for (int i : orderIdList) {
+            int num = orderMapper.updateOrderStatus(i, 2, supplier);
+            if (num != 1) {
+                isSuccessful = false;
+            }
+        }
+
+        if (isSuccessful) {
             return CommonResponse.success("发货成功");
         } else {
             return CommonResponse.error("发货失败");
@@ -53,9 +61,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public CommonResponse deleteOrder(int orderId, int supplier) {
-        int num = orderMapper.updateOrderStatus(orderId, 5, supplier);
-        if (num == 1) {
+    public CommonResponse deleteOrder(int[] orderIdList, int supplier) {
+        boolean isSuccessful = true;
+
+        for (int i : orderIdList) {
+            int num = orderMapper.updateOrderStatus(i, 5, supplier);
+            if (num != 1) {
+                isSuccessful = false;
+            }
+        }
+
+        if (isSuccessful) {
             return CommonResponse.success("删除成功");
         } else {
             return CommonResponse.error("删除失败");

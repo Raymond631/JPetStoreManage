@@ -1,11 +1,10 @@
 package com.example.jpetstore_manage.Controller;
 
 import com.example.jpetstore_manage.Common.CommonResponse;
+import com.example.jpetstore_manage.Common.JwtUtil;
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
-import com.example.jpetstore_manage.POJO.DataObject.UserAuthDO;
 import com.example.jpetstore_manage.POJO.MapStruct.PetMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.PetDetailVO;
-import com.example.jpetstore_manage.POJO.ViewObject.PetListVO;
 import com.example.jpetstore_manage.Service.PetService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -47,36 +45,40 @@ public class PetController {
     /**
      * 调用service层，查找供应商为“当前用户”的宠物列表(userMainDO代表当前用户)
      */
-    @GetMapping("/pets/list")
-    public List<PetListVO> getPetList(@SessionAttribute("loginUser") UserAuthDO userAuthDO) {
-        List<PetProductDO> petProductDOS = petService.getPetList(userAuthDO.getUserId());
-        return petMapping.toPetListVOList(petProductDOS);
+    @GetMapping("/pets")
+    public CommonResponse getPetList(@CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        List<PetProductDO> petProductDOList = petService.getPetList(userId);
+        return CommonResponse.success(petMapping.toPetListVOList(petProductDOList));
     }
 
     /**
      * 调用service层，根据productId查询宠物详情
      */
     @GetMapping("/pets/{productId}")
-    public PetDetailVO getPetDetail(@PathVariable("productId") int productId) {
+    public CommonResponse getPetDetail(@PathVariable("productId") int productId) {
         PetProductDO petProductDO = petService.getPetDetail(productId);
-        return petMapping.toPetDetailVO(petProductDO);
+        return CommonResponse.success(petMapping.toPetDetailVO(petProductDO));
     }
 
-    /**
-     * 下架（为了方便，这里修改库存为零即可）
-     */
-    @DeleteMapping("/pets/{productId}")
-    public CommonResponse remove(@PathVariable("productId") int productId) {
-        return petService.remove(productId);
-    }
 
     /**
      * 对象转换
      * 调用service新增宠物，供应商为当前用户（userMainDO）
      */
     @PostMapping("/pets")
-    public CommonResponse newPet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserAuthDO userAuthDO) {
-        return petService.newPet(petMapping.toPetProductDO(petDetailVO, userAuthDO));
+    public CommonResponse newPet(@RequestBody PetDetailVO petDetailVO, @CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        return petService.newPet(petMapping.toPetProductDO(petDetailVO), userId);
+    }
+
+    /**
+     * 下架
+     */
+    @DeleteMapping("/pets/{productId}")
+    public CommonResponse remove(@PathVariable("productId") int productId, @CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        return petService.remove(productId, userId);
     }
 
     /**
@@ -84,17 +86,21 @@ public class PetController {
      * 上传图片请调用ImageController中的接口
      */
     @PutMapping("/pets")
-    public CommonResponse updatePet(@RequestBody PetDetailVO petDetailVO, @SessionAttribute("loginUser") UserAuthDO userAuthDO) {
-        PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO, userAuthDO);
-        return petService.updatePet(petProductDO);
+    public CommonResponse updatePet(@RequestBody PetDetailVO petDetailVO, @CookieValue("token") String token) {
+        int userId = (int) JwtUtil.resolveToken(token).get("userId");
+        PetProductDO petProductDO = petMapping.toPetProductDO(petDetailVO);
+        return petService.updatePet(petProductDO, userId);
     }
 
     /**
      * 图片上传接口
+     * 保存新图片，删除老图片
+     *
+     * @Return 新图片存储路径
      * TODO 开发中，有bug
      */
     @PostMapping("/uploadImage")
-    public void uploadImageAjax(HttpServletRequest request) {
+    public CommonResponse uploadImageAjax(HttpServletRequest request) {
         MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
         MultipartFile multipartFile = multiRequest.getFile("file");
         try {
@@ -111,13 +117,6 @@ public class PetController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        File test = new File("src/main/resources/static/image/pet");
-        System.out.println("相对路径:" + test.getPath());
-        try {
-            String testPath = test.getCanonicalPath();
-            System.out.println("映射路径:" + testPath);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return null;
     }
 }

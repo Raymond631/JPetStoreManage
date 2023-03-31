@@ -25,7 +25,7 @@ public class PetProductDO {
     private String productLife;
     private String productIntroduce;
     private String productImage;
-    private String productSupplier;
+    private int supplierId;
 
     private List<PetItemDO> petItemList;
 }

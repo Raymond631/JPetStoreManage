@@ -51,10 +51,10 @@ public class OrderController {
     /**
      * 发货
      */
-    @PutMapping("/orders/{orderId}/status")
-    public CommonResponse ship(@PathVariable("orderId") int orderId, @CookieValue("token") String token) {
+    @PutMapping("/orders/status")
+    public CommonResponse ship(@RequestBody int[] orderIdList, @CookieValue("token") String token) {
         int userId = (int) JwtUtil.resolveToken(token).get("userId");
-        return orderService.ship(orderId, userId);
+        return orderService.ship(orderIdList, userId);
     }
 
     /**
@@ -66,9 +66,9 @@ public class OrderController {
         return orderService.changeReceiver(orderMapping.toOrderMainDO(receiverVO), orderId, userId);
     }
 
-    @DeleteMapping("/orders/{orderId}")
-    public CommonResponse deleteOrder(@PathVariable("orderId") int orderId, @CookieValue("token") String token) {
+    @DeleteMapping("/orders")
+    public CommonResponse deleteOrder(@RequestBody int[] orderIdList, @CookieValue("token") String token) {
         int userId = (int) JwtUtil.resolveToken(token).get("userId");
-        return orderService.deleteOrder(orderId, userId);
+        return orderService.deleteOrder(orderIdList, userId);
     }
 }
