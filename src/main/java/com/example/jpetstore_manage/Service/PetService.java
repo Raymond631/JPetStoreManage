@@ -38,4 +38,6 @@ public interface PetService {
      * 遍历PetProduct中的petItemList：根据itemId更新pet_item表中相应的信息
      */
     public CommonResponse updatePet(PetProductDO petProductDO, int supplier);
+
+    void updateImage(int productId, String newFileName);
 }
