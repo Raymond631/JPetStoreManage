@@ -38,4 +38,6 @@ public interface UserService {
     CommonResponse changeNickname(String nickname, int userId);
 
     UserInfoDO auth(UserAuthDO userAuthDO);
+
+    String getAccount(int userId);
 }

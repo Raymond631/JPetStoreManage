@@ -64,8 +64,7 @@
             product_ancestry = #{productAncestry},
             product_disease = #{productDisease},
             product_life = #{productLife},
-            product_introduce = #{productIntroduce},
-            product_image = #{productImage}
+            product_introduce = #{productIntroduce}
         </set>
         where product_id = #{productId} and supplier_id = #{supplierId}
     </update>
