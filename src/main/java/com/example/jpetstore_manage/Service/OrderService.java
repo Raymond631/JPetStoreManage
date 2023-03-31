@@ -19,12 +19,12 @@ public interface OrderService {
     /**
      * 发货，修改订单状态为“已发货”
      */
-    CommonResponse ship(int orderItemId, int supplier);
+    CommonResponse ship(int[] orderIdList, int supplier);
 
     /**
      * 修改收件人信息
      */
     CommonResponse changeReceiver(OrderMainDO orderMainDO, int orderId, int supplier);
 
-    CommonResponse deleteOrder(int orderId, int supplier);
+    CommonResponse deleteOrder(int[] orderIdList, int supplier);
 }

@@ -3,27 +3,18 @@
 <mapper namespace="com.example.jpetstore_manage.Mapper.PetMapper">
 
     <select id="selectProductBySupplier" resultMap="selectProductBySupplier">
-        select * from pet_product where product_supplier = #{supplier};
+        select * from pet_product where supplier_id = #{supplier}
     </select>
     <resultMap id="selectProductBySupplier" type="com.example.jpetstore_manage.POJO.DataObject.PetProductDO">
         <id property="productId" column="product_id" />
         <result column="category" property="category" />
         <result column="product_name_Chinese" property="productNameChinese" />
         <result column="product_name_English" property="productNameEnglish" />
-        <result column="product_character" property="productCharacter" />
-        <result column="product_ancestry" property="productAncestry" />
-        <result column="product_disease" property="productDisease" />
-        <result column="product_life" property="productLife" />
-        <result column="product_introduce" property="productIntroduce" />
         <result column="product_image" property="productImage" />
-        <result column="product_supplier" property="productSupplier" />
-        <collection property="petItemList" column="product_id" select="selectItemByProductId" />
-        <!--此处暂定select为本目录，保留会用到从com一路.下来的可能-->
     </resultMap>
 
-
     <select id="selectProductByProductId" resultMap="selectProductByProductId">
-        select * from pet_product where product_id = #{productId};
+        select * from pet_product p,pet_item i where p.product_id = i.product_id and p.product_id = #{productId}
     </select>
     <resultMap id="selectProductByProductId" type="com.example.jpetstore_manage.POJO.DataObject.PetProductDO">
         <id property="productId" column="product_id" />
@@ -36,52 +27,36 @@
         <result column="product_life" property="productLife" />
         <result column="product_introduce" property="productIntroduce" />
         <result column="product_image" property="productImage" />
-        <result column="product_supplier" property="productSupplier" />
-        <collection property="petItemList" column="product_id" select="selectItemByProductId" />
+        <collection property="petItemList" column="product_id" ofType="com.example.jpetstore_manage.POJO.DataObject.PetItemDO">
+            <id column="item_id" property="itemId" />
+            <result column="item_specification" property="itemSpecification" />
+            <result column="item_price" property="itemPrice" />
+            <result column="item_stock" property="itemStock" />
+        </collection>
     </resultMap>
-
-
-    <select id="selectItemByProductId" resultMap="selectItemByProductId">
-        select * from pet_item where product_Id = #{productId};
-    </select>
-    <resultMap id="selectItemByProductId" type="com.example.jpetstore_manage.POJO.DataObject.PetItemDO">
-        <id column="item_id"  property="itemId"/>
-        <result property="productId" column="product_id" />
-        <result property="itemSpecification" column="item_specification" />
-        <result property="itemPrice" column="item_price" />
-        <result property="itemStock" column="item_stock" />
-    </resultMap>
-
-
-    <update id="updateStock" parameterType="Integer" >
-        update pet_item
-        <set>
-            item_stock = 0
-        </set>
-        where product_Id = #{productId};
-    </update>
 
 
     <insert id="insertPetProduct" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetProductDO" >
-        insert into pet_product(product_id, category, product_name_Chinese, product_name_English, product_character,
-                                product_ancestry, product_disease, product_life, product_introduce, product_image,
-                                product_supplier)
-        values (#{productId}, #{category}, #{productNameChinese}, #{productNameEnglish}, #{productCharacter},
-                #{productAncestry}, #{productDisease}, #{productLife}, #{productIntroduce}, #{productImage},
-                #{productSupplier});
+        <selectKey keyProperty="productId" order="AFTER" resultType="java.lang.Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into pet_product (category,product_name_Chinese,product_name_English,product_character,product_ancestry,product_disease,product_life,product_introduce,product_image,supplier_id)
+        values (#{category}, #{productNameChinese}, #{productNameEnglish}, #{productCharacter},#{productAncestry}, #{productDisease}, #{productLife}, #{productIntroduce}, #{productImage},#{supplierId})
     </insert>
-
-
     <insert id="insertPetItem" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetItemDO" >
-        insert into pet_item(item_id, product_id, item_specification, item_price, item_stock)
-        values (#{itemId}, #{productId}, #{itemSpecification}, #{itemPrice}, #{itemStock});
+        insert into pet_item (product_id,item_specification,item_price,item_stock)
+        values (#{productId}, #{itemSpecification}, #{itemPrice}, #{itemStock})
     </insert>
+
+
+    <delete id="remove">
+        delete from pet_product where product_id = #{productId} and supplier_id = #{supplier}
+    </delete>
 
 
     <update id="updatePetProduct" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetProductDO" >
         update pet_product
         <set>
-            product_id = #{productId},
             category = #{category},
             product_name_Chinese = #{productNameChinese},
             product_name_English = #{productNameEnglish},
@@ -90,22 +65,17 @@
             product_disease = #{productDisease},
             product_life = #{productLife},
             product_introduce = #{productIntroduce},
-            product_image = #{productImage},
-            product_supplier = #{productSupplier}
+            product_image = #{productImage}
         </set>
-        where product_id = #{productId};
+        where product_id = #{productId} and supplier_id = #{supplierId}
     </update>
-
-
     <update id="updatePetItem" parameterType="com.example.jpetstore_manage.POJO.DataObject.PetItemDO" >
         update pet_item
         <set>
-            item_id = #{itemId},
-            product_id = #{productId},
             item_specification = #{itemSpecification},
             item_price = #{itemPrice},
-            item_stock = #{itemStock},
+            item_stock = #{itemStock}
         </set>
-        where item_id = #{itemId};
+        where item_id = #{itemId}
     </update>
 </mapper>

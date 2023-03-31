@@ -14,26 +14,16 @@ import java.util.List;
 @Mapper
 public interface PetMapper {
     /**
+     * 查询列表
      * 只需要查询productId、category、productNameChinese、productNameEnglish、productImage这五个字段
      */
     public List<PetProductDO> selectProductBySupplier(int supplier);
 
     /**
-     * pet_product x pet_item联表查询(一对多，用collection标签)
-     * 根据productId查pet_product,再用productId对pet_item表进行联表查询
+     * 查询详情
      */
     public PetProductDO selectProductByProductId(int productId);
 
-    /**
-     * 此方法供 上面的selectProductByProductId方法 进行联表查询使用
-     * 根据productId查询该product所包含的item
-     */
-    public List<PetItemDO> selectItemByProductId(int productId);
-
-    /**
-     * 根据productId修改pet_item表的item_stock字段(productId会匹配多个item，都改为零)
-     */
-    public int updateStock(int productId);
 
     /**
      * 将petProductDO插入pet_product表（主键为自增主键，插入时注意跳过主键字段）
@@ -46,6 +36,9 @@ public interface PetMapper {
      */
     public int insertPetItem(PetItemDO petItemDO);
 
+
+    public int remove(int productId, int supplier);
+
     /**
      * 更新除了product_id、product_supplier外的其他字段
      */
@@ -55,4 +48,5 @@ public interface PetMapper {
      * 更新除了item_id、product_id外的其他字段
      */
     public int updatePetItem(PetItemDO petItemDO);
+
 }
