@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -223,5 +225,19 @@ public class UserController {
         } else {
             throw new RuntimeException(response.getMsg());
         }
+    }
+
+    @GetMapping("/user")
+    public CommonResponse getInfo(@CookieValue("token") String token) {
+        Map<String, Object> userInfo = JwtUtil.resolveToken(token);
+        int userId = (int) userInfo.get("userId");
+        String nickname = (String) userInfo.get("nickname");
+        String account = userService.getAccount(userId);
+
+        Map<String, Object> info = new HashMap<>();
+        info.put("userId", userId);
+        info.put("nickname", nickname);
+        info.put("account", account);
+        return CommonResponse.success(info);
     }
 }

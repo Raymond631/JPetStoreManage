@@ -6,16 +6,18 @@ import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
 import com.example.jpetstore_manage.POJO.MapStruct.PetMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.PetDetailVO;
 import com.example.jpetstore_manage.Service.PetService;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Raymond Li
@@ -99,24 +101,37 @@ public class PetController {
      * @Return 新图片存储路径
      * TODO 开发中，有bug
      */
-    @PostMapping("/uploadImage")
-    public CommonResponse uploadImageAjax(HttpServletRequest request) {
-        MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-        MultipartFile multipartFile = multiRequest.getFile("file");
-        try {
-            if (!multipartFile.isEmpty()) {
-                // 根路径，在 resources/static/pet
-                String basePath = ResourceUtils.getURL("classpath:").getPath() + "static/image/pet/";
-                // 获取文件的名称
-                String fileName = multipartFile.getOriginalFilename();
-                // 获取文件对象
-                File file = new File(basePath, fileName);
-                // 完成文件的上传
-                multipartFile.transferTo(file);
+    @PostMapping("/image/upload")
+    public CommonResponse uploadImageAjax(@RequestParam("productId") int productId, @RequestBody MultipartFile multipartFile) throws IOException {
+        String filePath = "D:/jpetstoreImage/";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        // 文件名称
+        String realFileName = multipartFile.getOriginalFilename();
+        // 文件处理
+        String newFileName = UUID.randomUUID() + "-" + realFileName;
+        String newFilePath = filePath + newFileName;
+        // 新文件的路径
+        multipartFile.transferTo(new File(newFilePath));
+        // 删除老文件，更新数据库路径
+        petService.updateImage(productId, newFileName);
+        return CommonResponse.success("上传成功");
+    }
+
+    @GetMapping("/image/look/{imageName}")
+    public void imageLook(@PathVariable("imageName") String imageName, HttpServletResponse response) {
+        System.out.println("D:/jpetstoreImage/" + imageName);
+        File file = new File("D:/jpetstoreImage/" + imageName);
+        byte[] bytes = new byte[1024];
+        try (OutputStream os = response.getOutputStream(); FileInputStream fis = new FileInputStream(file)) {
+            while ((fis.read(bytes)) != -1) {
+                os.write(bytes);
+                os.flush();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
     }
 }

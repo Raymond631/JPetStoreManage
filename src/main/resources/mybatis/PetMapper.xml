@@ -64,8 +64,7 @@
             product_ancestry = #{productAncestry},
             product_disease = #{productDisease},
             product_life = #{productLife},
-            product_introduce = #{productIntroduce},
-            product_image = #{productImage}
+            product_introduce = #{productIntroduce}
         </set>
         where product_id = #{productId} and supplier_id = #{supplierId}
     </update>
@@ -77,5 +76,13 @@
             item_stock = #{itemStock}
         </set>
         where item_id = #{itemId}
+    </update>
+
+
+    <select id="selectProductImageById" resultType="java.lang.String">
+        select product_image from pet_product where product_id = #{productId}
+    </select>
+    <update id="updateImage">
+        update pet_product set product_image = #{newFileName} where product_id = #{productId}
     </update>
 </mapper>

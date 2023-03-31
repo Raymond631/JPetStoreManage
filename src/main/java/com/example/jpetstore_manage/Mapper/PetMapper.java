@@ -49,4 +49,7 @@ public interface PetMapper {
      */
     public int updatePetItem(PetItemDO petItemDO);
 
+    String selectProductImageById(int productId);
+
+    void updateImage(int productId, String newFileName);
 }

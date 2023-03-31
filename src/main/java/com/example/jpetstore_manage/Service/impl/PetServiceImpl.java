@@ -8,6 +8,7 @@ import com.example.jpetstore_manage.Service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -64,5 +65,23 @@ public class PetServiceImpl implements PetService {
             petMapper.updatePetItem(petItemDO);
         }
         return CommonResponse.success("修改成功");
+    }
+
+    @Override
+    public void updateImage(int productId, String newFileName) {
+        // 删除老文件
+        String oldImageName = petMapper.selectProductImageById(productId);
+        try {
+            File file = new File("D:/jpetstoreImage/" + oldImageName);
+            if (file.delete()) {
+                System.out.println(file.getName() + " 文件已被删除！");
+            } else {
+                System.out.println("文件删除失败！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 删除新文件
+        petMapper.updateImage(productId, newFileName);
     }
 }
