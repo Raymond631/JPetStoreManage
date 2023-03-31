@@ -31,7 +31,7 @@ function login(){
 
         if(response.code===200) {
             $('#errorMessage').text('');
-            window.location.href="http://localhost:8888/jpetstore/ProductManage.html"
+            window.location.href="http://localhost:8888/jpetstore/OrderManage.html"
         }
         else if(response.code=== 400){
             newVerification();
