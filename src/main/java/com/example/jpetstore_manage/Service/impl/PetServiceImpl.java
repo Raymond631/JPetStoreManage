@@ -7,9 +7,12 @@ import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
 import com.example.jpetstore_manage.Service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Raymond Li
@@ -65,6 +68,24 @@ public class PetServiceImpl implements PetService {
             petMapper.updatePetItem(petItemDO);
         }
         return CommonResponse.success("修改成功");
+    }
+
+    @Override
+    public String saveImage(MultipartFile multipartFile) throws IOException {
+        String filePath = "D:/jpetstoreImage/";
+        File file = new File(filePath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        // 文件名称
+        String realFileName = multipartFile.getOriginalFilename();
+        // 文件处理
+        String newFileName = UUID.randomUUID() + "-" + realFileName;
+        String newFilePath = filePath + newFileName;
+        // 新文件的路径
+        multipartFile.transferTo(new File(newFilePath));
+
+        return newFileName;
     }
 
     @Override

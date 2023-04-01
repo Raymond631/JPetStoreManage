@@ -2,7 +2,9 @@ package com.example.jpetstore_manage.Service;
 
 import com.example.jpetstore_manage.Common.CommonResponse;
 import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -38,6 +40,8 @@ public interface PetService {
      * 遍历PetProduct中的petItemList：根据itemId更新pet_item表中相应的信息
      */
     public CommonResponse updatePet(PetProductDO petProductDO, int supplier);
+
+    public String saveImage(MultipartFile multipartFile) throws IOException;
 
     void updateImage(int productId, String newFileName);
 }
