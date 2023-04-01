@@ -21,6 +21,7 @@ import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.DigestUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
@@ -126,7 +127,7 @@ public class UserController {
      * 注册
      */
     @PostMapping("/user")
-    public CommonResponse register(@RequestBody UserVO userVO, HttpServletResponse resp) {
+    public CommonResponse register(@RequestBody @Validated UserVO userVO, HttpServletResponse resp) {
         if (checkCode(userVO.getId(), userVO.getCode())) {
             if (userVO.getPassword().equals(userVO.getRePassword())) {
                 // 对象转换

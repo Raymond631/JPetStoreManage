@@ -10,7 +10,7 @@
     </update>
 
     <select id="selectOrderBySupplier" resultMap="orderList">
-        select * from order_main o,order_item i where o.order_id=i.order_id and o.supplier_id=#{supplier} and o.status not in (5,6)
+        select * from order_main o,order_item i where o.order_id=i.order_id and o.supplier_id=#{supplier} and o.status not in (5,6) order by o.order_id desc
     </select>
     <resultMap id="orderList" type="com.example.jpetstore_manage.POJO.DataObject.OrderMainDO">
         <id  column="order_id" property="orderId"/>

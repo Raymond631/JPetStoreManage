@@ -7,6 +7,7 @@ import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
 import com.example.jpetstore_manage.Service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -59,13 +60,17 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public CommonResponse updatePet(PetProductDO petProductDO, int supplier) {
         petProductDO.setSupplierId(supplier);
         petMapper.updatePetProduct(petProductDO);
 
         List<PetItemDO> petItemDOList = petProductDO.getPetItemList();
         for (PetItemDO petItemDO : petItemDOList) {
-            petMapper.updatePetItem(petItemDO);
+            int row = petMapper.updatePetItem(petItemDO);
+            if (row != 1) {
+                throw new RuntimeException("修改失败,请稍后重试");
+            }
         }
         return CommonResponse.success("修改成功");
     }
