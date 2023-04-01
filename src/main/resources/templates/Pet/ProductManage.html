@@ -42,76 +42,41 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <a href="index.html" class="site_title"> <span></span></a>
                 </div>
 
                 <div class="clearfix"></div>
-
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+
                     </div>
                     <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <span>Welcome to</span>
+                        <h2>Management</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
-                                </ul>
+                            <li style="margin-left: 20px"><a href="/jpetstore/OrderManage.html"><i class="fa fa-calendar-o"></i> Order </a>
                             </li>
-
-                            <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="tables.html">Tables</a></li>
-                                    <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                                </ul>
+                            <li style="margin-left: 20px"><a href="/jpetstore/ProductManage.html"><i class="fa fa-cubes"></i> Product </a>
                             </li>
-
-                        </ul>
-                    </div>
-                    <div class="menu_section">
-                        <h3>Live On</h3>
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="e_commerce.html">E-commerce</a></li>
-                                    <li><a href="projects.html">Projects</a></li>
-                                </ul>
+                            <li style="margin-left: 20px"><a><i class="fa fa-group"></i>   User</a>
                             </li>
                         </ul>
                     </div>
-
                 </div>
                 <!-- /sidebar menu -->
 
                 <!-- /menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Settings">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
+
                 </div>
                 <!-- /menu footer buttons -->
             </div>
@@ -120,24 +85,15 @@
         <!-- top navigation -->
         <div class="top_nav">
             <div class="nav_menu">
-                <div class="nav toggle">
-                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
+                <!--                <div class="nav toggle">-->
+                <!--                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>-->
+                <!--                </div>-->
                 <nav class="nav navbar-nav">
                     <ul class=" navbar-right">
-                        <li class="nav-item dropdown open" style="padding-left: 15px;">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
+                        <li class="nav-item dropdown open">
+                            <a href="/jpetstore/Login.html" >
+                                Logout
                             </a>
-                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                <a class="dropdown-item" href="javascript:;">
-                                    <span class="badge bg-red pull-right">50%</span>
-                                    <span>Settings</span>
-                                </a>
-                                <a class="dropdown-item" href="javascript:;">Help</a>
-                                <a class="dropdown-item" href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                            </div>
                         </li>
                     </ul>
                 </nav>
@@ -148,202 +104,15 @@
         <!-- page content -->
         <div class="right_col" role="main">
             <div class="">
-                <div class="page-title">
-                    <div class="title_left">
-                        <h3>Form Elements</h3>
-                    </div>
-                </div>
                 <div class="clearfix"></div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 ">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>添加新品种</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <br />
-                                <div class="picture" id="picture">
-                                    <img class="imagePosition" id="addImagePosition" src="/jpetstore/image/pet/noPicture.png"></img>
-                                    <input class="addImage" type="file" id="addImage"></input> <br>
-                                    <input type="submit" class="ensure" style="margin-left: 70px;margin-top: 25px;" onclick="addNewImage()"></input>
-                                </div>
-                                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                                    <div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物名<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="nameNew" required="required" class="form-control ">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">英文名<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="EnameNew" name="last-name" required="required" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物性格<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="characterNew" required="required" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">常见疾病<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="diseaseNew" required="required" class="form-control ">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物介绍<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <textarea class="form-control" id="introductionNew" rows="3"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group" style="margin-left:213px; width:428px;float: left;">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物价格<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input id="priceNew" class="form-control" type="text" name="middle-name">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group" style="width:428px;">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物数量<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input id="quantityNew" class="form-control" type="text" name="middle-name">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="ln_solid"></div>
-                                    <div class="item form-group">
-                                        <div class="col-md-6 col-sm-6 offset-md-3">
-                                            <button onclick="newReset()" class="reset">清空</button>
-                                            <button onclick="newSubmit()" class="ensure">添加</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 ">
-                        <div class="x_panel">
-                            <div class="x_title">
-                                <h2>修改数据</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <br />
-                                <div class="picture" style="margin-top:50px">
-                                    <img class="imagePosition" id="changeImagePosition" src="/jpetstore/image/pet/noPicture.png"></img>
-                                    <input class="changeImage" type="file" id="changeImage"></input> <br>
-                                    <input type="submit" class="ensure" style="margin-left: 70px;margin-top: 25px;" onclick="changePreviousImage()"></input>
-                                </div>
-                                <div id="demo-form3" data-parsley-validate class="form-horizontal form-label-left">
-
-                                    <div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物ID
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input class="form-control" id="idNoChange" readonly="readonly" placeholder="不可修改"></input>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物名<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="nameChange" required="required" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">英文名<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="EnameChange" name="last-name" required="required" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物性格<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="characterChange" required="required" class="form-control ">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">常见疾病<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="diseaseChange" required="required" class="form-control ">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物介绍<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <textarea class="form-control" id="introductionChange" rows="3"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="item form-group" style="margin-left:213px; width:428px;float: left;">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物价格<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input id="priceChange" class="form-control" type="text" name="middle-name">
-                                            </div>
-                                        </div>
-                                        <div class="item form-group" style="width:428px;">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物数量<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input id="quantityChange" class="form-control" type="text" name="middle-name">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="ln_solid"></div>
-                                    <div class="item form-group">
-                                        <div class="col-md-6 col-sm-6 offset-md-3">
-                                            <button onclick="changeReset()" class="reset">清空</button>
-                                            <button onclick="changeSubmit()" class="ensure">更新</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Default Example <small>Users</small></h2>
+                                <h2>商品管理</h2>
                                 <ul class="nav navbar-right panel_toolbox">
                                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                     </li>
-
                                 </ul>
                                 <div class="clearfix"></div>
                             </div>
@@ -352,9 +121,8 @@
                                     <div class="col-sm-12">
                                         <div class="card-box table-responsive">
                                             <p class="text-muted font-13 m-b-30">
-
                                             </p>
-
+                                            <button class="ensure" onclick="addNew()">新增</button>
                                             <span class="searchTitle">search:<input id="searchContent" class="searchContent" type="text" onblur="search()"></span>
                                             <table id="productTable" class="productTable">
                                                 <thead>
@@ -362,13 +130,7 @@
                                                     <th>宠物id</th>
                                                     <th>宠物名</th>
                                                     <th>英文名</th>
-                                                    <!--
-                                                    <th>宠物性格</th>
-                                                    <th>常见疾病</th>
-                                                    <th>宠物介绍</th>
-                                                    -->
-                                                    <th>价格</th>
-                                                    <th>数量</th>
+                                                    <th>种类</th>
                                                     <th>修改</th>
                                                 </tr>
                                                 </thead>
@@ -404,9 +166,9 @@
 
 <!--显示D盘根目录下创建的test文件中有test.png(D:\test\test.png)-->
 <!--用于测试路径映射是否正确(即对jpetstore/uploadedImage/的资源访问均映射到在本地磁盘d盘根目录中的test文件夹)-->
-<div class="image">
-    <img src="./uploadedImage/test.png">
-</div>
+<!--<div class="image">-->
+<!--    <img src="./uploadedImage/test.png">-->
+<!--</div>-->
 
 
 </body>

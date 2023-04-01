@@ -42,76 +42,41 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <a href="index.html" class="site_title"> <span></span></a>
                 </div>
 
                 <div class="clearfix"></div>
-
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+
                     </div>
                     <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2>John Doe</h2>
+                        <span>Welcome to</span>
+                        <h2>Management</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
-                        <h3>General</h3>
                         <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
-                                </ul>
+                            <li style="margin-left: 20px"><a href="/jpetstore/OrderManage.html"><i class="fa fa-calendar-o"></i> Order </a>
                             </li>
-
-                            <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="tables.html">Tables</a></li>
-                                    <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                                </ul>
+                            <li style="margin-left: 20px"><a href="/jpetstore/ProductManage.html"><i class="fa fa-cubes"></i> Product </a>
                             </li>
-
-                        </ul>
-                    </div>
-                    <div class="menu_section">
-                        <h3>Live On</h3>
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="e_commerce.html">E-commerce</a></li>
-                                    <li><a href="projects.html">Projects</a></li>
-                                </ul>
+                            <li style="margin-left: 20px"><a><i class="fa fa-group"></i>  User</a>
                             </li>
                         </ul>
                     </div>
-
                 </div>
                 <!-- /sidebar menu -->
 
                 <!-- /menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Settings">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="Login.html.html">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-                    </a>
+
                 </div>
                 <!-- /menu footer buttons -->
             </div>
@@ -120,30 +85,22 @@
         <!-- top navigation -->
         <div class="top_nav">
             <div class="nav_menu">
-                <div class="nav toggle">
-                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
+                <!--                <div class="nav toggle">-->
+                <!--                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>-->
+                <!--                </div>-->
                 <nav class="nav navbar-nav">
                     <ul class=" navbar-right">
-                        <li class="nav-item dropdown open" style="padding-left: 15px;">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
+                        <li class="nav-item dropdown open">
+                            <a href="/jpetstore/Login.html" >
+                                Logout
                             </a>
-                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="javascript:;"> Profile</a>
-                                <a class="dropdown-item" href="javascript:;">
-                                    <span class="badge bg-red pull-right">50%</span>
-                                    <span>Settings</span>
-                                </a>
-                                <a class="dropdown-item" href="javascript:;">Help</a>
-                                <a class="dropdown-item" href="Login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                            </div>
                         </li>
                     </ul>
                 </nav>
             </div>
         </div>
         <!-- /top navigation -->
+
 
         <!-- page content -->
         <div class="right_col" role="main">
@@ -173,13 +130,13 @@
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">昵称</label>
                                             <div class="col-md-6 col-sm-6 ">
-                                                <label id="name" class="form-control ">receiver_name</label>
+                                                <label id="nickname" class="form-control "></label>
                                             </div>
                                         </div>
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">账号</label>
                                             <div class="col-md-6 col-sm-6 ">
-                                                <label id="user_id" class="form-control ">receiver_id or user_id</label>
+                                                <label id="account" class="form-control "></label>
                                             </div>
                                         </div>
                                     </div>
@@ -258,9 +215,9 @@
 
 <!--显示D盘根目录下创建的test文件中有test.png(D:\test\test.png)-->
 <!--用于测试路径映射是否正确(即对jpetstore/uploadedImage/的资源访问均映射到在本地磁盘d盘根目录中的test文件夹)-->
-<div class="image">
-    <img src="./uploadedImage/test.png">
-</div>
+<!--<div class="image">-->
+<!--    <img src="./uploadedImage/test.png">-->
+<!--</div>-->
 
 
 </body>

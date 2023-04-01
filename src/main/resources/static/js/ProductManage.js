@@ -1,96 +1,16 @@
 const table = document.getElementById('tableBody');
-const prev = document.getElementById('previous');
+const previous = document.getElementById('previous');
 const next = document.getElementById('next');
 const pages = document.getElementById('pages');
 
 
 let change = $(".change");
 
-let data = [{
-    id:9,
-    name:'234',
-    Ename:'ray',
-    character:'cute',
-    disease:'too cute',
-    introduction:'this is a cute。。',
-    price:10,
-    amount:6
-},
-    {
-        id:345,
-        name:'312',
-        Ename:'jol',
-        character:'cute',
-        disease:'too cute',
-        introduction:'this is a cute。。',
-        price:10,
-        amount:6
-    },
-    {
-        id:14,
-        name:'111',
-        Ename:'pet',
-        character:'cute',
-        disease:'too cute',
-        introduction:'this is a cute。。',
-        price:10,
-        amount:6
-    },
-    {
-        id:1,
-        name:'145',
-        Ename:'mnj',
-        character:'cute',
-        disease:'too cute',
-        introduction:'this is a cute。。',
-        price:10,
-        amount:6
-    },
-];
+let data = [];
 
-let Alldata = [{
-    id:9,
-    name:'234',
-    Ename:'ray',
-    character:'cute',
-    disease:'too cute',
-    introduction:'this is a cute。。',
-    price:10,
-    amount:6
-},
-    {
-        id:345,
-        name:'312',
-        Ename:'jol',
-        character:'cute',
-        disease:'too cute',
-        introduction:'this is a cute。。',
-        price:10,
-        amount:6
-    },
-    {
-        id:14,
-        name:'111',
-        Ename:'pet',
-        character:'cute',
-        disease:'too cute',
-        introduction:'this is a cute。。',
-        price:10,
-        amount:6
-    },
-    {
-        id:1,
-        name:'145',
-        Ename:'mnj',
-        character:'cute',
-        disease:'too cute',
-        introduction:'this is a cute。。',
-        price:10,
-        amount:6
-    },
-];
+let allData = [];
 //默认设定每页十人
-let num1 = 3;
+let num1 = 11;
 //定义一个变量保存每页真实应该展示的数量
 let num2;
 //默认展示第一页
@@ -124,57 +44,33 @@ $(function(){
         $BOX_PANEL.remove();
     });
 
-    // $.ajax({
-    //     url: "/jpetstore/Backstage/getOrderManageData",
-    //     type: "get",
-    //     dataType: "json",
-    //     success: function (obj) {
-    //         if (obj.length > 0) {
-    //             let str = '';
-    //             for (let key in obj) {
-    //                 str += `
-    //                 <tr>
-    //                   <td>
-    //                   <th><input type="checkbox" class="flat" name="table_records" value=` + obj[key].id + `></th>
-    //                   </td>
-    //                   <td>${obj[key].name}</td>
-    //                   <td>${obj[key].position}</td>
-    //                   <td>${obj[key].phone}</td>
-    //                   <td>${obj[key].category}</td>
-    //                   <td>${obj[key].amount}</td>
-    //                   <td>${obj[key].date}</td>
-    //                 `;
-    //                 if (obj[key].status === "已发货") {
-    //                     str += `<td>已发货<label class="OrderT"></label></td></tr>`
-    //                 } else if (obj[key].status === "未发货") {
-    //                     str += `<td>未发货<label class="OrderF"></label></td></tr>`
-    //                 } else {
-    //                     str += `<td>已接收<label class="OrderFinish"></label></td></tr>`
-    //                 }
-    //             }
-    //             table.innerHTML = str;
-    //         }
-    //     }
-    // })
+    $.ajax({
+        url:  "/jpetstore/pets",
+        type: "get",
+        dataType: "json",
+        success: function (obj) {
+        console.log(obj)
+            if(obj.code===200){
+                if (obj.data.length > 0) {
+                    for (let key in obj.data) {
+                        data.push(obj.data[key]);
+                        allData.push(obj.data[key]);
+                    }
+                    console.log(data)
+                    render();
+                }
+            }
+            else{
+                obj.code
+            }
+        }
+    })
 })
 
 
-// function EnsureOrder() {                   //注册事件  处理程序
-// let order = document.getElementsByName("change");
-// let check = [];
-// for (let i in order) {
-//     if (order[i].checked)
-//         check.push(order[i].id);
-// }
-// console.log(check)
-// $.ajax({
-//     url: "../Pet/getSearchData?keyword=",
-//     type: "get",
-//     dataType: "json",
-//     success: function (obj) {
-//     }
-// })
-// };
+function addNew() {
+    window.location.href="http://localhost:8888/jpetstore/ProductNew.html"
+}
 
 // function CancelOrder() {
 // let order = document.getElementsByName("change");
@@ -192,7 +88,6 @@ $(function(){
 //
 //     }
 // })
-
 // }
 
 for (let i = 0; i < change.length; i++) {
@@ -206,8 +101,8 @@ const render = function () {
     // table.innerHTML =
     //     ``;
     // 判断当前选择的页码对应的人数
-    if (data.length - num1 * (page - 1) >= 3) {
-        num2 = 3;
+    if (data.length - num1 * (page - 1) >= 11) {
+        num2 = 11;
     } else {
         num2 = data.length - num1 * (page - 1);
     }
@@ -216,35 +111,23 @@ const render = function () {
     let str ='';
     for (let i = num1 * (page - 1); i < num2 + num1 * (page - 1); i++) {
         str+=` 
-                <td>${data[i].id}</td>
-                <td>${data[i].name}</td>
-                <td>${data[i].Ename}</td>
-                <td>${data[i].price}</td>
-                <td>${data[i].amount}</td>`
-        str+=`<td class="change" value="${data[i].id}" onclick="changeInfomation(this)">修改</td></tr>`;
+                <td>${data[i].productId}</td>
+                <td>${data[i].productNameChinese}</td>
+                <td>${data[i].productNameEnglish}</td>
+                <td>${data[i].category}</td>`
+        str+=`<td class="change" value="${data[i].id}" onclick="productDetails(this)">新增界面</td></tr>`;
     }
-    table.innerHTML =str;
+       table.innerHTML =str;
 }
 render();
 
 //点击修改在上方显示数据
-function changeInfomation(val){
+function productDetails(val){
     var value1 = $(val).parent().find("td");
     changeInfoID = value1.eq(0).text();
-    let targetID;
-    data.forEach((e) => {
-        targetID = e.id;
-        if (targetID==changeInfoID) {
-            $("#idNoChange").val(targetID);
-            $("#nameChange").val(e.name);
-            $("#EnameChange").val(e.Ename);
-            $("#characterChange").val(targetID);
-            $("#diseaseChange").val(targetID);
-            $("#introductionChange").val(targetID);
-            $("#priceChange").val(targetID);
-            $("#quantityChange").val(e.name);
-        }
-    });
+    sessionStorage.setItem('ProductID', changeInfoID)
+    window.location.href="http://localhost:8888/jpetstore/ProductDetails.html"
+
 }
 
 //绑定向前翻页事件
@@ -271,153 +154,21 @@ next.onclick = function () {
     }
 }
 
-
 function search(){
     data=[];
     let res1 = $("#searchContent").val();
     const res = res1.replace(/\s/gi, "");
-    console.log(res)
-    let searchArr = Alldata;
-    let name;
+    let searchArr = allData;
+    let receiverName;
     searchArr.forEach((e) => {
-        name = e.name;
-        if (name.includes(res)) {
-            if (data.indexOf(e) == "-1") {
-                data.push(e);
-            }
+        receiverName = e.category;
+        if (receiverName.includes(res)) {
+            data.push(e);
         }
     });
-    console.log(data);
     page=1;
     render();
 }
 
 
-//修改数据提交
-function changeSubmit(){
-    let ID= $("#idNoChange").val();
-    let name= $("#nameChange").val();
-    let Ename =  $("#EnameChange").val();
-    let character = $("#characterChange").val();
-    let disease = $("#diseaseChange").val();
-    let introductio = $("#introductionChange").val();
-    let price = $("#priceChange").val();
-    let quantity =$("#quantityChange").val();
-    console.log(ID);
-    console.log(name)
-}
 
-function changeReset(){
-    $("#idNoChange").val('');
-    $("#nameChange").val('');
-    $("#EnameChange").val('');
-    $("#characterChange").val('');
-    $("#diseaseChange").val('');
-    $("#introductionChange").val('');
-    $("#priceChange").val('');
-    $("#quantityChange").val('');
-}
-
-//新数据添加
-function newSubmit(){
-    let name= $("#nameNew").val();
-    let Ename =  $("#EnameNew").val();
-    let character = $("#characterNew").val();
-    let disease = $("#diseaseNew").val();
-    let introduction = $("#introductionNew").val();
-    let price = $("#priceNew").val();
-    let quantity =$("#quantityNew").val();
-    console.log(introduction)
-}
-
-function newReset(){
-    $("#nameNew").val('');
-    $("#EnameNew").val('');
-    $("#characterNew").val('');
-    $("#diseaseNew").val('');
-    $("#introductionNew").val('');
-    $("#priceNew").val('');
-    $("#quantityNew").val('');
-}
-
-const addImage = document.getElementById('addImage');
-
-addImage.onchange=function(){
-
-    var image = document.getElementById('addImagePosition')
-    // let img = $('#imagePosition');
-    // var addImage = document.getElementById('addImage')
-    // 获取得到file 对象
-    var file = addImage.files[0]
-    // 创建url
-    var imgUrl = window.URL.createObjectURL(file)
-    image.setAttribute("src", imgUrl)
-    // 更改img url 以后释放 url
-    image.onload = function() {
-        console.log('图片加载成功')
-        URL.revokeObjectURL(imgUrl)
-    }
-}
-
-const changeImage = document.getElementById('changeImage');
-changeImage.onchange=function(){
-
-    var image = document.getElementById('changeImagePosition')
-    // let img = $('#imagePosition');
-    // var addImage = document.getElementById('addImage')
-    // 获取得到file 对象
-    var file = addImage.files[0]
-    // 创建url
-    var imgUrl = window.URL.createObjectURL(file)
-    image.setAttribute("src", imgUrl)
-    // 更改img url 以后释放 url
-    image.onload = function() {
-        console.log('图片加载成功')
-        URL.revokeObjectURL(imgUrl)
-    }
-}
-
-function addNewImage(){
-    let formData = new FormData();
-    let img = addImage;
-    let fileObj = img.files[0];
-    formData.append("newImage",fileObj)
-    $.ajax({
-        url: "",
-        dataType: "json",
-        async: false,
-        processData: false,
-        contentType: false,
-        data: formData,
-        method: "POST",
-        success(res) {
-            console.log(res)
-        },
-        error(err) {
-            console.log(err)
-        }
-    })
-}
-
-function changePreviousImage(){
-    console.log(2)
-    let formData = new FormData();
-    let img = changeImage;
-    let fileObj = img.files[0];
-    formData.append("changeImage",fileObj)
-    $.ajax({
-        url: "",
-        dataType: "json",
-        async: false,
-        processData: false,
-        contentType: false,
-        data: formData,
-        method: "POST",
-        success(res) {
-            console.log(res)
-        },
-        error(err) {
-            console.log(err)
-        }
-    })
-}
