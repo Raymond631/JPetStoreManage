@@ -160,7 +160,12 @@ function changeSubmit(){
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response.code);
+        if(response.code===200){
+            alert("修改成功")
+        }
+        else{
+            alert("修改失败")
+        }
     });
 }
 

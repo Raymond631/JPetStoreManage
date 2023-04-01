@@ -86,9 +86,15 @@ function search(){
     const res = res1.replace(/\s/gi, "");
     let searchArr = allData;
     let nickname;
+    let receiverName;
+    let receiverPhone;
+    let receiverAddress;
     searchArr.forEach((e) => {
         nickname = e.nickname;
-        if (nickname.includes(res)){
+        receiverName = e.receiverName;
+        receiverPhone = e. receiverPhone;
+        receiverAddress = e.receiverAddress;
+        if (nickname.includes(res)||receiverName.includes(res)||receiverPhone.includes(res)||receiverAddress.includes(res)){
             data.push(e);
         }
     });
@@ -146,6 +152,11 @@ function saveInformation(inp,id){
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response);
+        if(response.code===200){
+            alert("修改成功")
+        }
+        else{
+            alert("修改失败")
+        }
     });
 }

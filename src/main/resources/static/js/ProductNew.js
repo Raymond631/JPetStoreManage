@@ -144,7 +144,6 @@ function newSubmit(){
 const addImage = document.getElementById('addImage');
 
 addImage.onchange=function(){
-
     var image = document.getElementById('addImagePosition')
     // let img = $('#imagePosition');
     // var addImage = document.getElementById('addImage')

@@ -33,15 +33,18 @@ function changeName(){
         "method": "PUT",
         "timeout": 0,
         "headers": {
-
         },
     };
     $.ajax(settings).done(function (response) {
        if(response.code===200){
-           alert("修改成功")
+
+           alert("修改成功");
+
        }
        else{
-           alert("修改失败")
+           alert("修改失败");
+           newVerification();
+           $('#code').val('')
        }
     });
 }
@@ -80,9 +83,13 @@ function changePwd(){
         console.log(response.code);
         if(response.code===200){
             alert("密码修改成功")
+            newVerification();
+            $('#code').val('')
         }
         else{
+            alert("密码修改失败")
             newVerification()
+            $('#code').val('')
             $('#errorMessage').text(response.data);
         }
     });
