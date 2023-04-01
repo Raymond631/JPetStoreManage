@@ -127,13 +127,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CommonResponse changeNickname(String nickname, int userId) {
-        int num = userMapper.updateNickname(nickname, userId);
-        if (num == 1) {
-            return CommonResponse.success("修改昵称成功");
-        } else {
-            return CommonResponse.error("修改昵称失败");
-        }
+    public void changeNickname(String nickname, int userId) {
+        userMapper.updateNickname(nickname, userId);
     }
 
     @Override

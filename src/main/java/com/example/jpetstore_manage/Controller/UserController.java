@@ -154,6 +154,20 @@ public class UserController {
         }
     }
 
+    @GetMapping("/user")
+    public CommonResponse getInfo(@CookieValue("token") String token) {
+        Map<String, Object> userInfo = JwtUtil.resolveToken(token);
+        int userId = (int) userInfo.get("userId");
+        String nickname = (String) userInfo.get("nickname");
+        String account = userService.getAccount(userId);
+
+        Map<String, Object> info = new HashMap<>();
+        info.put("userId", userId);
+        info.put("nickname", nickname);
+        info.put("account", account);
+        return CommonResponse.success(info);
+    }
+
     /**
      * 改密码
      */
@@ -180,9 +194,15 @@ public class UserController {
      * 改昵称
      */
     @PutMapping("/user/info")
-    public CommonResponse changeNickname(@RequestParam("nickname") String nickname, @CookieValue("token") String token) {
+    public CommonResponse changeNickname(@RequestParam("nickname") String nickname, @CookieValue("token") String token, HttpServletResponse resp) {
         int userId = (int) JwtUtil.resolveToken(token).get("userId");
-        return userService.changeNickname(nickname, userId);
+        userService.changeNickname(nickname, userId);
+
+        UserInfoDO userInfo = new UserInfoDO(userId, nickname, "", "", "");
+        String newToken = JwtUtil.generateToken(JwtUtil.userInfoDOtoMap(userInfo));
+        Cookie cookie = new Cookie("token", newToken);
+        resp.addCookie(cookie);
+        return CommonResponse.success("修改成功");
     }
 
 
@@ -225,19 +245,5 @@ public class UserController {
         } else {
             throw new RuntimeException(response.getMsg());
         }
-    }
-
-    @GetMapping("/user")
-    public CommonResponse getInfo(@CookieValue("token") String token) {
-        Map<String, Object> userInfo = JwtUtil.resolveToken(token);
-        int userId = (int) userInfo.get("userId");
-        String nickname = (String) userInfo.get("nickname");
-        String account = userService.getAccount(userId);
-
-        Map<String, Object> info = new HashMap<>();
-        info.put("userId", userId);
-        info.put("nickname", nickname);
-        info.put("account", account);
-        return CommonResponse.success(info);
     }
 }

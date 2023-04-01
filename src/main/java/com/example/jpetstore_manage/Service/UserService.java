@@ -35,7 +35,7 @@ public interface UserService {
 
     public String getKey(String fileName) throws IOException;
 
-    CommonResponse changeNickname(String nickname, int userId);
+    void changeNickname(String nickname, int userId);
 
     UserInfoDO auth(UserAuthDO userAuthDO);
 
