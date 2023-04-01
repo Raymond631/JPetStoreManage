@@ -87,7 +87,6 @@ function backToAll(){
 
 function newSubmit(){
     let petItemList=[];
-    let productId = $('#productId').val();
     let category = $('#category').val();
     let productNameChinese = $('#productNameChinese').val();
     let productNameEnglish = $('#productNameEnglish').val();
@@ -123,7 +122,6 @@ function newSubmit(){
             "Content-Type": "application/json"
         },
         "data": JSON.stringify({
-            productId:productId,
             category:category,
             productNameChinese:productNameChinese,
             productNameEnglish:productNameEnglish,
@@ -166,7 +164,7 @@ function addNewImage(){
     let fileObj = img.files[0];
     formData.append("multipartFile",fileObj)
     $.ajax({
-        url: "",
+        url: "/jpetstore/image/upload",
         dataType: "json",
         async: false,
         processData: false,
