@@ -71,14 +71,6 @@
             <version>3.0.1</version>
         </dependency>
 
-<!--        &lt;!&ndash; mybatis-plus-boot-starter &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>mybatis-plus-boot-starter</artifactId>-->
-<!--            <version>3.5.3.1</version>-->
-<!--        </dependency>-->
-
-
         <!--!Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>

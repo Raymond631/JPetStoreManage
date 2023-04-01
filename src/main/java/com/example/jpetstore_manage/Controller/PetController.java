@@ -6,18 +6,13 @@ import com.example.jpetstore_manage.POJO.DataObject.PetProductDO;
 import com.example.jpetstore_manage.POJO.MapStruct.PetMapping;
 import com.example.jpetstore_manage.POJO.ViewObject.PetDetailVO;
 import com.example.jpetstore_manage.Service.PetService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author Raymond Li
@@ -95,43 +90,21 @@ public class PetController {
     }
 
     /**
-     * 图片上传接口
+     * 修改图片
      * 保存新图片，删除老图片
-     *
-     * @Return 新图片存储路径
-     * TODO 开发中，有bug
      */
     @PostMapping("/image/upload")
     public CommonResponse uploadImageAjax(@RequestParam("productId") int productId, @RequestBody MultipartFile multipartFile) throws IOException {
-        String filePath = "D:/jpetstoreImage/";
-        File file = new File(filePath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        // 文件名称
-        String realFileName = multipartFile.getOriginalFilename();
-        // 文件处理
-        String newFileName = UUID.randomUUID() + "-" + realFileName;
-        String newFilePath = filePath + newFileName;
-        // 新文件的路径
-        multipartFile.transferTo(new File(newFilePath));
-        // 删除老文件，更新数据库路径
+        String newFileName = petService.saveImage(multipartFile);
         petService.updateImage(productId, newFileName);
-        return CommonResponse.success("上传成功");
+        return CommonResponse.success("图片修改成功");
     }
 
-    @GetMapping("/image/look/{imageName}")
-    public void imageLook(@PathVariable("imageName") String imageName, HttpServletResponse response) {
-        System.out.println("D:/jpetstoreImage/" + imageName);
-        File file = new File("D:/jpetstoreImage/" + imageName);
-        byte[] bytes = new byte[1024];
-        try (OutputStream os = response.getOutputStream(); FileInputStream fis = new FileInputStream(file)) {
-            while ((fis.read(bytes)) != -1) {
-                os.write(bytes);
-                os.flush();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    /**
+     * 上传新图片
+     */
+    @PostMapping("/image/upload/new")
+    public CommonResponse uploadNewImage(@RequestBody MultipartFile multipartFile) throws IOException {
+        return CommonResponse.success(petService.saveImage(multipartFile));
     }
 }
