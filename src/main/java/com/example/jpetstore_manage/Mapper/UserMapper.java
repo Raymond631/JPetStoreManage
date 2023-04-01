@@ -43,4 +43,6 @@ public interface UserMapper {
     public void insertUserAuth(UserAuthDO userAuthDO);
 
     public int updateNickname(String nickname, int userId);
+
+    String selectUserAccountById(int userId);
 }

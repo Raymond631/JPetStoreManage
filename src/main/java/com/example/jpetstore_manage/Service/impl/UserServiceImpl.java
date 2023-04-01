@@ -155,4 +155,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public String getAccount(int userId) {
+        return userMapper.selectUserAccountById(userId);
+    }
+
 }

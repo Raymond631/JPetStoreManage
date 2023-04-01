@@ -43,13 +43,37 @@ function EnsureOrder() {                   //注册事件  处理程序
             check.push(order[i].id);
     }
     console.log(check)
-    $.ajax({
-        url: `/jpetstore/orders/status`,
-        type: "put",
-        dataType: "json",
-        success: function (obj) {
+    let settings = {
+        "url": "/jpetstore/orders/status",
+        "method": "PUT",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(check),
+    };
+
+    $.ajax(settings).done(function (response) {
+        if(response.code===200){
+            for(let i=0;i<check.length;i++){
+                allData.forEach((e) => {
+                    if (parseInt(check[i]) === e.orderId) {
+                        e.status=2;
+                    }
+                });
+                data.forEach((e) => {
+                    if (parseInt(check[i]) === e.orderId) {
+                        e.status=2;
+                    }
+                });
+            }
+            render();
         }
-    })
+        else{
+            console.log(response)
+        }
+    });
+
 }
 
 function CancelOrder() {
@@ -60,14 +84,35 @@ function CancelOrder() {
             check.push(order[i].id);
     }
     console.log(check)
-    $.ajax({
-        url: "/jpetstore/orders",
-        type: "get",
-        dataType: "json",
-        success: function (obj) {
+    let settings = {
+        "url": "/jpetstore/orders",
+        "method": "DELETE",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "data": JSON.stringify(check),
+    };
 
+    $.ajax(settings).done(function (response) {
+        if(response.code===200){
+            for(let i=0;i<check.length;i++){
+                // 将删除id了的从数组中移除
+                allData = allData.reduce((total, current) => {
+                    current.orderId !== parseInt(check[i]) && total.push(current);
+                    return total;
+                }, []);
+                data = data.reduce((total, current) => {
+                    current.orderId !== parseInt(check[i])  && total.push(current);
+                    return total;
+                }, []);
+            }
+            render();
         }
-    })
+        else{
+            console.log(response)
+        }
+    });
 }
 
 //用于展示数据
@@ -88,9 +133,9 @@ const render = function () {
                 <td>${data[i].items}</td>
                 <td>${data[i].orderCost}</td>
                 <td>${data[i].orderTime}</td>`
-            if (data[i].status === 1) {
+            if (data[i].status === 2) {
                 str += `<td>已发货<label class="OrderT"></label></td>`
-            } else if (data[i].status === 2) {
+            } else if (data[i].status === 1) {
                 str += `<td>未发货<label class="OrderF"></label></td>`
             } else {
                 str += `<td>已接收<label class="OrderFinish"></label></td>`
@@ -138,21 +183,26 @@ function fnClose(){
     };
 
     $.ajax(settings).done(function (response) {
-        allData.forEach((e) => {
-            if (parseInt(changePositionID) === e.orderId) {
-                e.receiverName=receiverName;
-                e.receiverPhone=receiverPhone;
-                e.receiverAddress=receiverAddress;
-            }
-        });
-        data.forEach((e) => {
-            if (parseInt(changePositionID) === e.orderId) {
-                e.receiverName=receiverName;
-                e.receiverPhone=receiverPhone;
-                e.receiverAddress=receiverAddress;
-            }
-        });
-        render();
+        if(response.code===200){
+            allData.forEach((e) => {
+                if (parseInt(changePositionID) === e.orderId) {
+                    e.receiverName=receiverName;
+                    e.receiverPhone=receiverPhone;
+                    e.receiverAddress=receiverAddress;
+                }
+            });
+            data.forEach((e) => {
+                if (parseInt(changePositionID) === e.orderId) {
+                    e.receiverName=receiverName;
+                    e.receiverPhone=receiverPhone;
+                    e.receiverAddress=receiverAddress;
+                }
+            });
+            render();
+        }
+        else{
+            console.log(response)
+        }
     });
 }
 
