@@ -66,6 +66,16 @@ public class AllPageController {
         return "/Pet/ProductManage";
     }
 
+    @GetMapping("/ProductDetails.html")
+    public String showProductDetails() {
+        return "/Pet/ProductDetails";
+    }
+
+    @GetMapping("/ProductNew.html")
+    public String showProductNew() {
+        return "/Pet/ProductNew";
+    }
+
     @GetMapping("/UserManage.html")
     public String showUserManage() {
         return "/User/UserManage";

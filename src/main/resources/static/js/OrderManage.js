@@ -22,7 +22,6 @@ $(function(){
         type: "get",
         dataType: "json",
         success: function (obj) {
-
             if (obj.length > 0) {
                 for (let key in obj) {
                     data.push(obj[key]);
@@ -224,7 +223,6 @@ previous.onclick = function () {
 
 //绑定向后翻页事件
 next.onclick = function () {
-    console.log(data.length/num1)
     if (page < data.length / num1) {
         page++;
         pages.innerHTML=page;

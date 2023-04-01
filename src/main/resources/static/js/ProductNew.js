@@ -1,5 +1,6 @@
 let itemID = ["categorySmall","priceSmall","amountSmall"];
 let i=1;
+let productImage='';
 
 $(function(){
     collapse();
@@ -87,7 +88,6 @@ function backToAll(){
 
 function newSubmit(){
     let petItemList=[];
-    let productId = $('#productId').val();
     let category = $('#category').val();
     let productNameChinese = $('#productNameChinese').val();
     let productNameEnglish = $('#productNameEnglish').val();
@@ -123,7 +123,6 @@ function newSubmit(){
             "Content-Type": "application/json"
         },
         "data": JSON.stringify({
-            productId:productId,
             category:category,
             productNameChinese:productNameChinese,
             productNameEnglish:productNameEnglish,
@@ -132,6 +131,7 @@ function newSubmit(){
             productDisease:productDisease,
             productLife:productLife,
             productIntroduce:productIntroduce,
+            productImage:productImage,
             petItemList:tempList
         }),
     };
@@ -166,7 +166,7 @@ function addNewImage(){
     let fileObj = img.files[0];
     formData.append("multipartFile",fileObj)
     $.ajax({
-        url: "",
+        url: "/jpetstore/image/upload/new",
         dataType: "json",
         async: false,
         processData: false,
@@ -174,7 +174,9 @@ function addNewImage(){
         data: formData,
         method: "POST",
         success(res) {
-            console.log(res)
+            if(res.code===200){
+                productImage=res.data
+            }
         },
         error(err) {
             console.log(err)
