@@ -36,7 +36,6 @@ function changeName(){
 
         },
     };
-
     $.ajax(settings).done(function (response) {
        if(response.code===200){
            alert("修改成功")

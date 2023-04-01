@@ -1,5 +1,6 @@
 let itemID = ["categorySmall","priceSmall","amountSmall"];
 let i=1;
+let productImage='';
 
 $(function(){
     collapse();
@@ -130,6 +131,7 @@ function newSubmit(){
             productDisease:productDisease,
             productLife:productLife,
             productIntroduce:productIntroduce,
+            productImage:productImage,
             petItemList:tempList
         }),
     };
@@ -164,7 +166,7 @@ function addNewImage(){
     let fileObj = img.files[0];
     formData.append("multipartFile",fileObj)
     $.ajax({
-        url: "/jpetstore/image/upload",
+        url: "/jpetstore/image/upload/new",
         dataType: "json",
         async: false,
         processData: false,
@@ -172,7 +174,9 @@ function addNewImage(){
         data: formData,
         method: "POST",
         success(res) {
-            console.log(res)
+            if(res.code===200){
+                productImage=res.data
+            }
         },
         error(err) {
             console.log(err)

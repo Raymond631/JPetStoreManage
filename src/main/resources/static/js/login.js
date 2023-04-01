@@ -5,8 +5,11 @@ function newVerification() {
     image.src = "/jpetstore/verificationCode?" + new Date().getMilliseconds();
 }
 
-function login(){
+$(function(){
+    RemoveCookie('token');
+})
 
+function login(){
     let username = $('#username').val();
     let password = $('#pwd').val();
     let code = $('#code').val();

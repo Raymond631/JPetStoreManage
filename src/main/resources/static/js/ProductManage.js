@@ -115,7 +115,7 @@ const render = function () {
                 <td>${data[i].productNameChinese}</td>
                 <td>${data[i].productNameEnglish}</td>
                 <td>${data[i].category}</td>`
-        str+=`<td class="change" value="${data[i].id}" onclick="productDetails(this)">新增界面</td></tr>`;
+        str+=`<td class="change" value="${data[i].id}" onclick="productDetails(this)">查看详情</td></tr>`;
     }
        table.innerHTML =str;
 }
