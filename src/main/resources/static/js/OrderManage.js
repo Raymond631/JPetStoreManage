@@ -239,9 +239,19 @@ function search(){
     const res = res1.replace(/\s/gi, "");
     let searchArr = allData;
     let receiverName;
+    let receiverAddress;
+    let receiverPhone;
+    let items;
+    let orderCost;
+    let orderTime;
     searchArr.forEach((e) => {
         receiverName = e.receiverName;
-        if (receiverName.includes(res)) {
+        receiverAddress = e.receiverAddress;
+        receiverPhone = e.receiverPhone;
+        items = e.items;
+        orderCost = e.orderCost;
+        orderTime = e.orderTime;
+        if (receiverName.includes(res)||receiverAddress.includes(res)||receiverPhone.includes(res)||items.includes(res)||orderCost.includes(res)||orderTime.includes(res)) {
             data.push(e);
         }
     });

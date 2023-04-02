@@ -159,10 +159,16 @@ function search(){
     let res1 = $("#searchContent").val();
     const res = res1.replace(/\s/gi, "");
     let searchArr = allData;
-    let receiverName;
+    let productId;
+    let productNameChinese;
+    let productNameEnglish;
+    let category;
     searchArr.forEach((e) => {
-        receiverName = e.category;
-        if (receiverName.includes(res)) {
+        productId = e.productId;
+        productNameChinese = e.productNameChinese;
+        productNameEnglish = e.productNameEnglish;
+        category = e.category;
+        if (productNameChinese.includes(res)||productNameEnglish.includes(res)||category.includes(res)) {
             data.push(e);
         }
     });
