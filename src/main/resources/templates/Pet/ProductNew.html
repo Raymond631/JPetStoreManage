@@ -44,10 +44,7 @@
                     <div class="profile_pic">
                         <a href="/jpetstore/SelfCenter.html"><img  src="/jpetstore/image/header/logo.png"></a>
                     </div>
-                    <div class="profile_info">
-                        <span>Welcome to</span>
-                        <h2>Management</h2>
-                    </div>
+
                 </div>
                 <!-- /menu profile quick info -->
                 <br/>
@@ -121,11 +118,15 @@
 
                                     <div>
                                         <div class="item form-group">
-                                            <label class="col-form-label col-md-3 col-sm-3 label-align">宠物种类<span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 ">
-                                                <input type="text" id="category" required="required" class="form-control">
-                                            </div>
+                                        <label class="col-form-label col-md-3 col-sm-3 label-align">种类<span class="required">*</span>
+                                        </label>
+                                        <select id="category" class="form-control" style="width: 620px; margin-left: 10px;">
+                                            <option selected="selected">狗狗</option>
+                                            <option>猫咪</option>
+                                            <option>小宠</option>
+                                            <option>水族</option>
+                                            <option>爬虫</option>
+                                        </select>
                                         </div>
                                         <div class="item form-group">
                                             <label class="col-form-label col-md-3 col-sm-3 label-align">中文名<span class="required">*</span>

@@ -94,7 +94,7 @@ function backToAll(){
 
 function newSubmit(){
     let petItemList=[];
-    let category = $('#category').val();
+    let category=$("#category option:selected").text();
     let productNameChinese = $('#productNameChinese').val();
     let productNameEnglish = $('#productNameEnglish').val();
     let productCharacter = $('#productCharacter').val();
@@ -120,7 +120,6 @@ function newSubmit(){
         tempList[j].itemStock=petItemList[i];
         j++
     }
-    console.log(tempList)
     let settings = {
         "url": "/jpetstore/pets",
         "method": "POST",
@@ -143,7 +142,13 @@ function newSubmit(){
     };
 
     $.ajax(settings).done(function (response) {
-        console.log(response.code);
+        if(response.code===200){
+            alert("添加成功")
+        }
+        else{
+            alert("添加失败")
+            console.log(response);
+        }
     });
 }
 
@@ -167,8 +172,8 @@ addImage.onchange=function(){
 
 function addNewImage(){
     let formData = new FormData();
-    let img = addImage;
-    let fileObj = img.files[0];
+    let image = addImage;
+    let fileObj = image.files[0];
     formData.append("multipartFile",fileObj)
     $.ajax({
         url: "/jpetstore/image/upload/new",
@@ -180,10 +185,12 @@ function addNewImage(){
         method: "POST",
         success(res) {
             if(res.code===200){
+                alert("图片添加成功")
                 productImage=res.data
             }
         },
         error(err) {
+            alert("图片添加失败")
             console.log(err)
         }
     })
