@@ -16,20 +16,31 @@ let num2;
 let page = 1;
 
 $(function(){
-    $.ajax({
-        url: "/jpetstore/users/all",
-        type: "get",
-        dataType: "json",
-        success: function (obj) {
-            if (obj.data.length > 0) {
-                for (let key in obj.data) {
-                    data.push(obj.data[key]);
-                    allData.push(obj.data[key]);
+    if(document.cookie.indexOf('token')===-1){
+        console.log("未登录")
+        window.location.href="http://localhost:8888/jpetstore/NotLogin.html"
+    }
+    else{
+        $.ajax({
+            url: "/jpetstore/users/all",
+            type: "get",
+            dataType: "json",
+            success: function (obj) {
+                if(obj.code===200){
+                    if (obj.data.length > 0) {
+                        for (let key in obj.data) {
+                            data.push(obj.data[key]);
+                            allData.push(obj.data[key]);
+                        }
+                        render();
+                    }
                 }
-                render();
+                else{
+                    console.log(obj)
+                }
             }
-        }
-    })
+        })
+    }
 })
 
 

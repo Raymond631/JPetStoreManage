@@ -3,36 +3,46 @@ let data = [];
 let itemID = [];
 
 $(function(){
-    let productID = sessionStorage.getItem('ProductID')
-    console.log(productID)
-    let settings = {
-        "url": `/jpetstore/pets/${productID}`,
-        "method": "GET",
-        "timeout": 0,
-        "headers": {
-        },
-    };
-
-    $.ajax(settings).done(function (response) {
-        $('#idNoChange').val(response.data.productId);
-        $('#category').val(response.data.category);
-        $('#productNameChinese').val(response.data.productNameChinese);
-        $('#productNameEnglish').val(response.data.productNameEnglish);
-        $('#productCharacter').val(response.data.productCharacter);
-        $('#productAncestry').val(response.data.productAncestry);
-        $('#productDisease').val(response.data.productDisease);
-        $('#productLife').val(response.data.productLife);
-        $('#productIntroduce').val(response.data.productIntroduce);
-        $('#changeImagePosition').attr("src",`/jpetstore/image/look/${response.data.productImage}`)
-        console.log(response.data.productImage)
-        if (response.data.petItemList.length > 0) {
-            for (let key in response.data.petItemList) {
-                data.push(response.data.petItemList[key]);
-                itemID.push(response.data.petItemList[key].itemId.toString());
+    if(document.cookie.indexOf('token')===-1){
+        console.log("未登录")
+        window.location.href="http://localhost:8888/jpetstore/NotLogin.html"
+    }
+    else{
+        let productID = sessionStorage.getItem('ProductID')
+        console.log(productID)
+        let settings = {
+            "url": `/jpetstore/pets/${productID}`,
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+            },
+        };
+        $.ajax(settings).done(function (response) {
+            if(response.code===200){
+                $('#idNoChange').val(response.data.productId);
+                $('#category').val(response.data.category);
+                $('#productNameChinese').val(response.data.productNameChinese);
+                $('#productNameEnglish').val(response.data.productNameEnglish);
+                $('#productCharacter').val(response.data.productCharacter);
+                $('#productAncestry').val(response.data.productAncestry);
+                $('#productDisease').val(response.data.productDisease);
+                $('#productLife').val(response.data.productLife);
+                $('#productIntroduce').val(response.data.productIntroduce);
+                $('#changeImagePosition').attr("src",`/jpetstore/image/look/${response.data.productImage}`)
+                console.log(response.data.productImage)
+                if (response.data.petItemList.length > 0) {
+                    for (let key in response.data.petItemList) {
+                        data.push(response.data.petItemList[key]);
+                        itemID.push(response.data.petItemList[key].itemId.toString());
+                    }
+                    showPetItem()
+                }
             }
-            showPetItem()
-        }
-    });
+            else{
+                console.log(response)
+            }
+        });
+    }
 })
 
 

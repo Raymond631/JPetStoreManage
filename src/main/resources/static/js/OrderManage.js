@@ -17,20 +17,31 @@ let page = 1;
 let changePositionID;
 
 $(function(){
-    $.ajax({
-        url: "/jpetstore/orders",
-        type: "get",
-        dataType: "json",
-        success: function (obj) {
-            if (obj.length > 0) {
-                for (let key in obj) {
-                    data.push(obj[key]);
-                    allData.push(obj[key]);
+    if(document.cookie.indexOf('token')===-1){
+        console.log("未登录")
+        window.location.href="http://localhost:8888/jpetstore/NotLogin.html"
+    }
+    else{
+        $.ajax({
+            url: "/jpetstore/orders",
+            type: "get",
+            dataType: "json",
+            success: function (obj) {
+                if(obj.code===200){
+                    if (obj.length > 0) {
+                        for (let key in obj) {
+                            data.push(obj[key]);
+                            allData.push(obj[key]);
+                        }
+                        render();
+                    }
                 }
-                render();
+                else{
+                    console.log(obj)
+                }
             }
-        }
-    })
+        })
+    }
 })
 
 

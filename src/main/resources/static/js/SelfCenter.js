@@ -4,26 +4,29 @@ function newVerification() {
 }
 
 $(function () {
-    // $('#password_old').on('blur', function () {
-    //     let pwd = {
-    //         password: $(this).val()
-    //     }
-    //
-    // })
-    console.log("response");
-    let settings = {
-        "url": "/jpetstore/user",
-        "method": "GET",
-        "timeout": 0,
-        "headers": {
-        },
-    };
+    if(document.cookie.indexOf('token')===-1){
+        console.log("未登录")
+        window.location.href="http://localhost:8888/jpetstore/NotLogin.html"
+    }
+    else{
+        let settings = {
+            "url": "/jpetstore/user",
+            "method": "GET",
+            "timeout": 0,
+            "headers": {
+            },
+        };
 
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-        $('#nickname').val(response.data.nickname);
-        $('#account').val(response.data.account);
-    });
+        $.ajax(settings).done(function (response) {
+            if(response.code===200){
+                $('#nickname').val(response.data.nickname);
+                $('#account').val(response.data.account);
+            }
+            else{
+                console.log(response);
+            }
+        });
+    }
 });
 
 function changeName(){

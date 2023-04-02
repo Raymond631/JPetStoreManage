@@ -19,6 +19,37 @@ let page = 1;
 let changeInfoID;
 
 $(function(){
+    if(document.cookie.indexOf('token')===-1){
+        console.log("未登录")
+        window.location.href="http://localhost:8888/jpetstore/NotLogin.html"
+    }
+    else{
+        collapse();
+        $.ajax({
+            url:  "/jpetstore/pets",
+            type: "get",
+            dataType: "json",
+            success: function (obj) {
+                console.log(obj)
+                if(obj.code===200){
+                    if (obj.data.length > 0) {
+                        for (let key in obj.data) {
+                            data.push(obj.data[key]);
+                            allData.push(obj.data[key]);
+                        }
+                        console.log(data)
+                        render();
+                    }
+                }
+                else{
+                    obj.code
+                }
+            }
+        })
+    }
+})
+
+function collapse() {
     //设置可折叠
     $('.collapse-link').on('click', function () {
         var $BOX_PANEL = $(this).closest('.x_panel'),
@@ -43,29 +74,7 @@ $(function(){
 
         $BOX_PANEL.remove();
     });
-
-    $.ajax({
-        url:  "/jpetstore/pets",
-        type: "get",
-        dataType: "json",
-        success: function (obj) {
-        console.log(obj)
-            if(obj.code===200){
-                if (obj.data.length > 0) {
-                    for (let key in obj.data) {
-                        data.push(obj.data[key]);
-                        allData.push(obj.data[key]);
-                    }
-                    console.log(data)
-                    render();
-                }
-            }
-            else{
-                obj.code
-            }
-        }
-    })
-})
+}
 
 
 function addNew() {

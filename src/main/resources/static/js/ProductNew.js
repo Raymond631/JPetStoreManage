@@ -3,7 +3,13 @@ let i=1;
 let productImage='';
 
 $(function(){
-    collapse();
+    if(document.cookie.indexOf('token')===-1){
+        console.log("未登录")
+        window.location.href="http://localhost:8888/jpetstore/NotLogin.html"
+    }
+    else{
+        collapse();
+    }
 })
 
 function collapse(){
